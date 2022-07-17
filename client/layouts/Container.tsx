@@ -13,10 +13,9 @@ const Container: FC<ContainerProps> = ({
     <div
       style={{
         maxWidth: "1300px",
-        width: "100%",
-        margin: "0 auto",
+        width: "95%",
       }}
-      className={`bg-primary  ${className} `}
+      className={`bg-primary mx-auto  ${className} `}
     >
       {children}
     </div>
