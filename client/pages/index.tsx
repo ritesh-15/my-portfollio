@@ -3,6 +3,7 @@ import Head from "next/head";
 import AboutSection from "../components/AboutSection";
 import HeroSection from "../components/HeroSection";
 import NavBar from "../components/NavBar";
+import ProjectsSection from "../components/ProjectsSection";
 import Skills from "../components/Skills";
 import Container from "../layouts/Container";
 
@@ -11,9 +12,9 @@ const Home: NextPage = () => {
     <div className="bg-primary">
       <Container className="min-h-screen">
         <Head>
-          <title>RITESH</title>
+          <title>ritesh</title>
           <meta name="description" content="My personal portfollio" />
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/images/my_image.jpeg" />
         </Head>
 
         {/* Navbar */}
@@ -27,6 +28,9 @@ const Home: NextPage = () => {
 
         {/* Skills section */}
         <Skills />
+
+        {/* Projects */}
+        <ProjectsSection />
       </Container>
     </div>
   );

@@ -19,6 +19,7 @@ const AboutSection: FC = (): JSX.Element => {
           About Me
         </h1>
       </motion.div>
+
       <div className="flex items-center md:items-start flex-col md:flex-row md:justify-between">
         {/* About Image */}
         <motion.div
@@ -31,7 +32,7 @@ const AboutSection: FC = (): JSX.Element => {
             src="/images/my_image.jpeg"
             width="400"
             height="400"
-            className="object-cover rounded-lg shadow-2xl"
+            className="object-cover rounded-xl shadow-2xl"
           />
         </motion.div>
 

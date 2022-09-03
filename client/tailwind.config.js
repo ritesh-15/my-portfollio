@@ -6,14 +6,14 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors:{
-        "primary":"#172A3A",
-        "secondary":"#09BC8A"
-      }
+      colors: {
+        primary: "#011627",
+        secondary: "#20A4F3",
+      },
     },
-    fontFamily:{
-      "nunito":[ 'Nunito', "sans-serif"]
-    }
+    fontFamily: {
+      nunito: ["Nunito", "sans-serif"],
+    },
   },
   plugins: [],
-}
+};

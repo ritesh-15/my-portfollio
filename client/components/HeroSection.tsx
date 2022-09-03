@@ -9,7 +9,7 @@ const DEVELOPMENTS_ARRAY: string[] = [
   "Android developer",
   "Backend developer",
   "Web designer",
-  "blockchain enthusiast",
+  "blockchain developer",
   "Web developer",
 ];
 
@@ -38,14 +38,14 @@ const HeroSection: FC = (): JSX.Element => {
           <Typed
             strings={DEVELOPMENTS_ARRAY}
             typeSpeed={60}
-            className="lg:text-4xl text-2xl sm:text-4xl font-nunito text-secondary font-bold text-center md:text-left capitalize"
+            className="lg:text-5xl text-2xl sm:text-4xl font-nunito text-secondary font-bold text-center md:text-left capitalize"
             loop
           />
         </div>
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="bg-secondary hover:opacity-95  text-white py-3 px-4 w-full sm:w-fit rounded-sm font-nunito cursor-pointer mt-6 md:text-xl font-semibold"
+          className="bg-secondary hover:opacity-95 text-white py-3 px-4 w-full sm:w-full sm:max-w-[250px] rounded-sm font-nunito cursor-pointer mt-8 md:text-xl font-semibold"
         >
           Lets Connect
         </motion.button>

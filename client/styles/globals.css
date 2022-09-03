@@ -1,7 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,400&display=swap");
 
-html{
-    scroll-behavior: smooth
+html {
+  scroll-behavior: smooth;
+}
+
+.project__container {
+  overflow: hidden;
+  cursor: pointer;
+}
+
+@media (hover: none) {
+  .project__detail_container {
+    transform: translateY(0);
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    transition: transform 200ms ease-in-out;
+  }
+}
+
+@media (hover: hover) {
+  .project__detail_container {
+    transform: translateY(100%) scaleY(0.5);
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    transition: transform 200ms ease-in-out;
+  }
+
+  .project__detail_container__text {
+    transform: scale(0.9);
+  }
+
+  .project__container:hover > .project__detail_container {
+    transform: translateY(0) scale(1);
+  }
+
+  .project__container:hover
+    > .project__detail_container
+    > .project__detail_container__text {
+    animation: scale 0.45s ease-in 1 alternate-reverse;
+  }
+
+  @keyframes scale {
+    0% {
+      transform: scale(0.9);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 }
 
 @tailwind base;
