@@ -27,6 +27,9 @@ import {
   SiRazorpay,
   SiFirebase,
   SiRedux,
+  SiFlutter,
+  SiSolidity,
+  SiDjango,
 } from "react-icons/si";
 import { motion } from "framer-motion";
 
@@ -160,6 +163,21 @@ const Skills: FC = (): JSX.Element => {
       name: "Digital Ocean",
       hover: "5CCFEE",
     },
+    {
+      children: <SiFlutter className={itemStyle} />,
+      name: "Flutter",
+      hover: "5CCFEE",
+    },
+    {
+      children: <SiSolidity className={itemStyle} />,
+      name: "Solidity",
+      hover: "5CCFEE",
+    },
+    {
+      children: <SiDjango className={itemStyle} />,
+      name: "Django",
+      hover: "5CCFEE",
+    },
   ];
 
   return (
@@ -187,13 +205,10 @@ const Skills: FC = (): JSX.Element => {
           {items.map(({ children, name, hover }) => {
             return (
               <div
-                className={`p-4 cursor-pointer transition text-white hover:text-[#${hover}] border hover:border-[#${hover}] rounded-lg flex flex-col items-center w-[150px]`}
+                className={`p-4 cursor-pointer transition text-white hover:text-[#${hover}] flex flex-col items-center w-[100px]`}
                 key={name}
               >
                 <div>{children}</div>
-                <span className="text-inherit font-nunito text-sm pt-4 text-center uppercase">
-                  {name}
-                </span>
               </div>
             );
           })}

@@ -5,8 +5,8 @@ import Project from "./Project";
 const ProjectsSection: FC = (): JSX.Element => {
   return (
     <section
-      id="about"
-      className="min-h-screen relative bg-primary items-center flex w-full mx-0 flex-col md:flex-row md:justify-between"
+      id="projects"
+      className="min-h-screen overflow-y-auto relative bg-primary items-center flex w-full mx-0 flex-col md:flex-row md:justify-between"
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.5, translateY: "-500px" }}
@@ -23,10 +23,7 @@ const ProjectsSection: FC = (): JSX.Element => {
       <div className="flex flex-row flex-wrap gap-6 justify-center">
         {/* Project */}
         <Project />
-        <Project />
-        <Project />
-        <Project />
-        <Project />
+        <Project isReverse />
       </div>
     </section>
   );

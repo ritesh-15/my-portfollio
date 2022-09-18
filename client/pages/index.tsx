@@ -1,6 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import AboutSection from "../components/AboutSection";
+import ConnectSection from "../components/ConnectSection";
+import EducationSection from "../components/EducationSection";
 import HeroSection from "../components/HeroSection";
 import NavBar from "../components/NavBar";
 import ProjectsSection from "../components/ProjectsSection";
@@ -31,6 +33,12 @@ const Home: NextPage = () => {
 
         {/* Projects */}
         <ProjectsSection />
+
+        {/* Education */}
+        <EducationSection />
+
+        {/* Connect */}
+        <ConnectSection />
       </Container>
     </div>
   );

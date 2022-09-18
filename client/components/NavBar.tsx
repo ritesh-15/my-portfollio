@@ -38,13 +38,13 @@ const NavBar: FC = (): JSX.Element => {
             <Link href="#skills">Skills</Link>
           </li>
           <li className={styles.listStyle}>
-            <Link href="#">Projects</Link>
+            <Link href="#projects">Projects</Link>
           </li>
           <li className={styles.listStyle}>
-            <Link href="#">Education</Link>
+            <Link href="#education">Education</Link>
           </li>
           <li className={styles.listStyle}>
-            <Link href="#">Connect</Link>
+            <Link href="#connect">Connect</Link>
           </li>
         </ul>
 

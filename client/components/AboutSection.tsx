@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React, { FC } from "react";
-import Container from "../layouts/Container";
 import { motion } from "framer-motion";
 
 const AboutSection: FC = (): JSX.Element => {
@@ -48,9 +47,10 @@ const AboutSection: FC = (): JSX.Element => {
             I'm Ritesh
           </h1>
           <p className="text-white text-2xl md:text-3xl lg:text-3xl text-center leading-relaxed mt-4 md:text-left">
-            Hello I am 19 year old full stack developer loved to learn new stack
-            and technology. Currently in my third year of Computer Engineering
-            Degree.
+            Hello, I'm a 19-year-old full-stack engineer that enjoys learning
+            new technologies. I am now pursuing a degree in computer
+            engineering. Looking for an opportunity to gain the working
+            experience in the industry.
           </p>
         </motion.div>
       </div>
