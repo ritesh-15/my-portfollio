@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import Prisma from "../helpers/prisma_client";
-import ApiHttpError from "../utils/api_http_error";
+import CreateHttpError from "../utils/create_http_error";
 import bcrypt from "bcrypt";
 import JwtHelper, { JwtPayload } from "../helpers/jwt_helper";
 import { UserService } from "../services";
@@ -25,14 +25,14 @@ class AuthController {
 
       if (!user)
         return next(
-          ApiHttpError.notFound("Invalid email address or password!")
+          CreateHttpError.notFound("Invalid email address or password!")
         );
 
       const isValidPassword = await bcrypt.compare(password, user.password);
 
       if (!isValidPassword)
         return next(
-          ApiHttpError.unauthorized("Invalid email address or password!")
+          CreateHttpError.unauthorized("Invalid email address or password!")
         );
 
       const { accessToken, refreshToken } = JwtHelper.generateTokens(user.id);
@@ -99,7 +99,7 @@ class AuthController {
       const { x_refresh_token: jwtToken } = req.cookies;
 
       if (!jwtToken) {
-        return next(ApiHttpError.unauthorized("Jwt token not found!"));
+        return next(CreateHttpError.unauthorized("Jwt token not found!"));
       }
 
       let payload: JwtPayload | null = null;
@@ -107,7 +107,7 @@ class AuthController {
       try {
         payload = JwtHelper.validateRefreshToken(jwtToken);
       } catch (error) {
-        return next(ApiHttpError.unauthorized("Jwt token expired!"));
+        return next(CreateHttpError.unauthorized("Jwt token expired!"));
       }
 
       const foundSession = await Prisma.get().session.findFirst({
@@ -124,14 +124,14 @@ class AuthController {
           where: { userId: payload.id },
         });
 
-        return next(ApiHttpError.forbidden("Access denied!"));
+        return next(CreateHttpError.forbidden("Access denied!"));
       }
 
       const user = await Prisma.get().user.findUnique({
         where: { id: payload.id },
       });
 
-      if (!user) return next(ApiHttpError.notFound("User not found!"));
+      if (!user) return next(CreateHttpError.notFound("User not found!"));
 
       const { accessToken, refreshToken } = JwtHelper.generateTokens(user.id);
 
@@ -177,7 +177,7 @@ class AuthController {
 
       if (isUserExits)
         return next(
-          ApiHttpError.badRequest("Email address is already in use!")
+          CreateHttpError.badRequest("Email address is already in use!")
         );
 
       const hashPassword = await bcrypt.hash(password, 12);

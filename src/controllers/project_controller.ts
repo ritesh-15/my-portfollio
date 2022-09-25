@@ -2,12 +2,12 @@ import { NextFunction, Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import CloudinaryHelper from "../helpers/cloudinary_helper";
 import Prisma from "../helpers/prisma_client";
-import ApiHttpError from "../utils/api_http_error";
+import CreateHttpError from "../utils/create_http_error";
 import fs from "fs/promises";
 
 class ProjectController {
   /**
-   * @route project/add-project
+   * @route project/
    * @desc Add project
    * @access Private
    */
@@ -21,6 +21,175 @@ class ProjectController {
         gitHubRepo,
         demoLink,
       } = req.body;
+
+      const files: any = req.files;
+
+      if (!files?.length) {
+        return next(
+          CreateHttpError.unprocessableEntity("Project images are required!")
+        );
+      }
+
+      const images = await Promise.all(
+        files.map(async (file: Express.Multer.File) => {
+          const uploadedImage = await CloudinaryHelper.uploadImage(file.path);
+          await fs.unlink(file.path);
+          return uploadedImage;
+        })
+      );
+
+      const project = await Prisma.get().project.create({
+        data: {
+          title,
+          description,
+          demoLink,
+          gitHubRepo,
+          techStack: {
+            connect: techStack.map((id: string) => {
+              return {
+                id,
+              };
+            }),
+          },
+          isMobileApplication,
+        },
+      });
+
+      await Promise.all(
+        images.map(async (image) => {
+          return await Prisma.get().cloudImage.create({
+            data: {
+              publicId: image.public_id,
+              url: image.secure_url,
+              projectId: project.id,
+            },
+          });
+        })
+      );
+
+      res.status(201).json({
+        success: true,
+        message: "Project added successfully!",
+      });
+    }
+  );
+
+  /**
+   * @route project/
+   * @desc Get all projects
+   * @access Public
+   */
+  static getAllProjects = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const projects = await Prisma.get().project.findMany({
+        include: {
+          images: {
+            select: {
+              publicId: true,
+              url: true,
+            },
+          },
+          techStack: {
+            select: {
+              name: true,
+              image: {
+                select: {
+                  url: true,
+                  publicId: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      res.json({
+        success: true,
+        projects,
+      });
+    }
+  );
+
+  /**
+   * @route project/:id
+   * @desc Remove project
+   * @access Private
+   */
+  static removeProject = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const { id } = req.params;
+
+      const project = await Prisma.get().project.findUnique({
+        where: { id },
+      });
+
+      if (!project)
+        return next(
+          CreateHttpError.notFound("Project not found with given id!")
+        );
+
+      await Prisma.get().project.delete({ where: { id } });
+
+      res.json({
+        success: true,
+        message: "Project removed successfully!",
+      });
+    }
+  );
+
+  /**
+   * @route project/:id
+   * @desc Update project
+   * @access Private
+   */
+  static updateProject = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const { title, description, gitHubRepo, demoLink } = req.body;
+      const { id } = req.params;
+
+      const project = await Prisma.get().project.findUnique({ where: { id } });
+
+      if (!project)
+        return next(
+          CreateHttpError.notFound("Project not found with given id!")
+        );
+
+      const updatedProject = await Prisma.get().project.update({
+        where: {
+          id,
+        },
+        data: {
+          title,
+          demoLink,
+          description,
+          gitHubRepo,
+        },
+        include: {
+          images: {
+            select: {
+              publicId: true,
+              url: true,
+            },
+          },
+          techStack: {
+            select: {
+              name: true,
+              image: {
+                select: {
+                  publicId: true,
+                  url: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      res.json({
+        success: true,
+        message: "Project updated successfully!",
+        project: updatedProject,
+      });
     }
   );
 
@@ -34,7 +203,7 @@ class ProjectController {
       const { name } = req.body;
       const image = req.file;
 
-      if (!image) return next(ApiHttpError.notFound("Image not found!"));
+      if (!image) return next(CreateHttpError.notFound("Image not found!"));
 
       const isTechStackExits = await Prisma.get().techStack.findFirst({
         where: {
@@ -47,7 +216,7 @@ class ProjectController {
 
       if (isTechStackExits)
         return next(
-          ApiHttpError.badRequest(
+          CreateHttpError.badRequest(
             "Tech stack with given name is already exits!"
           )
         );
@@ -56,7 +225,7 @@ class ProjectController {
 
       if (!uploadedImage)
         return next(
-          ApiHttpError.internalServerError(
+          CreateHttpError.internalServerError(
             "Something went wrong while uploading image please try again later!"
           )
         );
@@ -99,7 +268,7 @@ class ProjectController {
       });
 
       if (!techStack)
-        return next(ApiHttpError.notFound("Tech stack not found!"));
+        return next(CreateHttpError.notFound("Tech stack not found!"));
 
       await Prisma.get().techStack.delete({
         where: {
@@ -157,7 +326,8 @@ class ProjectController {
         },
       });
 
-      if (!isExits) return next(ApiHttpError.notFound("Tech stack not found!"));
+      if (!isExits)
+        return next(CreateHttpError.notFound("Tech stack not found!"));
 
       let cloudImageId = null;
 
@@ -167,7 +337,7 @@ class ProjectController {
 
         if (!uploadedImage)
           return next(
-            ApiHttpError.internalServerError(
+            CreateHttpError.internalServerError(
               "Something went wrong while uploading image please try again later!"
             )
           );

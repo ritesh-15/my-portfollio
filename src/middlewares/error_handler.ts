@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import ApiHttpError from "../utils/api_http_error";
+import CreateHttpError from "../utils/create_http_error";
 import logger from "../utils/logger";
 
 const errorHandler = (
@@ -10,7 +10,7 @@ const errorHandler = (
 ) => {
   logger.error(error);
 
-  if (error instanceof ApiHttpError) {
+  if (error instanceof CreateHttpError) {
     return res.status(error.status).json({
       success: false,
       message: error.message,

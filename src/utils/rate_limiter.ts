@@ -1,5 +1,5 @@
 import rateLimit from "express-rate-limit";
-import ApiHttpError from "./api_http_error";
+import CreateHttpError from "./create_http_error";
 
 const rateLimiter = rateLimit({
   windowMs: 60 * 15 * 100,
@@ -7,7 +7,7 @@ const rateLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res, next) => {
-    return next(ApiHttpError.toManyRequest());
+    return next(CreateHttpError.toManyRequest());
   },
 });
 

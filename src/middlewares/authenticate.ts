@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import JwtHelper from "../helpers/jwt_helper";
 import Prisma from "../helpers/prisma_client";
-import ApiHttpError from "../utils/api_http_error";
+import CreateHttpError from "../utils/create_http_error";
 
 const authenticate = async (
   req: Request,
@@ -30,7 +30,7 @@ const authenticate = async (
     next();
   } catch (error) {
     next(
-      ApiHttpError.unauthorized(
+      CreateHttpError.unauthorized(
         "You are not authenticated, not allowed to use this resource!"
       )
     );
