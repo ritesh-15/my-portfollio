@@ -3,6 +3,7 @@ import React, { FC, useState } from "react";
 import Container from "../layouts/Container";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 const styles = {
   listStyle:
@@ -11,9 +12,19 @@ const styles = {
 
 const NavBar: FC = (): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false);
+  const router = useRouter();
+
+  const isActivePath = (path: string): boolean => {
+    return router.pathname == path;
+  };
 
   return (
-    <nav className="mx-auto shadow-lg z-50 flex items-center fixed top-0 right-0 left-0">
+    <motion.nav
+      initial={{ opacity: 0, scale: 1.5 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+      className="mx-auto shadow-lg z-50 flex items-center fixed top-0 right-0 left-0"
+    >
       <Container className="flex items-center justify-between py-4">
         {/* Nav Logo */}
 
@@ -29,7 +40,12 @@ const NavBar: FC = (): JSX.Element => {
           />
 
           <li className={styles.listStyle}>
-            <Link href="#">Home</Link>
+            <Link
+              className={`${isActivePath("/") ? "text-secondary" : ""}`}
+              href="#"
+            >
+              Home
+            </Link>
           </li>
           <li className={styles.listStyle}>
             <Link href="#about">About</Link>
@@ -87,7 +103,7 @@ const NavBar: FC = (): JSX.Element => {
           className="block md:hidden text-white text-2xl cursor-pointer"
         />
       </Container>
-    </nav>
+    </motion.nav>
   );
 };
 

@@ -39,10 +39,10 @@ const HeroSection: FC = (): JSX.Element => {
         className="w-full lg:p-0 md:w-1/2 p-6 flex flex-col md:block items-center"
       >
         <div>
-          <h1 className="text-white font-extrabold text-4xl sm:text-5xl lg:text-7xl font-nunito text-center md:text-left leading-2 tracking-wider">
+          <h1 className="text-white font-extrabold text-4xl sm:text-5xl lg:text-7xl font-nunito text-center md:text-left leading-8 tracking-wider">
             Hey There,
           </h1>
-          <h1 className="text-white font-extrabold text-3xl sm:text-4xl lg:text-5xl font-nunito text-center md:text-left leading-2 tracking-wider">
+          <h1 className="text-white font-extrabold text-3xl sm:text-4xl lg:text-5xl font-nunito text-center md:text-left leading-8 tracking-wider">
             Wanna build fullstack application then I'm here
           </h1>
         </div>

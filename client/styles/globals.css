@@ -4,6 +4,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.admin__height {
+  min-height: calc(100vh - 65px);
+}
+
 .project__container {
   overflow: hidden;
   cursor: pointer;
