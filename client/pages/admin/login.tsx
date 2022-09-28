@@ -1,60 +1,67 @@
 import { NextPage } from "next";
 import {
+  Button,
   FormControl,
+  FormHelperText,
   IconButton,
   InputAdornment,
   InputLabel,
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import { FormEvent, useState } from "react";
+import { useEffect, useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useLoginMutation } from "../../app/services/auth/auth.service";
+import { useFormik } from "formik";
+import { loginSchema } from "../../models/authentication";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import { useRouter } from "next/router";
 
 interface LoginFormState {
   password: string;
-  showPassword: boolean;
   email: string;
 }
 
+const initialValues: LoginFormState = {
+  email: "",
+  password: "",
+};
+
 const Login: NextPage = () => {
-  const [values, setValues] = useState<LoginFormState>({
-    showPassword: false,
-    password: "",
-    email: "",
-  });
+  const [showPassword, setShowPassword] = useState<Boolean>(false);
+  const { user } = useSelector((state: RootState) => state.auth);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/admin");
+    }
+  }, [user]);
+
+  const { handleChange, handleSubmit, values, errors, touched } =
+    useFormik<LoginFormState>({
+      initialValues: initialValues,
+      validationSchema: loginSchema,
+      onSubmit: (values) => {
+        handleLoginRequest(values);
+      },
+    });
 
   const [login, { error, isError, isLoading }] = useLoginMutation();
 
-  const handleChange =
-    (prop: keyof LoginFormState) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setValues({ ...values, [prop]: event.target.value });
-    };
+  const handleLoginRequest = async (values: LoginFormState) => {
+    const response = await login(values);
+  };
 
   const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
+    setShowPassword(!showPassword);
   };
 
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const { email, password } = values;
-
-    if (!email || !password) {
-      // TODO
-      return;
-    }
-
-    const response = await login({ email, password });
   };
 
   return (
@@ -68,7 +75,7 @@ const Login: NextPage = () => {
         </p>
       </div>
 
-      <form action="" className="w-full max-w-[350px]">
+      <form onSubmit={handleSubmit} action="" className="w-full max-w-[350px]">
         <div className="mb-4">
           <TextField
             id="email"
@@ -77,21 +84,28 @@ const Login: NextPage = () => {
             variant="outlined"
             fullWidth
             value={values.email}
-            onChange={handleChange("email")}
+            onChange={handleChange}
+            error={errors.email && touched.email ? true : false}
+            helperText={errors.email}
           />
         </div>
 
         <div className="mb-8">
           <FormControl variant="outlined" fullWidth>
-            <InputLabel htmlFor="outlined-adornment-password">
+            <InputLabel
+              error={errors.password && touched.password ? true : false}
+              htmlFor="outlined-adornment-password"
+            >
               Password
             </InputLabel>
+
             <OutlinedInput
               fullWidth
-              id="outlined-adornment-password"
-              type={values.showPassword ? "text" : "password"}
+              error={errors.password && touched.password ? true : false}
+              id="password"
+              type={showPassword ? "text" : "password"}
               value={values.password}
-              onChange={handleChange("password")}
+              onChange={handleChange}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -100,21 +114,32 @@ const Login: NextPage = () => {
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               }
               label="Password"
             />
+            {errors.password && touched.password ? (
+              <FormHelperText
+                error={errors.password && touched.password ? true : false}
+                id="outlined-weight-helper-text"
+              >
+                {errors.password}
+              </FormHelperText>
+            ) : null}
           </FormControl>
         </div>
 
-        <button
-          onClick={handleSubmit}
-          className="text-white bg-primary py-3 rounded-md font-nunito w-full"
+        <Button
+          className="bg-primary"
+          size="large"
+          fullWidth
+          variant="contained"
+          type="submit"
         >
           Login
-        </button>
+        </Button>
       </form>
     </section>
   );

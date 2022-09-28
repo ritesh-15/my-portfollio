@@ -19,6 +19,9 @@ import {
 import Box from "@mui/material/Box";
 import AddProject from "../../components/admin/AddProject";
 import AddTechStack from "../../components/admin/AddTechStack";
+import { useGetAllTechStacksQuery } from "../../app/services/project/project.service";
+import Head from "next/head";
+import Image from "next/image";
 
 const style = {
   display: "flex",
@@ -28,6 +31,8 @@ const style = {
 };
 
 const TechStack: NextPageWithLayout = () => {
+  const { data } = useGetAllTechStacksQuery(undefined);
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -37,41 +42,65 @@ const TechStack: NextPageWithLayout = () => {
   };
 
   return (
-    <div className="h-full p-4">
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell align="right">Name</TableCell>
-              <TableCell align="right">Image</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody></TableBody>
-        </Table>
-      </TableContainer>
+    <>
+      <Head>
+        <title>ritesh</title>
+        <meta name="description" content="My personal portfollio" />
+      </Head>
 
-      <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose}>
-        <DialogTitle>New tech stack!</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Add a new tech stack to your resume
-          </DialogContentText>
-        </DialogContent>
-        <Box sx={style}>
-          <AddTechStack />
-        </Box>
-      </Dialog>
+      <div className="h-full p-4">
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell align="right">Name</TableCell>
+                <TableCell align="right">Image</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data?.techStacks.map((row) => {
+                return (
+                  <TableRow
+                    key={row.name}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {row.id}
+                    </TableCell>
+                    <TableCell align="right">{row.name}</TableCell>
+                    <TableCell align="right">
+                      <Image src={row.image.url} width={50} height={50} />
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
-      <Fab
-        className="absolute right-4 bottom-4 bg-primary"
-        color="primary"
-        size="large"
-        onClick={handleOpen}
-      >
-        <AddIcon />
-      </Fab>
-    </div>
+        <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose}>
+          <DialogTitle>New tech stack!</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Add a new tech stack to your resume
+            </DialogContentText>
+          </DialogContent>
+          <Box sx={style}>
+            <AddTechStack />
+          </Box>
+        </Dialog>
+
+        <Fab
+          className="absolute right-4 bottom-4 bg-primary"
+          color="primary"
+          size="large"
+          onClick={handleOpen}
+        >
+          <AddIcon />
+        </Fab>
+      </div>
+    </>
   );
 };
 

@@ -9,3 +9,8 @@ export interface ILoginResponse {
   user: IUser;
   success: boolean;
 }
+
+export interface IProfileResponse {
+  user: IUser;
+  success: boolean;
+}

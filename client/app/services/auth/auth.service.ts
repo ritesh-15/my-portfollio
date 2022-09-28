@@ -1,5 +1,6 @@
 import {
   ILoginResponse,
+  IProfileResponse,
   LoginDataInterface,
 } from "../../../interfaces/auth_interface";
 import apiService from "../api/api.service";
@@ -15,7 +16,10 @@ export const authService = apiService.injectEndpoints({
         };
       },
     }),
+    profile: builder.query<IProfileResponse, undefined>({
+      query: () => "/auth/me",
+    }),
   }),
 });
 
-export const { useLoginMutation } = authService;
+export const { useLoginMutation, useProfileQuery } = authService;

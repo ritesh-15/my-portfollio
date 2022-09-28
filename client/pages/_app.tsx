@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "../app/store";
 import { ReactElement, ReactNode } from "react";
 import { NextPage } from "next";
+import { useRefresh } from "../hooks";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -36,9 +37,15 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <Component {...pageProps} />
+        <RefreshComponent />
       </Provider>
     </ThemeProvider>
   );
+}
+
+function RefreshComponent() {
+  useRefresh();
+  return <></>;
 }
 
 export default MyApp;

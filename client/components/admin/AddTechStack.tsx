@@ -4,9 +4,42 @@ import Image from "next/image";
 import React, { ChangeEvent, useState } from "react";
 import { BsImageFill } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
+import { useFormik } from "formik";
+import { addTechStackSchema } from "../../models/project";
+import { useAddTechStackMutation } from "../../app/services/project/project.service";
+
+interface AddTechStackFormState {
+  name: string;
+}
+
+const initialValues: AddTechStackFormState = {
+  name: "",
+};
 
 const AddTechStack = () => {
   const [image, setImage] = useState<File | null>(null);
+  const [addTechStack] = useAddTechStackMutation();
+
+  const { handleChange, handleSubmit, errors } = useFormik({
+    initialValues: initialValues,
+    validationSchema: addTechStackSchema,
+    onSubmit: (values) => {
+      if (image) {
+        handleAddTechStackRequest(values);
+      }
+    },
+  });
+
+  const handleAddTechStackRequest = async (values: AddTechStackFormState) => {
+    const formData = new FormData();
+    formData.append("image", image!!);
+    formData.append("name", values.name);
+    console.log(values.name);
+
+    const response = await addTechStack(formData);
+
+    console.log(response);
+  };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -16,7 +49,7 @@ const AddTechStack = () => {
 
   return (
     <div>
-      <form action="" className="w-full">
+      <form onSubmit={handleSubmit} action="" className="w-full">
         <div className="mb-6">
           <div className="flex flex-col items-center">
             {image ? (
@@ -60,8 +93,12 @@ const AddTechStack = () => {
             fullWidth
             variant="filled"
             label="Name"
-            id="fullWidth"
+            id="name"
             required
+            onChange={handleChange}
+            name="name"
+            error={errors.name ? true : false}
+            helperText={errors.name ? errors.name : ""}
           />
         </div>
         <div className="mb-6">
@@ -71,6 +108,7 @@ const AddTechStack = () => {
             size="large"
             fullWidth
             variant="contained"
+            type="submit"
           >
             Create
           </Button>
