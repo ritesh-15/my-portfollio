@@ -69,6 +69,30 @@ class AuthController {
   );
 
   /**
+   * @route auth/me
+   * @desc Get the current logged in user information
+   * @access Private
+   */
+  static me = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const { id } = req.user;
+
+      const user = await UserService.findUserByIdOrEmail(id);
+
+      if (!user) return next(CreateHttpError.notFound("User does not exits!"));
+
+      res.json({
+        success: true,
+        user: {
+          id: user.id,
+          email: user.email,
+          about: user.about,
+        },
+      });
+    }
+  );
+
+  /**
    * @route auth/logout
    * @desc Log out the account
    * @access Private
@@ -98,24 +122,28 @@ class AuthController {
     async (req: Request, res: Response, next: NextFunction) => {
       const { x_refresh_token: jwtToken } = req.cookies;
 
+      // check if token found or not
       if (!jwtToken) {
         return next(CreateHttpError.unauthorized("Jwt token not found!"));
       }
 
       let payload: JwtPayload | null = null;
 
+      // validate the token
       try {
         payload = JwtHelper.validateRefreshToken(jwtToken);
       } catch (error) {
         return next(CreateHttpError.unauthorized("Jwt token expired!"));
       }
 
+      // check for token reuse
       const foundSession = await Prisma.get().session.findFirst({
         where: {
           token: jwtToken,
         },
       });
 
+      // if no token found the reuse detected expire all the tokens
       if (!foundSession) {
         res.clearCookie("x_access_token");
         res.clearCookie("x_refresh_token");
@@ -127,12 +155,14 @@ class AuthController {
         return next(CreateHttpError.forbidden("Access denied!"));
       }
 
+      // find user
       const user = await Prisma.get().user.findUnique({
         where: { id: payload.id },
       });
 
       if (!user) return next(CreateHttpError.notFound("User not found!"));
 
+      // generate new tokens
       const { accessToken, refreshToken } = JwtHelper.generateTokens(user.id);
 
       res.cookie("x_access_token", accessToken, {
@@ -143,6 +173,13 @@ class AuthController {
       res.cookie("x_refresh_token", refreshToken, {
         httpOnly: true,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+      });
+
+      // delete the previous session
+      await Prisma.get().session.delete({
+        where: {
+          id: foundSession.id,
+        },
       });
 
       await Prisma.get().session.create({

@@ -13,6 +13,8 @@ authRouter.post(
   AuthController.login
 );
 
+authRouter.route("/me").get(authenticate, AuthController.me);
+
 authRouter.delete("/logout", authenticate, AuthController.logout);
 
 authRouter.get("/refresh", AuthController.refresh);

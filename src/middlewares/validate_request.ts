@@ -8,6 +8,7 @@ const validateRequest = async (
   next: NextFunction
 ) => {
   const errors = validationResult(req);
+  console.log(req.headers);
 
   if (!errors.isEmpty())
     return next(CreateHttpError.unprocessableEntity(errors.array()[0].msg));
