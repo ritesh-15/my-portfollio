@@ -1,5 +1,4 @@
-import { CloseOutlined } from "@mui/icons-material";
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import Image from "next/image";
 import React, { ChangeEvent, useState } from "react";
 import { BsImageFill } from "react-icons/bs";
@@ -7,6 +6,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useFormik } from "formik";
 import { addTechStackSchema } from "../../models/project";
 import { useAddTechStackMutation } from "../../app/services/project/project.service";
+import { useAuth } from "../../hooks";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { useSnackbar } from "notistack";
 
 interface AddTechStackFormState {
   name: string;
@@ -17,28 +19,33 @@ const initialValues: AddTechStackFormState = {
 };
 
 const AddTechStack = () => {
+  // authenticate
+  useAuth({ isAuthPage: false, route: "/admin/login" });
+
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   const [image, setImage] = useState<File | null>(null);
-  const [addTechStack] = useAddTechStackMutation();
+  const [addTechStack, { isLoading, error, data }] = useAddTechStackMutation();
 
   const { handleChange, handleSubmit, errors } = useFormik({
     initialValues: initialValues,
     validationSchema: addTechStackSchema,
     onSubmit: (values) => {
-      if (image) {
-        handleAddTechStackRequest(values);
-      }
+      handleAddTechStackRequest(values);
     },
   });
 
   const handleAddTechStackRequest = async (values: AddTechStackFormState) => {
+    if (!image) return;
+
     const formData = new FormData();
-    formData.append("image", image!!);
     formData.append("name", values.name);
-    console.log(values.name);
+    formData.append("image", image);
+    await addTechStack(formData);
 
-    const response = await addTechStack(formData);
-
-    console.log(response);
+    if (error && "status" in error) {
+      enqueueSnackbar((error as any).data.message, { variant: "error" });
+    }
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -102,16 +109,17 @@ const AddTechStack = () => {
           />
         </div>
         <div className="mb-6">
-          <Button
-            color="primary"
+          <LoadingButton
+            loading={isLoading}
+            loadingPosition="start"
+            variant="contained"
+            fullWidth
             className="bg-primary"
             size="large"
-            fullWidth
-            variant="contained"
             type="submit"
           >
             Create
-          </Button>
+          </LoadingButton>
         </div>
       </form>
     </div>

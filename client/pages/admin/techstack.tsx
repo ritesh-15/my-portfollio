@@ -17,7 +17,6 @@ import {
   Fab,
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import AddProject from "../../components/admin/AddProject";
 import AddTechStack from "../../components/admin/AddTechStack";
 import { useGetAllTechStacksQuery } from "../../app/services/project/project.service";
 import Head from "next/head";

@@ -6,6 +6,7 @@ import { store } from "../app/store";
 import { ReactElement, ReactNode } from "react";
 import { NextPage } from "next";
 import { useRefresh } from "../hooks";
+import { SnackbarProvider } from "notistack";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -36,8 +37,10 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return getLayout(
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <Component {...pageProps} />
-        <RefreshComponent />
+        <SnackbarProvider maxSnack={3}>
+          <Component {...pageProps} />
+          <RefreshComponent />
+        </SnackbarProvider>
       </Provider>
     </ThemeProvider>
   );

@@ -6,6 +6,7 @@ html {
 
 .admin__height {
   min-height: calc(100vh - 65px);
+  overflow-y: hidden;
 }
 
 .project__container {

@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import AddProject from "../../components/admin/AddProject";
+import { useGetAllProjectsQuery } from "../../app/services/project/project.service";
 
 const style = {
   display: "flex",
@@ -27,6 +28,8 @@ const style = {
 };
 
 const Projects: NextPageWithLayout = () => {
+  const { data } = useGetAllProjectsQuery(undefined);
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -48,7 +51,26 @@ const Projects: NextPageWithLayout = () => {
               <TableCell align="right">Created At</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody></TableBody>
+          <TableBody>
+            {data?.projects.map((project) => {
+              return (
+                <TableRow
+                  key={project.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {project.id}
+                  </TableCell>
+                  <TableCell align="right">{project.title}</TableCell>
+                  <TableCell align="right">{project.gitHubRepo}</TableCell>
+                  <TableCell align="right">{project.demoLink}</TableCell>
+                  <TableCell align="right">
+                    {project.createdAt.toString()}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
         </Table>
       </TableContainer>
 

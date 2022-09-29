@@ -6,6 +6,27 @@ export interface ITechStack {
   id: string;
 }
 
+export interface IProject {
+  id: string;
+  title: string;
+  description: string;
+  isMobileApplication: boolean;
+  gitHubRepo: string;
+  demoLink: string;
+  createdAt: Date;
+  updateAt: Date;
+  images: {
+    publicId: string;
+    url: string;
+  }[];
+  techStack: ITechStack[];
+}
+
+export interface IGetAllProjects {
+  success: boolean;
+  projects: IProject[];
+}
+
 export interface IGetAllTechStack {
   success: boolean;
   techStacks: ITechStack[];
