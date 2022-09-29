@@ -2,12 +2,15 @@ import { Schema } from "express-validator";
 
 const addTechStackValidator: Schema = {
   name: {
+    exists: {
+      errorMessage: "Tech stack name is required!",
+    },
     isString: {
       errorMessage: "Name must be a string!",
     },
     in: ["body"],
     notEmpty: {
-      errorMessage: "Name cannot be empty!",
+      errorMessage: "Tech stack name cannot be empty!",
     },
     trim: true,
   },

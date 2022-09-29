@@ -4,6 +4,7 @@ import CloudinaryHelper from "../helpers/cloudinary_helper";
 import Prisma from "../helpers/prisma_client";
 import CreateHttpError from "../utils/create_http_error";
 import fs from "fs/promises";
+import removeFiles from "../utils/removeFile";
 
 class ProjectController {
   /**
@@ -214,23 +215,30 @@ class ProjectController {
         },
       });
 
-      if (isTechStackExits)
+      // if tech stack already exits then delete the uploaded file
+      if (isTechStackExits) {
+        await removeFiles(req);
         return next(
           CreateHttpError.badRequest(
             "Tech stack with given name is already exits!"
           )
         );
+      }
 
       const uploadedImage = await CloudinaryHelper.uploadImage(image.path);
 
-      if (!uploadedImage)
+      // if not uploaded successfully then delete the uploaded files from storage
+      if (!uploadedImage) {
+        await removeFiles(req);
         return next(
           CreateHttpError.internalServerError(
             "Something went wrong while uploading image please try again later!"
           )
         );
+      }
 
-      await fs.unlink(image.path);
+      // delete files after successfully upload to cloudinary
+      await removeFiles(req);
 
       const techStack = await Prisma.get().techStack.create({
         data: {
