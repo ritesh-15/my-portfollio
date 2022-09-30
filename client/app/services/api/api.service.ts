@@ -39,7 +39,7 @@ const apiService = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReAuth,
   endpoints: (builder) => ({}),
-  tagTypes: ["TechStack"],
+  tagTypes: ["TechStack", "Projects"],
 });
 
 export default apiService;

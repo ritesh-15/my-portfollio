@@ -14,9 +14,10 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useLoginMutation } from "../../app/services/auth/auth.service";
 import { useFormik } from "formik";
 import { loginSchema } from "../../models/authentication";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useRouter } from "next/router";
+import { setCredentials } from "../../app/features/authSlice";
 
 interface LoginFormState {
   password: string;
@@ -32,6 +33,7 @@ const Login: NextPage = () => {
   const [showPassword, setShowPassword] = useState<Boolean>(false);
   const { user } = useSelector((state: RootState) => state.auth);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (user) {
@@ -48,10 +50,13 @@ const Login: NextPage = () => {
       },
     });
 
-  const [login, { error, isError, isLoading }] = useLoginMutation();
+  const [login, { data: loginData }] = useLoginMutation();
 
   const handleLoginRequest = async (values: LoginFormState) => {
-    const response = await login(values);
+    await login(values);
+    if (loginData && loginData.user) {
+      dispatch(setCredentials({ user: loginData.user }));
+    }
   };
 
   const handleClickShowPassword = () => {

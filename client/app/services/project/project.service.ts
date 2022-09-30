@@ -20,6 +20,16 @@ export const projectService = apiService.injectEndpoints({
       },
       invalidatesTags: [{ type: "TechStack" }],
     }),
+    addProject: builder.mutation<any, FormData>({
+      query: (payload) => {
+        return {
+          url: "/project",
+          method: "POST",
+          body: payload,
+        };
+      },
+      invalidatesTags: [{ type: "Projects" }],
+    }),
     getAllProjects: builder.query<IGetAllProjects, undefined>({
       query: () => "/project",
     }),
@@ -30,4 +40,5 @@ export const {
   useGetAllTechStacksQuery,
   useAddTechStackMutation,
   useGetAllProjectsQuery,
+  useAddProjectMutation,
 } = projectService;

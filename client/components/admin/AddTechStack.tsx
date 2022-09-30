@@ -22,7 +22,7 @@ const AddTechStack = () => {
   // authenticate
   useAuth({ isAuthPage: false, route: "/admin/login" });
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [image, setImage] = useState<File | null>(null);
   const [addTechStack, { isLoading, error, data }] = useAddTechStackMutation();

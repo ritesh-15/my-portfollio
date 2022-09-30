@@ -75,12 +75,7 @@ const Projects: NextPageWithLayout = () => {
       </TableContainer>
 
       <Dialog fullWidth maxWidth="lg" open={open} onClose={handleClose}>
-        <DialogTitle>New project!</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Add a new project to your resume
-          </DialogContentText>
-        </DialogContent>
+        <DialogTitle>Add a new project!</DialogTitle>
         <Box sx={style}>
           <AddProject />
         </Box>
