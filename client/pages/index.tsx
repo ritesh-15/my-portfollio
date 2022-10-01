@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import AboutSection from "../components/AboutSection";
 import ConnectSection from "../components/ConnectSection";
@@ -7,10 +7,16 @@ import HeroSection from "../components/HeroSection";
 import NavBar from "../components/NavBar";
 import ProjectsSection from "../components/ProjectsSection";
 import Skills from "../components/Skills";
-import { useRefresh } from "../hooks";
+import { API_SERVER_URL } from "../constants";
+import { IGetAllProjects } from "../interfaces/project_interface";
 import Container from "../layouts/Container";
 
-const Home: NextPage = () => {
+interface Props {
+  data: IGetAllProjects;
+  isError: boolean;
+}
+
+const Home: NextPage<Props> = ({ data, isError }) => {
   return (
     <div className="bg-primary">
       <Container className="min-h-screen">
@@ -33,7 +39,7 @@ const Home: NextPage = () => {
         <Skills />
 
         {/* Projects */}
-        <ProjectsSection />
+        <ProjectsSection data={data} isError={isError} />
 
         {/* Education */}
         <EducationSection />
@@ -43,6 +49,34 @@ const Home: NextPage = () => {
       </Container>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const options: RequestInit = {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "content-type": "application/json",
+    },
+  };
+
+  let isError: boolean = false;
+  let data: any = null;
+
+  try {
+    const res = await fetch(`${API_SERVER_URL}/info`, options);
+    data = await res.json();
+    console.log(data);
+  } catch (e) {
+    console.log(e);
+    isError = true;
+  }
+  return {
+    props: {
+      data,
+      isError,
+    },
+  };
 };
 
 export default Home;

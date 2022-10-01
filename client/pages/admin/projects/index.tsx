@@ -7,18 +7,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import AddIcon from "@mui/icons-material/Add";
-import Layout from "../../components/admin/Layout";
-import { NextPageWithLayout } from "../_app";
-import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Fab,
-} from "@mui/material";
+import { Dialog, Fab, DialogTitle } from "@mui/material";
 import Box from "@mui/material/Box";
-import AddProject from "../../components/admin/AddProject";
-import { useGetAllProjectsQuery } from "../../app/services/project/project.service";
+import Link from "next/link";
+import { NextPageWithLayout } from "../../_app";
+import { useGetAllProjectsQuery } from "../../../app/services/project/project.service";
+import AddProject from "../../../components/admin/AddProject";
+import Layout from "../../../components/admin/Layout";
 
 const style = {
   display: "flex",
@@ -31,9 +26,11 @@ const Projects: NextPageWithLayout = () => {
   const { data } = useGetAllProjectsQuery(undefined);
 
   const [open, setOpen] = React.useState(false);
+
   const handleOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -48,7 +45,6 @@ const Projects: NextPageWithLayout = () => {
               <TableCell align="right">Title</TableCell>
               <TableCell align="right">Git Hub Link</TableCell>
               <TableCell align="right">Demo Link</TableCell>
-              <TableCell align="right">Created At</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -59,14 +55,13 @@ const Projects: NextPageWithLayout = () => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {project.id}
+                    <Link href={`/admin/projects/${project.id}`}>
+                      {project.id}
+                    </Link>
                   </TableCell>
                   <TableCell align="right">{project.title}</TableCell>
                   <TableCell align="right">{project.gitHubRepo}</TableCell>
                   <TableCell align="right">{project.demoLink}</TableCell>
-                  <TableCell align="right">
-                    {project.createdAt.toString()}
-                  </TableCell>
                 </TableRow>
               );
             })}
@@ -76,6 +71,7 @@ const Projects: NextPageWithLayout = () => {
 
       <Dialog fullWidth maxWidth="lg" open={open} onClose={handleClose}>
         <DialogTitle>Add a new project!</DialogTitle>
+
         <Box sx={style}>
           <AddProject />
         </Box>

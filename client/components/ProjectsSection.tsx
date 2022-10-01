@@ -1,8 +1,19 @@
 import { motion } from "framer-motion";
 import React, { FC } from "react";
+import { IGetAllProjects } from "../interfaces/project_interface";
 import Project from "./Project";
 
-const ProjectsSection: FC = (): JSX.Element => {
+interface ProjectSectionProps {
+  data: IGetAllProjects;
+  isError: boolean;
+}
+
+const ProjectsSection: FC<ProjectSectionProps> = ({
+  data,
+  isError,
+}): JSX.Element => {
+  const { projects } = data;
+
   return (
     <section
       id="projects"
@@ -21,9 +32,13 @@ const ProjectsSection: FC = (): JSX.Element => {
 
       {/* Projects */}
       <div className="flex flex-row flex-wrap gap-6 justify-center">
-        {/* Project */}
-        <Project />
-        <Project isReverse />
+        {projects.map((project, index) => (
+          <Project
+            project={project}
+            key={project.id}
+            isReverse={!(index % 2) ? false : true}
+          />
+        ))}
       </div>
     </section>
   );

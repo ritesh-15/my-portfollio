@@ -27,6 +27,11 @@ export interface IGetAllProjects {
   projects: IProject[];
 }
 
+export interface IGetSingleProject {
+  success: boolean;
+  project: IProject;
+}
+
 export interface IGetAllTechStack {
   success: boolean;
   techStacks: ITechStack[];

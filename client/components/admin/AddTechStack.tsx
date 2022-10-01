@@ -82,7 +82,7 @@ const AddTechStack = () => {
                   <BsImageFill className="text-2xl" />
                 </div>
                 <input
-                  accept="image/jpeg"
+                  accept="image/*"
                   type="file"
                   className="hidden"
                   name="image"

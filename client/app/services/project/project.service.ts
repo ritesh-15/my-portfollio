@@ -1,6 +1,7 @@
 import {
   IGetAllProjects,
   IGetAllTechStack,
+  IGetSingleProject,
 } from "../../../interfaces/project_interface";
 import apiService from "../api/api.service";
 
@@ -33,6 +34,18 @@ export const projectService = apiService.injectEndpoints({
     getAllProjects: builder.query<IGetAllProjects, undefined>({
       query: () => "/project",
     }),
+    getSingleProject: builder.query<IGetSingleProject, string>({
+      query: (id) => `/project/single/${id}`,
+    }),
+    removeProject: builder.mutation<any, string>({
+      query: (id) => {
+        return {
+          url: `/project/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: [{ type: "Projects" }],
+    }),
   }),
 });
 
@@ -41,4 +54,6 @@ export const {
   useAddTechStackMutation,
   useGetAllProjectsQuery,
   useAddProjectMutation,
+  useGetSingleProjectQuery,
+  useRemoveProjectMutation,
 } = projectService;
