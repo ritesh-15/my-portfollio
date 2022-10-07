@@ -12,6 +12,8 @@ import {
   addProjectValidator,
   addTechStackValidator,
   deleteTechStackValidator,
+  getSingleProjectSchema,
+  getTechStackByIdValidator,
   removeProjectValidator,
   updateProjectValidator,
   updateTechStackValidator,
@@ -28,6 +30,15 @@ projectRouter
     ProjectController.addProject
   )
   .get(ProjectController.getAllProjects);
+
+projectRouter
+  .route("/single/:id")
+  .get(
+    [authenticate],
+    checkSchema(getSingleProjectSchema),
+    validateRequest,
+    ProjectController.getProjectById
+  );
 
 projectRouter
   .route("/:id")
@@ -67,6 +78,12 @@ projectRouter
     checkSchema(deleteTechStackValidator),
     validateRequest,
     ProjectController.removeTechStack
+  )
+  .get(
+    authenticate,
+    checkSchema(getTechStackByIdValidator),
+    validateRequest,
+    ProjectController.getTechStackById
   );
 
 export default projectRouter;

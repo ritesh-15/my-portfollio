@@ -29,6 +29,18 @@ const updateTechStackValidator: Schema = {
   },
 };
 
+const getTechStackByIdValidator: Schema = {
+  id: {
+    in: ["body"],
+    isEmpty: {
+      errorMessage: "Id is required!",
+    },
+    isUUID: {
+      errorMessage: "Id must be a valid!",
+    },
+  },
+};
+
 const deleteTechStackValidator: Schema = {
   id: {
     in: ["params"],
@@ -169,6 +181,18 @@ const updateProjectValidator: Schema = {
   },
 };
 
+const getSingleProjectSchema: Schema = {
+  id: {
+    in: ["params"],
+    exists: {
+      errorMessage: "Project id is required!",
+    },
+    isUUID: {
+      errorMessage: "Project id must be a valid!",
+    },
+  },
+};
+
 export {
   addTechStackValidator,
   updateTechStackValidator,
@@ -176,4 +200,6 @@ export {
   addProjectValidator,
   removeProjectValidator,
   updateProjectValidator,
+  getSingleProjectSchema,
+  getTechStackByIdValidator,
 };

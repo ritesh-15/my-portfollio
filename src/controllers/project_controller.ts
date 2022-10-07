@@ -76,6 +76,51 @@ class ProjectController {
   );
 
   /**
+   * @route project/:id
+   * @desc Get Project By ID
+   * @access Private
+   */
+  static getProjectById = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const { id } = req.params;
+      const project = await Prisma.get().project.findUnique({
+        where: {
+          id: id,
+        },
+        include: {
+          images: {
+            select: {
+              publicId: true,
+              url: true,
+            },
+          },
+          techStack: {
+            select: {
+              name: true,
+              image: {
+                select: {
+                  url: true,
+                  publicId: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!project)
+        return next(
+          CreateHttpError.notFound("Project with given id is not found!")
+        );
+
+      res.json({
+        success: true,
+        project: project,
+      });
+    }
+  );
+
+  /**
    * @route project/
    * @desc Get all projects
    * @access Public
@@ -383,6 +428,42 @@ class ProjectController {
       res.json({
         success: true,
         message: "Tech stack updated successfully!",
+        techStack,
+      });
+    }
+  );
+
+  /**
+   * @route project/tech-stack/:id
+   * @desc Get single tech stack
+   * @access Private
+   */
+  static getTechStackById = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const { id } = req.params;
+
+      const techStack = await Prisma.get().techStack.findUnique({
+        where: {
+          id,
+        },
+        select: {
+          image: {
+            select: {
+              url: true,
+            },
+          },
+          name: true,
+          id: true,
+        },
+      });
+
+      if (!techStack)
+        return next(
+          CreateHttpError.notFound("Tech stack with given id not found!")
+        );
+
+      res.json({
+        success: true,
         techStack,
       });
     }
