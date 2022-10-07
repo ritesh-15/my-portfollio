@@ -55,7 +55,7 @@ const AddTechStack = () => {
   };
 
   return (
-    <div>
+    <>
       <form onSubmit={handleSubmit} action="" className="w-full">
         <div className="mb-6">
           <div className="flex flex-col items-center">
@@ -122,7 +122,7 @@ const AddTechStack = () => {
           </LoadingButton>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 

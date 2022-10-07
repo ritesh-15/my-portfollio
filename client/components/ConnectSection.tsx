@@ -1,8 +1,55 @@
 import React, { FC } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useFormik } from "formik";
+import connectSchema from "../models/connect_schema";
+import { useNewContactMutation } from "../app/services/contact/contact.service";
+import { IContact } from "../interfaces/contact_interface";
+import { useSnackbar } from "notistack";
+
+interface ConnectFormState {
+  name: string;
+  email: string;
+  message: string;
+}
+
+const errorStyle = "text-red-500 font-nunito text-sm";
+
+const initialState: ConnectFormState = {
+  name: "",
+  email: "",
+  message: "",
+};
 
 const ConnectSection: FC = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const { handleChange, handleSubmit, values, errors, touched, resetForm } =
+    useFormik({
+      onSubmit: (values) => {
+        handleNewContactRequest(values);
+      },
+      initialValues: initialState,
+      validationSchema: connectSchema,
+    });
+
+  const [newContact, { isLoading, error }] = useNewContactMutation();
+
+  const handleNewContactRequest = async (value: IContact) => {
+    await newContact(values);
+
+    if (error && "status" in error) {
+      enqueueSnackbar((error as any).data.message, { variant: "error" });
+    }
+
+    enqueueSnackbar(
+      "Thank you for reaching out to me, I will contact you soon!.",
+      { variant: "success" }
+    );
+
+    resetForm();
+  };
+
   return (
     <section
       id="connect"
@@ -35,6 +82,7 @@ const ConnectSection: FC = () => {
           </div>
 
           <form
+            onSubmit={handleSubmit}
             action=""
             className="mt-4 mb-4 md:mb-0 flex flex-col  w-full gap-4"
           >
@@ -43,9 +91,15 @@ const ConnectSection: FC = () => {
                 Name
               </label>
               <input
+                onChange={handleChange}
+                value={values.name}
+                name="name"
                 type="text"
                 className="w-full px-2 py-4 rounded-md font-nunito outline-none border-none"
               />
+              {errors.name && touched.name ? (
+                <small className={errorStyle}>{errors.name}</small>
+              ) : null}
             </div>
 
             <div className="mb-2">
@@ -53,20 +107,37 @@ const ConnectSection: FC = () => {
                 Email Address
               </label>
               <input
-                type="text"
+                onChange={handleChange}
+                value={values.email}
+                name="email"
+                type="email"
                 className="w-full px-2 py-4 rounded-md font-nunito outline-none border-none"
               />
+              {errors.email && (
+                <small className={errorStyle}>{errors.email}</small>
+              )}
             </div>
 
             <div className="flex-1">
               <label className="text-white mb-2 block font-nunito" htmlFor="">
                 Any message or suggestion?
               </label>
-              <textarea className="w-full resize-none h-[75px] px-2 py-4 rounded-md font-nunito outline-none border-none" />
+              <textarea
+                onChange={handleChange}
+                value={values.message}
+                name="message"
+                className="w-full resize-none h-[75px] px-2 py-4 rounded-md font-nunito outline-none border-none"
+              />
+              {errors.message && (
+                <small className={errorStyle}>{errors.message}</small>
+              )}
             </div>
 
-            <button className="text-white bg-secondary py-4 rounded-md font-nunito">
-              Connect with me
+            <button
+              disabled={isLoading}
+              className="text-white bg-secondary py-4 rounded-md font-nunito flex items-center justify-center"
+            >
+              {isLoading ? <div className="loader" /> : "Connect with me"}
             </button>
           </form>
         </motion.div>

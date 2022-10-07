@@ -28,7 +28,7 @@ const AboutSection: FC = (): JSX.Element => {
           className="rounded flex items-center justify-center"
         >
           <Image
-            src="/images/my_image.jpeg"
+            src="/images/self.jpeg"
             width="400"
             height="400"
             className="object-cover rounded-xl shadow-2xl"

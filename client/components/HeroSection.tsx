@@ -39,10 +39,10 @@ const HeroSection: FC = (): JSX.Element => {
         className="w-full lg:p-0 md:w-1/2 p-6 flex flex-col md:block items-center"
       >
         <div>
-          <h1 className="text-white font-extrabold text-4xl sm:text-5xl lg:text-7xl font-nunito text-center md:text-left leading-8 tracking-wider">
+          <h1 className="text-white antialiased font-extrabold text-4xl sm:text-5xl lg:text-7xl font-nunito text-center md:text-left leading-8 tracking-wider">
             Hey There,
           </h1>
-          <h1 className="text-white font-extrabold text-3xl sm:text-4xl lg:text-5xl font-nunito text-center md:text-left leading-8 tracking-wider">
+          <h1 className="text-white antialiased font-extrabold text-3xl sm:text-4xl lg:text-5xl font-nunito text-center md:text-left leading-8 tracking-wider">
             Wanna build fullstack application then I'm here
           </h1>
         </div>
@@ -65,20 +65,29 @@ const HeroSection: FC = (): JSX.Element => {
         </motion.button>
 
         <div className="mt-8 flex gap-4">
-          <Link
+          <a
             href="https://www.linkedin.com/in/ritesh-khore-7119b8205/"
             target="_blank"
+            rel="noreferrer"
           >
             <AiFillLinkedin className="text-white text-2xl cursor-pointer" />
-          </Link>
+          </a>
 
-          <Link href="https://twitter.com/KhoreRitesh" target="_blank">
+          <a
+            rel="noreferrer"
+            href="https://twitter.com/KhoreRitesh"
+            target="_blank"
+          >
             <AiFillTwitterCircle className="text-white text-2xl cursor-pointer" />
-          </Link>
+          </a>
 
-          <Link href="https://github.com/ritesh-15" target="_blank">
+          <a
+            rel="noreferrer"
+            href="https://github.com/ritesh-15"
+            target="_blank"
+          >
             <AiFillGithub className="text-white text-2xl cursor-pointer" />
-          </Link>
+          </a>
         </div>
       </motion.div>
 

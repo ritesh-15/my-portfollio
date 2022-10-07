@@ -2,8 +2,14 @@ import {
   IGetAllProjects,
   IGetAllTechStack,
   IGetSingleProject,
+  IGetTechStackById,
 } from "../../../interfaces/project_interface";
 import apiService from "../api/api.service";
+
+interface IUpdateTechStackArgs {
+  id: string;
+  data: FormData;
+}
 
 export const projectService = apiService.injectEndpoints({
   endpoints: (builder) => ({
@@ -46,6 +52,24 @@ export const projectService = apiService.injectEndpoints({
       },
       invalidatesTags: [{ type: "Projects" }],
     }),
+    getTechStackById: builder.query<IGetTechStackById, string>({
+      query: (id) => {
+        return {
+          url: `/project/tech-stack/${id}`,
+          method: "GET",
+        };
+      },
+    }),
+    updateTechStack: builder.mutation<any, IUpdateTechStackArgs>({
+      query: ({ id, data }) => {
+        return {
+          url: `/project/tech-stack/${id}`,
+          method: "PUT",
+          body: data,
+        };
+      },
+      invalidatesTags: [{ type: "TechStack" }],
+    }),
   }),
 });
 
@@ -56,4 +80,6 @@ export const {
   useAddProjectMutation,
   useGetSingleProjectQuery,
   useRemoveProjectMutation,
+  useGetTechStackByIdQuery,
+  useUpdateTechStackMutation,
 } = projectService;

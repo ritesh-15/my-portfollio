@@ -7,9 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // primary: "#011627",
+        // primary: "#040404",
         primary: "#070707",
-        // secondary: "#20A4F3",
+        // secondary: "#119DA4",
         secondary: "#D1345B",
       },
     },
@@ -18,4 +18,5 @@ module.exports = {
     },
   },
   plugins: [],
+  darkMode: "class",
 };

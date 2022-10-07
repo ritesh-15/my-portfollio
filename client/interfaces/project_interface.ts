@@ -6,6 +6,11 @@ export interface ITechStack {
   id: string;
 }
 
+export interface IGetTechStackById {
+  success: boolean;
+  techStack: ITechStack;
+}
+
 export interface IProject {
   id: string;
   title: string;

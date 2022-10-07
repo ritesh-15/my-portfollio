@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { FC } from "react";
-import { AiOutlineLink, AiFillCheckCircle } from "react-icons/ai";
+import { AiOutlineLink } from "react-icons/ai";
 import { motion } from "framer-motion";
 import { IProject } from "../interfaces/project_interface";
 import Link from "next/link";

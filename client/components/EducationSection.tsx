@@ -1,6 +1,28 @@
 import React, { FC } from "react";
 import { motion } from "framer-motion";
-import Education from "./Education";
+import Education, { EducationProps } from "./Education";
+
+const educations: EducationProps[] = [
+  {
+    title: "Bachelor's Of Engineering",
+    description: "Currently in Third Year and will be pass out in 2024",
+    collegeName:
+      "Vidya Pratishthan's Kamalnayan Bajaj Institute of Engineering and Technology",
+    isPursuing: true,
+  },
+  {
+    title: "Higher Secondary Board",
+    description: "Pass out in 2020 with 84.12 percentage",
+    collegeName: "Vidya Pratishthan college of Arts, Science and Commerce",
+    isPursuing: false,
+  },
+  {
+    title: "Secondary Board",
+    description: "Pass out in 2018 with 90.12 percentage",
+    collegeName: "Shrimant Shambhusingh Maharaj Highschool",
+    isPursuing: false,
+  },
+];
 
 const EducationSection: FC = () => {
   return (
@@ -20,9 +42,9 @@ const EducationSection: FC = () => {
       </motion.div>
 
       <div className="flex flex-col w-full">
-        <Education isRight />
-        <Education />
-        <Education isRight />
+        {educations.map((education, index) => (
+          <Education {...education} isRight={index % 2 === 0} />
+        ))}
       </div>
     </section>
   );

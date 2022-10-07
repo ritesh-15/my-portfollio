@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import Layout from "../../components/admin/Layout";
 import { NextPageWithLayout } from "../_app";
 import Table from "@mui/material/Table";
@@ -21,6 +21,8 @@ import AddTechStack from "../../components/admin/AddTechStack";
 import { useGetAllTechStacksQuery } from "../../app/services/project/project.service";
 import Head from "next/head";
 import Image from "next/image";
+import { ITechStack } from "../../interfaces/project_interface";
+import SingleTechStck from "../../components/admin/SIngleTechStack";
 
 const style = {
   display: "flex",
@@ -31,11 +33,16 @@ const style = {
 
 const TechStack: NextPageWithLayout = () => {
   const { data } = useGetAllTechStacksQuery(undefined);
+  const [selectedTechStack, setSelectedTechStack] = useState<ITechStack | null>(
+    null
+  );
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
   const handleOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -46,6 +53,20 @@ const TechStack: NextPageWithLayout = () => {
         <title>ritesh</title>
         <meta name="description" content="My personal portfollio" />
       </Head>
+
+      {selectedTechStack && (
+        <Dialog
+          fullWidth
+          maxWidth="sm"
+          open={selectedTechStack !== null}
+          onClose={() => setSelectedTechStack(null)}
+        >
+          <DialogTitle>Update Tech Stack!</DialogTitle>
+          <Box sx={style}>
+            <SingleTechStck techStack={selectedTechStack} />
+          </Box>
+        </Dialog>
+      )}
 
       <div className="h-full p-4">
         <TableContainer component={Paper}>
@@ -64,7 +85,12 @@ const TechStack: NextPageWithLayout = () => {
                     key={row.name}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
+                    <TableCell
+                      onClick={() => setSelectedTechStack(row)}
+                      component="th"
+                      scope="row"
+                      className="cursor-pointer"
+                    >
                       {row.id}
                     </TableCell>
                     <TableCell align="right">{row.name}</TableCell>

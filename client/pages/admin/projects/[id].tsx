@@ -2,29 +2,14 @@ import { useRouter } from "next/router";
 import React, { FormEvent, ReactElement, useEffect, useState } from "react";
 import Layout from "../../../components/admin/Layout";
 import { NextPageWithLayout } from "../../_app";
+import { FormControlLabel, Switch, TextField } from "@mui/material";
 import {
-  Button,
-  FilledInput,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Switch,
-  TextField,
-} from "@mui/material";
-import { useSnackbar } from "notistack";
-import {
-  useGetAllTechStacksQuery,
   useGetSingleProjectQuery,
   useRemoveProjectMutation,
 } from "../../../app/services/project/project.service";
-import { addProjectSchema } from "../../../models/project";
-import { useFormik } from "formik";
-import { AiOutlineClose } from "react-icons/ai";
 import { LoadingButton } from "@mui/lab";
 import { IProject } from "../../../interfaces/project_interface";
+import { AiOutlineClose } from "react-icons/ai";
 
 interface UpdateProjectFormState {
   title: string;
@@ -33,13 +18,6 @@ interface UpdateProjectFormState {
   demoLink: string;
 }
 
-const initialValues: UpdateProjectFormState = {
-  title: "",
-  description: "",
-  gitHubRepoLink: "",
-  demoLink: "",
-};
-
 const SingleProject: NextPageWithLayout = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -47,12 +25,14 @@ const SingleProject: NextPageWithLayout = () => {
   const [values, setValues] = useState<IProject | null>(null);
 
   const { data } = useGetSingleProjectQuery(id as string);
+
   const [removeProject, { isLoading: isRemoveProjectLoading }] =
     useRemoveProjectMutation();
 
   useEffect(() => {
     if (!data) return;
     setValues(data.project);
+    setIsMobileApplication(data.project.isMobileApplication);
   }, [data]);
 
   const handleIsMobileApplication = () => {

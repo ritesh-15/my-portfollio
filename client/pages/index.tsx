@@ -3,6 +3,7 @@ import Head from "next/head";
 import AboutSection from "../components/AboutSection";
 import ConnectSection from "../components/ConnectSection";
 import EducationSection from "../components/EducationSection";
+import Error from "../components/Error";
 import HeroSection from "../components/HeroSection";
 import NavBar from "../components/NavBar";
 import ProjectsSection from "../components/ProjectsSection";
@@ -17,13 +18,15 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ data, isError }) => {
+  if (isError) return <Error />;
+
   return (
-    <div className="bg-primary">
+    <div className="bg-primary dark:bg-white">
       <Container className="min-h-screen">
         <Head>
           <title>ritesh</title>
           <meta name="description" content="My personal portfollio" />
-          <link rel="icon" href="/images/my_image.jpeg" />
+          <link rel="icon" href="/images/header_self.png" />
         </Head>
 
         {/* Navbar */}
@@ -66,9 +69,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const res = await fetch(`${API_SERVER_URL}/info`, options);
     data = await res.json();
-    console.log(data);
   } catch (e) {
-    console.log(e);
     isError = true;
   }
   return {
