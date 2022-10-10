@@ -14,7 +14,7 @@ const debugLog = path.resolve("logs/debug.log");
 
 if (process.env.NODE_ENV === "production") {
   logger = createLogger({
-    level: "info",
+    level: "debug",
     format: combine(timestamp(), myFormat),
     transports: [
       new transports.File({
