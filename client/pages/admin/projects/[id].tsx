@@ -10,15 +10,11 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { IProject } from "../../../interfaces/project_interface";
 import { AiOutlineClose } from "react-icons/ai";
-
-interface UpdateProjectFormState {
-  title: string;
-  description: string;
-  gitHubRepoLink: string;
-  demoLink: string;
-}
+import { useAuth } from "../../../hooks";
 
 const SingleProject: NextPageWithLayout = () => {
+  useAuth({ isAuthPage: false, route: "/admin/login" });
+
   const router = useRouter();
   const { id } = router.query;
 

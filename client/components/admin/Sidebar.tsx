@@ -22,7 +22,7 @@ const iconStyle = "text-xl";
 const SidebarPaths = {
   PROJECTS: "/admin/projects",
   TECHSTACK: "/admin/techstack",
-  CONTACTS: "/admin/contacts",
+  CONTACTS: "/admin/contact",
   DASHBOARD: "/admin",
 };
 

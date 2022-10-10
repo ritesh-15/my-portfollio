@@ -8,10 +8,7 @@ interface ProjectSectionProps {
   isError: boolean;
 }
 
-const ProjectsSection: FC<ProjectSectionProps> = ({
-  data,
-  isError,
-}): JSX.Element => {
+const ProjectsSection: FC<ProjectSectionProps> = ({ data }): JSX.Element => {
   const { projects } = data;
 
   return (

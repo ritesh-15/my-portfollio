@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useRouter } from "next/router";
 import { setCredentials } from "../../app/features/authSlice";
+import { useAuth } from "../../hooks";
 
 interface LoginFormState {
   password: string;
@@ -30,6 +31,8 @@ const initialValues: LoginFormState = {
 };
 
 const Login: NextPage = () => {
+  useAuth({ isAuthPage: true, route: "/admin/login" });
+
   const [showPassword, setShowPassword] = useState<Boolean>(false);
   const { user } = useSelector((state: RootState) => state.auth);
   const router = useRouter();

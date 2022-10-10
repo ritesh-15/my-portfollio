@@ -14,6 +14,7 @@ import { NextPageWithLayout } from "../../_app";
 import { useGetAllProjectsQuery } from "../../../app/services/project/project.service";
 import AddProject from "../../../components/admin/AddProject";
 import Layout from "../../../components/admin/Layout";
+import { useAuth } from "../../../hooks";
 
 const style = {
   display: "flex",
@@ -23,6 +24,7 @@ const style = {
 };
 
 const Projects: NextPageWithLayout = () => {
+  useAuth({ isAuthPage: false, route: "/admin/login" });
   const { data } = useGetAllProjectsQuery(undefined);
 
   const [open, setOpen] = React.useState(false);
