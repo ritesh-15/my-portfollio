@@ -17,6 +17,7 @@ if (process.env.NODE_ENV === "production") {
     level: "debug",
     format: combine(timestamp(), myFormat),
     transports: [
+      new transports.Console(),
       new transports.File({
         level: "error",
         filename: errorLog,
