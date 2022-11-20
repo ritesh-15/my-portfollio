@@ -1,1 +1,1 @@
-export const API_SERVER_URL = "http://localhost:9000/api";
+export const API_SERVER_URL = "https://ritesh-portfollio.onrender.com/api";
