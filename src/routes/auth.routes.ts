@@ -23,7 +23,7 @@ authRouter.post(
   "/add-user",
   checkSchema(addUserValidator),
   validateRequest,
-  authenticate,
+  // authenticate,
   AuthController.addUser
 );
 
