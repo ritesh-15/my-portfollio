@@ -27,7 +27,7 @@ const ConnectSection: FC = () => {
   const { handleChange, handleSubmit, values, errors, touched, resetForm } =
     useFormik({
       onSubmit: (values) => {
-        handleNewContactRequest(values);
+        handleNewContactRequest(values as IContact);
       },
       initialValues: initialState,
       validationSchema: connectSchema,

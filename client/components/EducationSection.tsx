@@ -43,7 +43,11 @@ const EducationSection: FC = () => {
 
       <div className="flex flex-col w-full">
         {educations.map((education, index) => (
-          <Education {...education} isRight={index % 2 === 0} />
+          <Education
+            key={education.title}
+            {...education}
+            isRight={index % 2 === 0}
+          />
         ))}
       </div>
     </section>
