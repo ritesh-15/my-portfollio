@@ -47,19 +47,19 @@ const NavBar: FC = (): JSX.Element => {
               Home
             </Link>
           </li>
-          <li className={styles.listStyle}>
+          <li onClick={() => setOpen(false)} className={styles.listStyle}>
             <Link href="#about">About</Link>
           </li>
-          <li className={styles.listStyle}>
+          <li onClick={() => setOpen(false)} className={styles.listStyle}>
             <Link href="#skills">Skills</Link>
           </li>
-          <li className={styles.listStyle}>
+          <li onClick={() => setOpen(false)} className={styles.listStyle}>
             <Link href="#projects">Projects</Link>
           </li>
-          <li className={styles.listStyle}>
+          <li onClick={() => setOpen(false)} className={styles.listStyle}>
             <Link href="#education">Education</Link>
           </li>
-          <li className={styles.listStyle}>
+          <li onClick={() => setOpen(false)} className={styles.listStyle}>
             <Link href="#connect">Connect</Link>
           </li>
         </ul>
@@ -78,23 +78,20 @@ const NavBar: FC = (): JSX.Element => {
             className="absolute right-6 text-white text-3xl md:hidden cursor-pointer"
           />
 
-          <li className={styles.listStyle}>
-            <Link href="#">Home</Link>
+          <li onClick={() => setOpen(false)} className={styles.listStyle}>
+            <Link href="#about">About</Link>
           </li>
-          <li className={styles.listStyle}>
-            <Link href="#">About</Link>
+          <li onClick={() => setOpen(false)} className={styles.listStyle}>
+            <Link href="#skills">Skills</Link>
           </li>
-          <li className={styles.listStyle}>
-            <Link href="#">Skills</Link>
+          <li onClick={() => setOpen(false)} className={styles.listStyle}>
+            <Link href="#projects">Projects</Link>
           </li>
-          <li className={styles.listStyle}>
-            <Link href="#">Projects</Link>
+          <li onClick={() => setOpen(false)} className={styles.listStyle}>
+            <Link href="#education">Education</Link>
           </li>
-          <li className={styles.listStyle}>
-            <Link href="#">Education</Link>
-          </li>
-          <li className={styles.listStyle}>
-            <Link href="#">Connect</Link>
+          <li onClick={() => setOpen(false)} className={styles.listStyle}>
+            <Link href="#connect">Connect</Link>
           </li>
         </motion.ul>
 

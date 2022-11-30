@@ -24,7 +24,7 @@ const Education: FC<EducationProps> = ({
       className={`flex flex-col  my-4 ${isRight ? "items-end" : "items-start"}`}
     >
       <h1
-        className={`text-white font-nunito font-bold text-4xl text-center ${
+        className={`text-white break-words font-nunito font-bold text-4xl text-center ${
           isRight ? "md:text-right" : "md:text-left"
         }`}
       >

@@ -17,7 +17,7 @@ const educations: EducationProps[] = [
     isPursuing: false,
   },
   {
-    title: "Secondary Board",
+    title: "Secondary State Board",
     description: "Pass out in 2018 with 90.12 percentage",
     collegeName: "Shrimant Shambhusingh Maharaj Highschool",
     isPursuing: false,
