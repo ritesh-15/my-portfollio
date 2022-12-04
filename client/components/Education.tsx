@@ -24,22 +24,22 @@ const Education: FC<EducationProps> = ({
       className={`flex flex-col  my-4 ${isRight ? "items-end" : "items-start"}`}
     >
       <h1
-        className={`text-white break-words font-nunito font-bold text-4xl text-center ${
-          isRight ? "md:text-right" : "md:text-left"
+        className={`text-white break-words mx-auto font-nunito font-bold text-4xl text-center ${
+          isRight ? "md:text-right md:mx-0" : "md:text-left md:mx-0"
         }`}
       >
         {title}
       </h1>
       <p
-        className={`text-white text-lg mt-2 font-nunito max-w-[500px] text-center ${
-          isRight ? "md:text-right" : "md:text-left"
+        className={`text-white text-lg mt-2 font-nunito max-w-[500px] mx-auto text-center ${
+          isRight ? "md:text-right md:mx-0" : "md:text-left md:mx-0"
         }`}
       >
         {description}
       </p>
       <h5
-        className={`text-white font-nunito text-2xl mt-2 max-w-[450px] text-center ${
-          isRight ? "md:text-right" : "md:text-left"
+        className={`text-white mx-auto font-nunito text-2xl mt-2 max-w-[450px] text-center ${
+          isRight ? "md:text-right md:mx-0" : "md:text-left md:mx-0"
         }`}
       >
         {collegeName}

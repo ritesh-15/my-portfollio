@@ -52,6 +52,15 @@ const AboutSection: FC = (): JSX.Element => {
             engineering. Looking for an opportunity to gain the working
             experience in the industry.
           </p>
+          <a
+            href="https://drive.google.com/file/d/16rtvFpQCYQFZoJkzUbMR81uLvr5wqVWu/view?usp=sharing"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <button className="text-secondary px-2 py-3 rounded-md font-nunito flex items-center justify-center mt-6 border-secondary border-2 hover:text-white hover:bg-secondary transition-all mx-auto md:mx-0">
+              Download Resume
+            </button>
+          </a>
         </motion.div>
       </div>
     </section>
