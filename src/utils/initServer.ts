@@ -19,7 +19,7 @@ const initServer = (app: Application) => {
 
   app.use(
     cors({
-      origin: "*",
+      origin: CLIENT_URL,
       methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
       credentials: true,
     })
