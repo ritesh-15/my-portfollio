@@ -19,8 +19,8 @@ const initServer = (app: Application) => {
 
   app.use(
     cors({
-      origin: [CLIENT_URL],
-      methods: ["GET", "POST"],
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "DELETE"],
       credentials: true,
     })
   );
