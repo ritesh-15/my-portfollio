@@ -22,7 +22,8 @@ const initServer = (app: Application) => {
       origin: [
         CLIENT_URL,
         `${CLIENT_URL}/admin`,
-        `${CLIENT_URL}/admin/project`,
+        `${CLIENT_URL}/admin/projects`,
+        "*",
       ],
       methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
       credentials: true,
