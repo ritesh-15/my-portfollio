@@ -47,11 +47,15 @@ class AuthController {
       res.cookie("x_access_token", accessToken, {
         httpOnly: true,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+        secure: true,
+        sameSite: "none",
       });
 
       res.cookie("x_refresh_token", refreshToken, {
         httpOnly: true,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+        secure: true,
+        sameSite: "none",
       });
 
       res.json({
@@ -168,11 +172,15 @@ class AuthController {
       res.cookie("x_access_token", accessToken, {
         httpOnly: true,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+        secure: true,
+        sameSite: "none",
       });
 
       res.cookie("x_refresh_token", refreshToken, {
         httpOnly: true,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+        secure: true,
+        sameSite: "none",
       });
 
       // delete the previous session
