@@ -1,0 +1,71 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Avinash\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\MinGW\bin;C:\src\flutter\bin;C:\Program Files\MongoDB\mongosh-1.6.0-win32-x64\bin;C:\Program Files\dotnet\;C:\Program Files\Docker\Docker\resources\bin;C:\Users\Avinash\.cargo\bin;C:\Users\Avinash\AppData\Local\pnpm;C:\Users\Avinash\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\Avinash\AppData\Local\Programs\Python\Python310\;C:\Users\Avinash\AppData\Local\Microsoft\WindowsApps;C:\Users\Avinash\AppData\Roaming\npm;C:\Users\Avinash\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\heroku\bin;C:\Users\Avinash\AppData\Local\JetBrains\Toolbox\scripts;C:\Program Files\MongoDB\Server\6.0\bin;
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.14.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EEXIST: file already exists, mkdir 'D:\Development\Web\my-porfollio\server\node_modules\express\node_modules'
+
+npm manifest: 
+  {
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "build/server.js",
+    "scripts": {
+      "start": "node build/server.js",
+      "dev": "nodemon",
+      "build": "tsc -p ."
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "@prisma/client": "^4.3.1",
+      "bcrypt": "^5.0.1",
+      "cloudinary": "^1.32.0",
+      "cookie-parser": "^1.4.6",
+      "cors": "^2.8.5",
+      "dotenv": "^16.0.2",
+      "express": "^4.18.1",
+      "express-async-handler": "^1.2.0",
+      "express-rate-limit": "^6.6.0",
+      "express-validator": "^6.14.2",
+      "helmet": "^6.0.0",
+      "jimp": "^0.16.2",
+      "jsonwebtoken": "^8.5.1",
+      "morgan": "^1.10.0",
+      "multer": "1.4.5-lts.1",
+      "winston": "^3.8.2"
+    },
+    "devDependencies": {
+      "@types/bcrypt": "^5.0.0",
+      "@types/cookie-parser": "^1.4.3",
+      "@types/cors": "^2.8.12",
+      "@types/express": "^4.17.14",
+      "@types/jsonwebtoken": "^8.5.9",
+      "@types/morgan": "^1.9.3",
+      "@types/multer": "^1.4.7",
+      "@types/node": "^18.7.18",
+      "nodemon": "^2.0.20",
+      "prisma": "^4.3.1",
+      "ts-node": "^10.9.1",
+      "typescript": "^4.8.3"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

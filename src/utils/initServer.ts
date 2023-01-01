@@ -1,60 +1,50 @@
-import { Application, json, NextFunction, Request, Response } from "express";
-import cors from "cors";
-import { CLIENT_URL } from "../constants";
-import helmet from "helmet";
-import morgan from "morgan";
-import {
-  authRouter,
-  contactRouter,
-  mainRouter,
-  projectRouter,
-} from "../routes";
-import CreateHttpError from "./create_http_error";
-import errorHandler from "../middlewares/error_handler";
-import rateLimiter from "./rate_limiter";
-import cookieParser from "cookie-parser";
+import { Application, json, NextFunction, Request, Response } from "express"
+import cors from "cors"
+import { CLIENT_URL } from "../constants"
+import helmet from "helmet"
+import morgan from "morgan"
+import { authRouter, contactRouter, mainRouter, projectRouter } from "../routes"
+import CreateHttpError from "./create_http_error"
+import errorHandler from "../middlewares/error_handler"
+import rateLimiter from "./rate_limiter"
+import cookieParser from "cookie-parser"
 
 const initServer = (app: Application) => {
-  app.use(json());
+  app.use(json())
 
   app.use(
     cors({
-      origin: [
-        CLIENT_URL,
-        `${CLIENT_URL}/admin`,
-        `${CLIENT_URL}/admin/projects`,
-        "*",
-      ],
+      origin: CLIENT_URL,
       methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
       credentials: true,
     })
-  );
+  )
 
-  app.use(cookieParser());
+  app.use(cookieParser())
 
-  app.use(helmet());
+  app.use(helmet())
 
-  app.use(morgan("dev"));
+  app.use(morgan("dev"))
 
-  app.use(rateLimiter);
+  app.use(rateLimiter)
 
-  app.use("/api/auth", authRouter);
+  app.use("/api/auth", authRouter)
 
-  app.use("/api/project", projectRouter);
+  app.use("/api/project", projectRouter)
 
-  app.use("/api/contact", contactRouter);
+  app.use("/api/contact", contactRouter)
 
-  app.use("/api", mainRouter);
+  app.use("/api", mainRouter)
 
   app.use((req: Request, res: Response, next: NextFunction) => {
     next(
       CreateHttpError.notImplemented(
         "The route your looking for is not implemented!"
       )
-    );
-  });
+    )
+  })
 
-  app.use(errorHandler);
-};
+  app.use(errorHandler)
+}
 
-export default initServer;
+export default initServer

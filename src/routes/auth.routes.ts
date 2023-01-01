@@ -1,30 +1,28 @@
-import { Router } from "express";
-import { checkSchema } from "express-validator";
-import { AuthController } from "../controllers";
-import { authenticate, validateRequest } from "../middlewares";
-import { addUserValidator, loginValidator } from "../validator/auth_validator";
+import { Router } from "express"
+import { checkSchema } from "express-validator"
+import { AuthController } from "../controllers"
+import { authenticate, validateRequest } from "../middlewares"
+import { addUserValidator, loginValidator } from "../validator/auth_validator"
 
-const authRouter = Router();
+const authRouter = Router()
 
-authRouter.post(
-  "/login",
-  checkSchema(loginValidator),
-  validateRequest,
-  AuthController.login
-);
+authRouter
+  .route("/login")
+  .post(checkSchema(loginValidator), validateRequest, AuthController.login)
 
-authRouter.route("/me").get(authenticate, AuthController.me);
+authRouter.route("/me").get(authenticate, AuthController.me)
 
-authRouter.delete("/logout", authenticate, AuthController.logout);
+authRouter.route("/logut").delete(authenticate, AuthController.logout)
 
-authRouter.get("/refresh", AuthController.refresh);
+authRouter.route("/refresh").get(AuthController.refresh)
 
-authRouter.post(
-  "/add-user",
-  checkSchema(addUserValidator),
-  validateRequest,
-  authenticate,
-  AuthController.addUser
-);
+authRouter
+  .route("/add-user")
+  .post(
+    checkSchema(addUserValidator),
+    validateRequest,
+    authenticate,
+    AuthController.addUser
+  )
 
-export default authRouter;
+export default authRouter

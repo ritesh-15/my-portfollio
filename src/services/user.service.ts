@@ -1,5 +1,5 @@
-import { inspect } from "util";
-import Prisma from "../helpers/prisma_client";
+import { inspect } from "util"
+import Prisma from "../helpers/prisma_client"
 
 class UserService {
   static findUserByIdOrEmail(payload: string, excludePassword: boolean = true) {
@@ -28,8 +28,8 @@ class UserService {
           },
         },
       },
-    });
+    })
   }
 }
 
-export default UserService;
+export default UserService

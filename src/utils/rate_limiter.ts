@@ -1,14 +1,24 @@
-import rateLimit from "express-rate-limit";
-import CreateHttpError from "./create_http_error";
+import rateLimit from "express-rate-limit"
+import CreateHttpError from "./create_http_error"
 
 const rateLimiter = rateLimit({
-  windowMs: 60 * 15 * 100,
-  max: 200,
+  windowMs: 1000 * 60 * 30,
+  max: 100,
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res, next) => {
-    return next(CreateHttpError.toManyRequest());
+    return next(CreateHttpError.toManyRequest())
   },
-});
+})
 
-export default rateLimiter;
+const authRateLimiter = rateLimit({
+  windowMs: 1000 * 60 * 15,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (req, res, next) => {
+    return next(CreateHttpError.toManyRequest())
+  },
+})
+
+export default rateLimiter

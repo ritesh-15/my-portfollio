@@ -3,24 +3,22 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        String    @id @default(uuid())
-  about     About?
+  id        String    @id @default(uuid()) @map("_id")
+  info      About?
   password  String
   email     String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   sessions  Session[]
-
-  @@index([email])
 }
 
 model Session {
-  id        String   @id @default(uuid())
+  id        String   @id @default(uuid()) @map("_id")
   token     String   @unique
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -29,28 +27,38 @@ model Session {
 }
 
 model About {
-  id     String @id @default(uuid())
-  about  String
-  name   String
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id         String @id @default(uuid()) @map("_id")
+  heading    String
+  subHeading String
+  about      String
+  userId     String @unique
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Project {
-  id                  String       @id @default(uuid())
+  id                  String       @id @default(uuid()) @map("_id")
   title               String
   description         String
   images              CloudImage[]
-  techStack           TechStack[]
   isMobileApplication Boolean      @default(false)
   gitHubRepo          String
   demoLink            String
   createdAt           DateTime     @default(now())
   updatedAt           DateTime     @updatedAt
+  tag                 Tag?         @relation(fields: [tagId], references: [id])
+  tagId               String?
+}
+
+model Tag {
+  id        String    @id @default(uuid()) @map("_id")
+  name      String    @unique
+  projects  Project[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model CloudImage {
-  id         String     @id @default(uuid())
+  id         String     @id @default(uuid()) @map("_id")
   publicId   String     @unique
   url        String
   projectId  String?
@@ -59,15 +67,14 @@ model CloudImage {
 }
 
 model TechStack {
-  id           String      @id @default(uuid())
+  id           String      @id @default(uuid()) @map("_id")
   image        CloudImage? @relation(fields: [cloudImageId], references: [id])
   cloudImageId String      @unique
-  projects     Project[]
   name         String      @unique
 }
 
 model Contacts {
-  id        String   @id @default(uuid())
+  id        String   @id @default(uuid()) @map("_id")
   name      String
   email     String
   message   String?
