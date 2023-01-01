@@ -7,16 +7,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // primary: "#040404",
-        primary: "#070707",
-        // secondary: "#119DA4",
-        secondary: "#D1345B",
+        primary: "#FCA311",
+        secondary: "#000000",
       },
     },
     fontFamily: {
-      nunito: ["Nunito", "sans-serif"],
+      opensans: ["Open Sans", "sans-serif"],
     },
   },
   plugins: [],
   darkMode: "class",
-};
+}

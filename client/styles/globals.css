@@ -1,7 +1,37 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
 
 html {
   scroll-behavior: smooth;
+}
+
+.navbar__item:hover > .navbar__item__bottom {
+  width: 70%;
+}
+
+.navbar__item__bottom {
+  width: 0%;
+  transition: width 200ms ease-in;
+}
+
+.navbar__item__bottom.active {
+  width: 70%;
+}
+
+.full__screen__height {
+  min-height: calc(100vh - 66px);
+}
+
+.animate__view__project__arrow {
+  animation: move 0.75s ease-in infinite alternate-reverse;
+}
+
+@keyframes move {
+  0% {
+    transform: translateY(25%);
+  }
+  100% {
+    transform: translateY(-25%);
+  }
 }
 
 .admin__height {

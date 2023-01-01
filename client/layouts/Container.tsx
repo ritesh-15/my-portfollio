@@ -1,8 +1,8 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode } from "react"
 
 interface ContainerProps {
-  children: ReactNode;
-  className?: String;
+  children: ReactNode
+  className?: String
 }
 
 const Container: FC<ContainerProps> = ({
@@ -15,11 +15,11 @@ const Container: FC<ContainerProps> = ({
         maxWidth: "1300px",
         width: "95%",
       }}
-      className={`bg-primary mx-auto  ${className} `}
+      className={`mx-auto relative  ${className} `}
     >
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default Container;
+export default Container

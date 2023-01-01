@@ -1,70 +1,53 @@
-import Image from "next/image";
-import React, { FC } from "react";
-import { motion } from "framer-motion";
+import Image from "next/image"
+import React, { FC } from "react"
+import Button from "./Button"
+import { MdKeyboardArrowRight } from "react-icons/md"
 
 const AboutSection: FC = (): JSX.Element => {
   return (
     <section
       id="about"
-      className="min-h-screen relative bg-primary items-center flex w-full mx-0 flex-col md:flex-row md:justify-between"
+      className="relative flex items-center full__screen__height"
     >
-      <motion.div
-        initial={{ opacity: 0, scale: 0.5, translateY: "-500px" }}
-        whileInView={{ opacity: 0.2, scale: 1, translateY: "0px" }}
-        transition={{ duration: 0.5 }}
-        className="absolute opacity-10 right-0 bottom-4 mx-auto"
-      >
-        <h1 className="text-white font-bold text-7xl select-none font-nunito">
-          About Me
-        </h1>
-      </motion.div>
+      <div className="flex justify-between w-full flex-col sm:flex-row">
+        <div className="flex-1 flex justify-center sm:justify-start">
+          <div className="relative w-[250px] h-[350px]">
+            <Image
+              src="/images/self.jpeg"
+              className="z-10 rounded-md"
+              alt=""
+              layout="fill"
+              objectFit="cover"
+            />
 
-      <div className="flex items-center md:items-start flex-col md:flex-row md:justify-between">
-        {/* About Image */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="rounded flex items-center justify-center"
-        >
-          <Image
-            src="/images/self.jpeg"
-            width="400"
-            height="400"
-            className="object-cover rounded-xl shadow-2xl"
-          />
-        </motion.div>
+            <div className="w-[250px] rounded-md h-[350px] bg-primary absolute bottom-0 right-[-1.5rem] top-[1.5rem]"></div>
+          </div>
+        </div>
 
-        {/* About content */}
+        <div className="flex-1 flex flex-col sm:flex-row gap-8 mt-12 sm:mt-0">
+          <div className="min-h-fit w-[0.25rem] bg-[rgba(0,0,0,0.25)]"></div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="mt-12 flex-1 md:px-12"
-        >
-          <h1 className=" text-secondary text-3xl md:text-4xl lg:text-5xl text-center font-bold font-nunito tracking-wider md:text-left">
-            I'm Ritesh
-          </h1>
-          <p className="text-white text-2xl md:text-3xl lg:text-3xl text-center leading-relaxed mt-4 md:text-left">
-            Hello, I'm a 19-year-old full-stack engineer that enjoys learning
-            new technologies. I am now pursuing a degree in computer
-            engineering. Looking for an opportunity to gain the working
-            experience in the industry.
-          </p>
-          <a
-            href="https://drive.google.com/file/d/16rtvFpQCYQFZoJkzUbMR81uLvr5wqVWu/view?usp=sharing"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <button className="text-secondary px-2 py-3 rounded-md font-nunito flex items-center justify-center mt-6 border-secondary border-2 hover:text-white hover:bg-secondary transition-all mx-auto md:mx-0">
-              Download Resume
-            </button>
-          </a>
-        </motion.div>
+          <div className="flex flex-col">
+            <span className="font-opensans">About me</span>
+            <h1 className="font-opensans text-3xl font-bold">Who am I?</h1>
+            <p className="font-opensans leading-loose text-md md:text-lg text-justify lg:text-xl mt-2 sm:text-left">
+              Hi I’m Ritesh, passionate about creating intuitive, user-friendly
+              web applications that provide a seamless experience for users. I
+              am always eager to learn new technologies and stay up-to-date with
+              the latest industry trends. I am a team player and enjoy
+              collaborating with other developers to find creative solutions to
+              challenging problems.
+            </p>
+            <Button
+              icon={<MdKeyboardArrowRight className="text-xl" />}
+              title="Resume"
+              className="border border-secondary mt-4 sm:w-fit hover:bg-secondary hover:text-white transition-all"
+            />
+          </div>
+        </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default AboutSection;
+export default AboutSection

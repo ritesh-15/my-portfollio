@@ -1,107 +1,92 @@
-import Link from "next/link";
-import React, { FC, useState } from "react";
-import Container from "../layouts/Container";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { motion } from "framer-motion";
-import { useRouter } from "next/router";
+import Link from "next/link"
+import React, { FC, useState } from "react"
+import Button from "./Button"
+import { AiOutlineClose } from "react-icons/ai"
+import { HiOutlineMenuAlt1 } from "react-icons/hi"
 
-const styles = {
-  listStyle:
-    "text-white font-nunito py-6 md:py-0 font-semibold mt-12 md:mt-0 px-6 hover:text-primary md:hover:text-secondary transition-colors",
-};
+interface NavItemProps
+  extends React.DetailedHTMLProps<
+    React.LiHTMLAttributes<HTMLLIElement>,
+    HTMLLIElement
+  > {
+  title: string
+  path: string
+}
 
 const NavBar: FC = (): JSX.Element => {
-  const [open, setOpen] = useState<boolean>(false);
-  const router = useRouter();
+  const [open, setOpen] = useState<boolean>(false)
 
-  const isActivePath = (path: string): boolean => {
-    return router.pathname == path;
-  };
+  const handleOpen = () => {
+    setOpen(!open)
+  }
 
   return (
-    <motion.nav
-      initial={{ opacity: 0, scale: 1.5 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-      className="mx-auto shadow-lg z-50 flex items-center fixed top-0 right-0 left-0"
-    >
-      <Container className="flex items-center justify-between py-4">
-        {/* Nav Logo */}
+    <div className="fixed shadow-md z-40 bg-white top-0 left-0 right-0">
+      <nav className="py-3 relative flex items-center justify-between max-w-[1300px] w-[95%] mx-auto">
+        <h1 className="font-opensans font-bold text-xl">RITESH.</h1>
 
-        <h1 className="text-white cursor-pointer font-nunito font-bold text-2xl">
-          <Link href="/">ritesh</Link>
-        </h1>
+        <div className="flex items-center">
+          <ul className="hidden sm:flex items-center">
+            <NavItem
+              className="hidden sm:inline-block mx-8 "
+              title="About"
+              path="/"
+            />
+            <NavItem
+              className="hidden sm:inline-block mx-8 "
+              title="Skills"
+              path="/"
+            />
+            <NavItem
+              className="hidden sm:inline-block mx-8 "
+              title="Projects"
+              path="/"
+            />
+          </ul>
 
-        {/* Nav List */}
-        <ul className={`items-center hidden md:flex  p-0 justify-end W-fit`}>
-          <AiOutlineClose
-            onClick={() => setOpen(false)}
-            className="absolute right-6 text-white text-3xl md:hidden cursor-pointer"
+          <Button
+            title="Contact me"
+            className="bg-white text-secondary border border-secondary hover:bg-secondary hover:text-white transition-all rounded-full px-4 py-3"
           />
 
-          <li className={styles.listStyle}>
-            <Link
-              className={`${isActivePath("/") ? "text-secondary" : ""}`}
-              href="#"
-            >
-              Home
-            </Link>
-          </li>
-          <li onClick={() => setOpen(false)} className={styles.listStyle}>
-            <Link href="#about">About</Link>
-          </li>
-          <li onClick={() => setOpen(false)} className={styles.listStyle}>
-            <Link href="#skills">Skills</Link>
-          </li>
-          <li onClick={() => setOpen(false)} className={styles.listStyle}>
-            <Link href="#projects">Projects</Link>
-          </li>
-          <li onClick={() => setOpen(false)} className={styles.listStyle}>
-            <Link href="#education">Education</Link>
-          </li>
-          <li onClick={() => setOpen(false)} className={styles.listStyle}>
-            <Link href="#connect">Connect</Link>
-          </li>
+          <div className="ml-4 sm:hidden">
+            {open ? (
+              <AiOutlineClose
+                onClick={handleOpen}
+                className="sm:hidden text-xl cursor-pointer"
+              />
+            ) : (
+              <HiOutlineMenuAlt1
+                onClick={handleOpen}
+                className="sm:hidden text-xl cursor-pointer"
+              />
+            )}
+          </div>
+        </div>
+      </nav>
+
+      <div
+        className={`sm:hidden translate-x-[${
+          open ? "0" : "200"
+        }%] shadow-lg px-2 absolute min-h-screen bg-white w-full max-w-[350px] right-0 transition-all`}
+      >
+        <ul className="flex flex-col">
+          <NavItem className="my-6 mx-0" title="About" path="/" />
+          <NavItem className="my-6 mx-0" title="Skills" path="/" />
+          <NavItem className="my-6 mx-0" title="Projects" path="/" />
         </ul>
+      </div>
+    </div>
+  )
+}
 
-        <motion.ul
-          initial={{ opacity: 0, translateX: "100%" }}
-          animate={{
-            opacity: open ? 1 : 0,
-            translateX: open ? "0" : "100%",
-          }}
-          transition={{ duration: 0.5 }}
-          className={`flex flex-col fixed bottom-0 h-screen  bg-secondary right-0 p-6  w-full sm:w-3/4 md:w-1/2 lg:W-fit md:hidden`}
-        >
-          <AiOutlineClose
-            onClick={() => setOpen(false)}
-            className="absolute right-6 text-white text-3xl md:hidden cursor-pointer"
-          />
+const NavItem: FC<NavItemProps> = ({ path, title, className }) => {
+  return (
+    <li className={`relative w-fit cursor-pointer navbar__item ${className}`}>
+      <Link href={path}>{title}</Link>
+      <div className="h-[0.25em] absolute bg-secondary mt-1 navbar__item__bottom"></div>
+    </li>
+  )
+}
 
-          <li onClick={() => setOpen(false)} className={styles.listStyle}>
-            <Link href="#about">About</Link>
-          </li>
-          <li onClick={() => setOpen(false)} className={styles.listStyle}>
-            <Link href="#skills">Skills</Link>
-          </li>
-          <li onClick={() => setOpen(false)} className={styles.listStyle}>
-            <Link href="#projects">Projects</Link>
-          </li>
-          <li onClick={() => setOpen(false)} className={styles.listStyle}>
-            <Link href="#education">Education</Link>
-          </li>
-          <li onClick={() => setOpen(false)} className={styles.listStyle}>
-            <Link href="#connect">Connect</Link>
-          </li>
-        </motion.ul>
-
-        <AiOutlineMenu
-          onClick={() => setOpen(true)}
-          className="block md:hidden text-white text-2xl cursor-pointer"
-        />
-      </Container>
-    </motion.nav>
-  );
-};
-
-export default NavBar;
+export default NavBar
