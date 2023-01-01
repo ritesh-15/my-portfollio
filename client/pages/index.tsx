@@ -11,6 +11,7 @@ import Skills from "../components/Skills";
 import { API_SERVER_URL } from "../constants";
 import { IGetAllProjects } from "../interfaces/project_interface";
 import Container from "../layouts/Container";
+import axios from "axios";
 
 interface Props {
   data: IGetAllProjects;
@@ -55,23 +56,19 @@ const Home: NextPage<Props> = ({ data, isError }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const options: RequestInit = {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      "content-type": "application/json",
-    },
-  };
-
   let isError: boolean = false;
   let data: any = null;
 
   try {
-    const res = await fetch(`${API_SERVER_URL}/info`, options);
-    data = await res.json();
+    const res = await axios.get(`${API_SERVER_URL}/info`, {
+      withCredentials: true,
+      timeout: 4000,
+    });
+    data = res.data;
   } catch (e) {
     isError = true;
   }
+
   return {
     props: {
       data,
