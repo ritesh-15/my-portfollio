@@ -1,82 +1,76 @@
-import Image from "next/image";
-import React, { FC } from "react";
-import { AiOutlineLink } from "react-icons/ai";
-import { motion } from "framer-motion";
-import { IProject } from "../interfaces/project_interface";
-import Link from "next/link";
+import Image from "next/image"
+import React, { FC } from "react"
+import Button from "./Button"
+import { MdKeyboardArrowRight } from "react-icons/md"
+import { BsLink45Deg } from "react-icons/bs"
+import { FiExternalLink } from "react-icons/fi"
 
-interface ProjectProps {
-  isReverse?: boolean;
-  project: IProject;
+interface IProjectProps {
+  reverse?: boolean
 }
 
-const Project: FC<ProjectProps> = ({ isReverse, project }): JSX.Element => {
+const Project: FC<IProjectProps> = ({ reverse }): JSX.Element => {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.5 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-      className={`flex ${
-        isReverse ? "md:flex-row-reverse" : ""
-      } flex-col md:flex-row md:justify-between items-center min-h-screen gap-4 my-8 md:my-0 w-full`}
+    <div
+      className={`sm:hover:shadow-lg rounded-md transition-all overflow-hidden flex justify-between gap-6 mb-[4em] flex-col ${
+        reverse ? "md:flex-row-reverse" : "md:flex-row"
+      }`}
     >
-      <div
-        className={`flex-1 flex ${isReverse ? "justify-end" : "justify-start"}`}
-      >
-        <Image
-          src={project.images[0].url}
-          width={project.isMobileApplication ? 250 : 500}
-          height={project.isMobileApplication ? 450 : 300}
-          objectFit="contain"
-          className="rounded-md"
-        />
+      <div className="h-[350px] sm:h-auto relative md:flex-1">
+        <Image src="/images/1.png" layout="fill" objectFit="contain" />
       </div>
-      <div className="flex-1">
-        <h1 className="text-white font-nunito font-bold text-4xl md:text-4xl lg:text-5xl text-center md:text-left">
-          {project.title}
+
+      <div className={`flex-1 flex flex-col sm:p-4 rounded-lg`}>
+        <div className="flex items-center gap-2 flex-wrap mb-4">
+          <div className="border bg-white border-gray-300 w-fit px-2 flex items-center justify-center py-2 rounded-lg gap-1">
+            <Image src="/images/react.png" width={25} height={25} alt="" />
+            <span className="font-opensans font-light text-sm">React Js</span>
+          </div>
+          <div className="border bg-white border-gray-300 w-fit px-2 flex items-center justify-center py-2 rounded-lg gap-1">
+            <Image src="/images/nodejs.png" width={25} height={25} alt="" />
+            <span className="font-opensans font-light text-sm">Node Js</span>
+          </div>
+          <div className="border bg-white border-gray-300 w-fit px-2 flex items-center justify-center py-2 rounded-lg gap-1">
+            <Image src="/images/typescript.png" width={25} height={25} alt="" />
+            <span className="font-opensans font-light text-sm">Typescript</span>
+          </div>
+          <div className="border bg-white border-gray-300 w-fit px-2 flex items-center justify-center py-2 rounded-lg gap-1">
+            <Image src="/images/javascript.png" width={25} height={25} alt="" />
+            <span className="font-opensans font-light text-sm">Javascript</span>
+          </div>
+          <div className="border bg-white border-gray-300 w-fit px-2 flex items-center justify-center py-2 rounded-lg gap-1">
+            <Image src="/images/css.png" width={25} height={25} alt="" />
+            <span className="font-opensans font-light text-sm">CSS</span>
+          </div>
+          <div className="border bg-white border-gray-300 w-fit px-2 flex items-center justify-center py-2 rounded-lg gap-1">
+            <Image src="/images/html.png" width={25} height={25} alt="" />
+            <span className="font-opensans font-light text-sm">HTML</span>
+          </div>
+        </div>
+
+        <h1 className="text-2xl font-bold font-opensans">
+          Online food ordering website
         </h1>
-        <p className="font-nunito text-lg md:text-xl mt-4 text-white font-light text-center md:text-left">
-          {project.description}
+        <p className="text-lg font-opensans leading-loose mt-2">
+          It is a long established fact that a reader will be distracted by the
+          readable content of a page when looking at its layout. The point of
+          using Lorem Ipsum is that it has a more-or-less normal distribution
         </p>
-        <div className="mt-6 flex items-center cursor-pointer justify-center md:justify-start">
-          <Link passHref href={project.gitHubRepo}>
-            <a
-              className="no-underline outline-none"
-              href={project.gitHubRepo}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div className="flex items-center">
-                <AiOutlineLink className="text-white text-xl" />
-                <span className="text-white font-nunito ml-2 text-lg">
-                  GitHub Repo
-                </span>
-              </div>
-            </a>
-          </Link>
+        <div className="flex items-center gap-4 mt-4">
+          <Button
+            icon={<FiExternalLink className="text-xl" />}
+            title="View"
+            className="bg-secondary text-white"
+          />
+          <Button
+            icon={<BsLink45Deg className="text-xl" />}
+            title="Git Hub"
+            className="text-secondary bg-white border-secondary border"
+          />
         </div>
-        <div className="mt-4 flex gap-4 flex-wrap justify-center md:justify-start">
-          {project.techStack.map((stack) => (
-            <div key={stack.id} className="flex items-center">
-              <Image src={stack.image.url} width={25} height={25} />
-              <small className="text-white ml-2 text-lg font-nunito font-light">
-                {stack.name}
-              </small>
-            </div>
-          ))}
-        </div>
-
-        <a
-          rel="noreferrer"
-          href={project.demoLink}
-          target="_blank"
-          className="no-underline outline-none cursor-pointer mt-4 flex justify-self-center md:justify-self-start mx-auto md:mx-0 w-fit rounded-full text-secondary border-secondary border py-3 px-4 font-nunito"
-        >
-          View Demo
-        </a>
       </div>
-    </motion.div>
-  );
-};
+    </div>
+  )
+}
 
-export default Project;
+export default Project

@@ -3,6 +3,8 @@ import Head from "next/head"
 import AboutSection from "../components/AboutSection"
 import HeroSection from "../components/HeroSection"
 import NavBar from "../components/NavBar"
+import ProjectsSection from "../components/ProjectsSection"
+import Skills from "../components/Skills"
 import Container from "../layouts/Container"
 
 const Home: NextPage = () => {
@@ -17,6 +19,8 @@ const Home: NextPage = () => {
         <NavBar />
         <HeroSection />
         <AboutSection />
+        <Skills />
+        <ProjectsSection />
       </Container>
     </div>
   )

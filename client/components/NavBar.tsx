@@ -66,9 +66,9 @@ const NavBar: FC = (): JSX.Element => {
       </nav>
 
       <div
-        className={`sm:hidden translate-x-[${
-          open ? "0" : "200"
-        }%] shadow-lg px-2 absolute min-h-screen bg-white w-full max-w-[350px] right-0 transition-all`}
+        className={`sm:hidden ${
+          open ? "translate-x-[0%]" : "translate-x-[200%]"
+        } shadow-lg px-2 absolute min-h-screen bg-white w-full max-w-[350px] right-0 transition-all`}
       >
         <ul className="flex flex-col">
           <NavItem className="my-6 mx-0" title="About" path="/" />
