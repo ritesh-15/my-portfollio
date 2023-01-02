@@ -1,6 +1,7 @@
 import React, { FC } from "react"
 import Button from "./Button"
 import { AiOutlineDown } from "react-icons/ai"
+import { motion } from "framer-motion"
 
 const HeroSection: FC = (): JSX.Element => {
   return (
@@ -24,7 +25,7 @@ const HeroSection: FC = (): JSX.Element => {
         />
       </div>
 
-      <div className="bg-primary right-0 sm:right-[100px] top-0 sm:top-[80px] absolute w-[300px] rounded-[50%] h-[300px]"></div>
+      <motion.div className="bg-primary right-0 sm:right-[100px] top-0 sm:top-[80px] absolute w-[300px] rounded-[50%] h-[300px]"></motion.div>
 
       <div className="bg-secondary hidden sm:block right-0 top-[350px] absolute w-[200px] rounded-[50%] h-[200px]"></div>
 

@@ -20,7 +20,7 @@ const AboutSection: FC = (): JSX.Element => {
               objectFit="cover"
             />
 
-            <div className="w-[250px] rounded-md h-[350px] bg-primary absolute bottom-0 right-[-1.5rem] top-[1.5rem]"></div>
+            <div className="w-[250px] rounded-md h-[350px] bg-secondary absolute bottom-0 right-[-1.5rem] top-[1.5rem]"></div>
           </div>
         </div>
 

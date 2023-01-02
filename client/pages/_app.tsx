@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return getLayout(
     <>
       <Provider store={store}>
-        <SnackbarProvider maxSnack={3}>
+        <SnackbarProvider autoHideDuration={3000} maxSnack={3}>
           <Component {...pageProps} />
           <RefreshComponent />
         </SnackbarProvider>

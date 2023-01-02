@@ -9,7 +9,7 @@ const ProjectsSection: FC = (): JSX.Element => {
         Featured projects
       </h1>
       <Project />
-      <Project />
+      <Project reverse />
       <Project />
 
       <Button

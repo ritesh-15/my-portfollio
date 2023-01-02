@@ -23,24 +23,28 @@ const NavBar: FC = (): JSX.Element => {
   return (
     <div className="fixed shadow-md z-40 bg-white top-0 left-0 right-0">
       <nav className="py-3 relative flex items-center justify-between max-w-[1300px] w-[95%] mx-auto">
-        <h1 className="font-opensans font-bold text-xl">RITESH.</h1>
+        <Link href="/">
+          <h1 className="font-opensans font-bold text-xl cursor-pointer">
+            RITESH.
+          </h1>
+        </Link>
 
         <div className="flex items-center">
           <ul className="hidden sm:flex items-center">
             <NavItem
               className="hidden sm:inline-block mx-8 "
               title="About"
-              path="/"
+              path="#about"
             />
             <NavItem
               className="hidden sm:inline-block mx-8 "
               title="Skills"
-              path="/"
+              path="#skills"
             />
             <NavItem
               className="hidden sm:inline-block mx-8 "
               title="Projects"
-              path="/"
+              path="#projects"
             />
           </ul>
 
@@ -71,9 +75,9 @@ const NavBar: FC = (): JSX.Element => {
         } shadow-lg px-2 absolute min-h-screen bg-white w-full max-w-[350px] right-0 transition-all`}
       >
         <ul className="flex flex-col">
-          <NavItem className="my-6 mx-0" title="About" path="/" />
-          <NavItem className="my-6 mx-0" title="Skills" path="/" />
-          <NavItem className="my-6 mx-0" title="Projects" path="/" />
+          <NavItem className="my-6 mx-0" title="About" path="#about" />
+          <NavItem className="my-6 mx-0" title="Skills" path="#skills" />
+          <NavItem className="my-6 mx-0" title="Projects" path="#projects" />
         </ul>
       </div>
     </div>

@@ -1,149 +1,133 @@
-import React, { FC } from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { useFormik } from "formik";
-import connectSchema from "../models/connect_schema";
-import { useNewContactMutation } from "../app/services/contact/contact.service";
-import { IContact } from "../interfaces/contact_interface";
-import { useSnackbar } from "notistack";
+import React, { FC } from "react"
+import { IoCopyOutline } from "react-icons/io5"
+import { useSnackbar } from "notistack"
+import {
+  AiOutlineInstagram,
+  AiOutlineTwitter,
+  AiFillGithub,
+} from "react-icons/ai"
+import { SiLeetcode } from "react-icons/si"
+import { FaLinkedinIn } from "react-icons/fa"
+import { Button, FormField } from "."
+import { MdKeyboardArrowRight } from "react-icons/md"
+import { useFormik } from "formik"
+import ContactSchema from "../models/connect_schema"
 
 interface ConnectFormState {
-  name: string;
-  email: string;
-  message: string;
+  name: string
+  email: string
+  message: string
 }
 
-const errorStyle = "text-red-500 font-nunito text-sm";
+const errorStyle = "text-red-500 font-nunito text-sm"
 
 const initialState: ConnectFormState = {
   name: "",
   email: "",
   message: "",
-};
+}
 
 const ConnectSection: FC = () => {
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar()
 
-  const { handleChange, handleSubmit, values, errors, touched, resetForm } =
-    useFormik({
-      onSubmit: (values) => {
-        handleNewContactRequest(values as IContact);
-      },
-      initialValues: initialState,
-      validationSchema: connectSchema,
-    });
+  const { values, errors, handleChange, handleSubmit } = useFormik({
+    initialValues: initialState,
+    validationSchema: ContactSchema,
+    onSubmit(values, formikHelpers) {},
+  })
 
-  const [newContact, { isLoading, error }] = useNewContactMutation();
-
-  const handleNewContactRequest = async (value: IContact) => {
-    await newContact(values);
-
-    if (error && "status" in error) {
-      enqueueSnackbar((error as any).data.message, { variant: "error" });
-    }
-
-    enqueueSnackbar(
-      "Thank you for reaching out to me, I will contact you soon!.",
-      { variant: "success" }
-    );
-
-    resetForm();
-  };
+  const handleEmailCopy = () => {
+    navigator.clipboard.writeText("riteshkhore@gmail.com")
+    enqueueSnackbar("Email address copied successfully!", {
+      variant: "success",
+    })
+  }
 
   return (
     <section
       id="connect"
-      className="min-h-screen relative bg-primary items-center flex w-full mx-0 flex-col md:flex-row md:justify-between"
+      className="relative flex items-center full__screen__height mb-4 sm:mb-0"
     >
-      <div className="flex flex-col md:flex-row gap-4 items-center w-full">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="flex-1"
-        >
-          <Image src="/images/connect.svg" width={550} height={450} />
-        </motion.div>
+      <div className="flex gap-4 flex-col sm:flex-row w-full">
+        <div className="flex-1 w-full ">
+          <h1 className="font-opensans font-bold text-2xl w-full sm:w-[60%]">
+            Lets work together on next project
+          </h1>
+          <p className="font-opensans mt-2 leading-loose w-full sm:w-[70%]">
+            I will be always happy to work with you on your next project. You
+            can email me or fill out the form. I will be reach you as soon as
+            possible.
+          </p>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="flex-1"
-        >
-          <div className="z-20">
-            <h1 className="text-white text-3xl md:text-5xl font-nunito font-bold">
-              Let's Connect
-            </h1>
-            <p className="text-white mt-4 text-2xl md:text-xl w-full md:w-[450px]">
-              Give the details of yours and i will contact you as possible as
-              can
-            </p>
+          <div className="mt-4">
+            <span className="font-opensans font-semibold mb-2 inline-block">
+              Contact via email
+            </span>
+            <div className="bg-gray-100 w-full sm:max-w-[350px] py-3 px-2 rounded-md flex items-center justify-between">
+              <input
+                type="text"
+                className="bg-transparent w-full h-full outline-none"
+                readOnly
+                value="riteshkhore@gmail.com"
+              />
+              <IoCopyOutline
+                onClick={handleEmailCopy}
+                className="text-xl cursor-pointer"
+              />
+            </div>
           </div>
 
-          <form
-            onSubmit={handleSubmit}
-            action=""
-            className="mt-4 mb-4 md:mb-0 flex flex-col  w-full gap-4"
-          >
-            <div className="mb-2">
-              <label className="text-white mb-2 block font-nunito" htmlFor="">
-                Name
-              </label>
-              <input
-                onChange={handleChange}
-                value={values.name}
-                name="name"
-                type="text"
-                className="w-full px-2 py-4 rounded-md font-nunito outline-none border-none"
-              />
-              {errors.name && touched.name ? (
-                <small className={errorStyle}>{errors.name}</small>
-              ) : null}
+          <div className="mt-4">
+            <span className="font-opensans font-semibold mb-3 inline-block">
+              Check out my socials
+            </span>
+            <div className="flex items-center gap-4">
+              <AiOutlineInstagram className="text-xl cursor-pointer hover:text-primary transition-all" />
+              <AiOutlineTwitter className="text-xl cursor-pointer hover:text-primary transition-all" />
+              <AiFillGithub className="text-xl cursor-pointer hover:text-primary transition-all" />
+              <FaLinkedinIn className="text-xl cursor-pointer hover:text-primary transition-all" />
+              <SiLeetcode className="text-xl cursor-pointer hover:text-primary transition-all" />
             </div>
+          </div>
+        </div>
 
-            <div className="mb-2">
-              <label className="text-white mb-2 block font-nunito" htmlFor="">
-                Email Address
-              </label>
-              <input
-                onChange={handleChange}
-                value={values.email}
-                name="email"
-                type="email"
-                className="w-full px-2 py-4 rounded-md font-nunito outline-none border-none"
-              />
-              {errors.email && (
-                <small className={errorStyle}>{errors.email}</small>
-              )}
-            </div>
-
-            <div className="flex-1">
-              <label className="text-white mb-2 block font-nunito" htmlFor="">
-                Any message or suggestion?
-              </label>
-              <textarea
-                onChange={handleChange}
-                value={values.message}
-                name="message"
-                className="w-full resize-none h-[75px] px-2 py-4 rounded-md font-nunito outline-none border-none"
-              />
-              {errors.message && (
-                <small className={errorStyle}>{errors.message}</small>
-              )}
-            </div>
-
-            <button
-              disabled={isLoading}
-              className="text-white bg-secondary py-4 rounded-md font-nunito flex items-center justify-center"
-            >
-              {isLoading ? <div className="loader" /> : "Connect with me"}
-            </button>
+        <div className="flex-1 ">
+          <form onSubmit={handleSubmit} action="">
+            <FormField
+              onChange={handleChange}
+              name="name"
+              value={values.name}
+              label="Name"
+              parentclass="mb-4"
+              error={errors.name}
+            />
+            <FormField
+              onChange={handleChange}
+              name="email"
+              value={values.email}
+              label="Email address"
+              parentclass="mb-4"
+              error={errors.email}
+            />
+            <FormField
+              onChange={handleChange}
+              name="message"
+              value={values.message}
+              multiline
+              label="Message"
+              parentclass="mb-4"
+              error={errors.message}
+            />
+            <Button
+              title="Reach out to me"
+              className="bg-secondary text-white w-full sm:w-fit sm:ml-auto"
+              icon={<MdKeyboardArrowRight className="text-xl" />}
+            />
           </form>
-        </motion.div>
+        </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default ConnectSection;
+export default ConnectSection

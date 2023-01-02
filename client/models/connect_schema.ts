@@ -1,13 +1,13 @@
-import * as Yup from "yup";
+import * as Yup from "yup"
 
-const connectSchema = Yup.object({
-  name: Yup.string().required("Please provide your name!").min(2),
+const ContactSchema = Yup.object({
+  name: Yup.string().required("Name is required!").min(2),
   email: Yup.string()
-    .required("Please provide email address!")
+    .required("Email address is required!")
     .email("Email address should be valid!"),
   message: Yup.string()
     .required("Please provide suggestion or message!")
     .min(5),
-});
+})
 
-export default connectSchema;
+export default ContactSchema
