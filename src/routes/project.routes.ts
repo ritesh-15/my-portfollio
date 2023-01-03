@@ -1,13 +1,13 @@
-import { Router } from "express";
-import { checkSchema } from "express-validator";
-import uploadImage from "../config/multer_config";
-import ProjectController from "../controllers/project_controller";
+import { Router } from "express"
+import { checkSchema } from "express-validator"
+import uploadImage from "../config/multer_config"
+import ProjectController from "../controllers/project_controller"
 import {
   authenticate,
   compressImage,
   parseBody,
   validateRequest,
-} from "../middlewares";
+} from "../middlewares"
 import {
   addProjectValidator,
   addTechStackValidator,
@@ -17,9 +17,9 @@ import {
   removeProjectValidator,
   updateProjectValidator,
   updateTechStackValidator,
-} from "../validator/project_validator";
+} from "../validator/project_validator"
 
-const projectRouter = Router();
+const projectRouter = Router()
 
 projectRouter
   .route("/")
@@ -29,7 +29,7 @@ projectRouter
     validateRequest,
     ProjectController.addProject
   )
-  .get(ProjectController.getAllProjects);
+  .get(ProjectController.getAllProjects)
 
 projectRouter
   .route("/single/:id")
@@ -38,37 +38,39 @@ projectRouter
     checkSchema(getSingleProjectSchema),
     validateRequest,
     ProjectController.getProjectById
-  );
+  )
 
 projectRouter
   .route("/:id")
   .delete(
-    [authenticate],
+    authenticate,
     checkSchema(removeProjectValidator),
     validateRequest,
     ProjectController.removeProject
   )
   .put(
-    [authenticate],
+    authenticate,
     checkSchema(updateProjectValidator),
     validateRequest,
     ProjectController.updateProject
-  );
+  )
 
 projectRouter
   .route("/tech-stack")
   .post(
-    [authenticate, uploadImage.single("image")],
+    authenticate,
+    uploadImage.single("image"),
     checkSchema(addTechStackValidator),
     validateRequest,
     ProjectController.addTechStack
   )
-  .get(authenticate, ProjectController.getAllTechStacks);
+  .get(authenticate, ProjectController.getAllTechStacks)
 
 projectRouter
   .route("/tech-stack/:id")
   .put(
-    [authenticate, uploadImage.single("image")],
+    authenticate,
+    uploadImage.single("image"),
     checkSchema(updateTechStackValidator),
     validateRequest,
     ProjectController.updateTechStack
@@ -84,6 +86,6 @@ projectRouter
     checkSchema(getTechStackByIdValidator),
     validateRequest,
     ProjectController.getTechStackById
-  );
+  )
 
-export default projectRouter;
+export default projectRouter

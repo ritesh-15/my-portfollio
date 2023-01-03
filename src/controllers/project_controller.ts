@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response } from "express";
-import asyncHandler from "express-async-handler";
-import CloudinaryHelper from "../helpers/cloudinary_helper";
-import Prisma from "../helpers/prisma_client";
-import CreateHttpError from "../utils/create_http_error";
-import fs from "fs/promises";
-import removeFiles from "../utils/removeFile";
+import { NextFunction, Request, Response } from "express"
+import asyncHandler from "express-async-handler"
+import CloudinaryHelper from "../helpers/cloudinary_helper"
+import Prisma from "../helpers/prisma_client"
+import CreateHttpError from "../utils/create_http_error"
+import fs from "fs/promises"
+import removeFiles from "../utils/removeFile"
 
 class ProjectController {
   /**
@@ -21,40 +21,36 @@ class ProjectController {
         isMobileApplication,
         gitHubRepo,
         demoLink,
-      } = req.body;
+      } = req.body
 
-      const files: any = req.files;
+      const files: any = req.files
 
       if (!files?.length) {
         return next(
           CreateHttpError.unprocessableEntity("Project images are required!")
-        );
+        )
       }
 
       const images = await Promise.all(
         files.map(async (file: Express.Multer.File) => {
-          const uploadedImage = await CloudinaryHelper.uploadImage(file.path);
-          await fs.unlink(file.path);
-          return uploadedImage;
+          const uploadedImage = await CloudinaryHelper.uploadImage(file.path)
+          await fs.unlink(file.path)
+          return uploadedImage
         })
-      );
+      )
 
       const project = await Prisma.get().project.create({
         data: {
           title,
           description,
           demoLink,
-          gitHubRepo,
-          techStack: {
-            connect: techStack.map((id: string) => {
-              return {
-                id,
-              };
-            }),
-          },
+          gitHubLink: gitHubRepo,
+          tagsId: techStack.map((id: string) => {
+            return id
+          }),
           isMobileApplication,
         },
-      });
+      })
 
       await Promise.all(
         images.map(async (image) => {
@@ -64,16 +60,16 @@ class ProjectController {
               url: image.secure_url,
               projectId: project.id,
             },
-          });
+          })
         })
-      );
+      )
 
       res.status(201).json({
         success: true,
         message: "Project added successfully!",
-      });
+      })
     }
-  );
+  )
 
   /**
    * @route project/:id
@@ -82,7 +78,7 @@ class ProjectController {
    */
   static getProjectById = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
-      const { id } = req.params;
+      const { id } = req.params
       const project = await Prisma.get().project.findUnique({
         where: {
           id: id,
@@ -94,7 +90,7 @@ class ProjectController {
               url: true,
             },
           },
-          techStack: {
+          tags: {
             select: {
               name: true,
               image: {
@@ -106,19 +102,19 @@ class ProjectController {
             },
           },
         },
-      });
+      })
 
       if (!project)
         return next(
           CreateHttpError.notFound("Project with given id is not found!")
-        );
+        )
 
       res.json({
         success: true,
         project: project,
-      });
+      })
     }
-  );
+  )
 
   /**
    * @route project/
@@ -135,7 +131,7 @@ class ProjectController {
               url: true,
             },
           },
-          techStack: {
+          tags: {
             select: {
               name: true,
               image: {
@@ -147,14 +143,14 @@ class ProjectController {
             },
           },
         },
-      });
+      })
 
       res.json({
         success: true,
         projects,
-      });
+      })
     }
-  );
+  )
 
   /**
    * @route project/:id
@@ -163,25 +159,25 @@ class ProjectController {
    */
   static removeProject = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
-      const { id } = req.params;
+      const { id } = req.params
 
       const project = await Prisma.get().project.findUnique({
         where: { id },
-      });
+      })
 
       if (!project)
         return next(
           CreateHttpError.notFound("Project not found with given id!")
-        );
+        )
 
-      await Prisma.get().project.delete({ where: { id } });
+      await Prisma.get().project.delete({ where: { id } })
 
       res.json({
         success: true,
         message: "Project removed successfully!",
-      });
+      })
     }
-  );
+  )
 
   /**
    * @route project/:id
@@ -190,15 +186,15 @@ class ProjectController {
    */
   static updateProject = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
-      const { title, description, gitHubRepo, demoLink } = req.body;
-      const { id } = req.params;
+      const { title, description, gitHubRepo, demoLink, tags } = req.body
+      const { id } = req.params
 
-      const project = await Prisma.get().project.findUnique({ where: { id } });
+      const project = await Prisma.get().project.findUnique({ where: { id } })
 
       if (!project)
         return next(
           CreateHttpError.notFound("Project not found with given id!")
-        );
+        )
 
       const updatedProject = await Prisma.get().project.update({
         where: {
@@ -208,7 +204,10 @@ class ProjectController {
           title,
           demoLink,
           description,
-          gitHubRepo,
+          gitHubLink: gitHubRepo,
+          tagsId: {
+            push: tags,
+          },
         },
         include: {
           images: {
@@ -217,7 +216,7 @@ class ProjectController {
               url: true,
             },
           },
-          techStack: {
+          tags: {
             select: {
               name: true,
               image: {
@@ -229,15 +228,15 @@ class ProjectController {
             },
           },
         },
-      });
+      })
 
       res.json({
         success: true,
         message: "Project updated successfully!",
         project: updatedProject,
-      });
+      })
     }
-  );
+  )
 
   /**
    * @route project/tech-stack
@@ -246,10 +245,10 @@ class ProjectController {
    */
   static addTechStack = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
-      const { name } = req.body;
-      const image = req.file;
+      const { name } = req.body
+      const image = req.file
 
-      if (!image) return next(CreateHttpError.notFound("Image not found!"));
+      if (!image) return next(CreateHttpError.notFound("Image not found!"))
 
       const isTechStackExits = await Prisma.get().techStack.findFirst({
         where: {
@@ -258,32 +257,32 @@ class ProjectController {
             mode: "insensitive",
           },
         },
-      });
+      })
 
       // if tech stack already exits then delete the uploaded file
       if (isTechStackExits) {
-        await removeFiles(req);
+        await removeFiles(req)
         return next(
           CreateHttpError.badRequest(
             "Tech stack with given name is already exits!"
           )
-        );
+        )
       }
 
-      const uploadedImage = await CloudinaryHelper.uploadImage(image.path);
+      const uploadedImage = await CloudinaryHelper.uploadImage(image.path)
 
       // if not uploaded successfully then delete the uploaded files from storage
       if (!uploadedImage) {
-        await removeFiles(req);
+        await removeFiles(req)
         return next(
           CreateHttpError.internalServerError(
             "Something went wrong while uploading image please try again later!"
           )
-        );
+        )
       }
 
       // delete files after successfully upload to cloudinary
-      await removeFiles(req);
+      await removeFiles(req)
 
       const techStack = await Prisma.get().techStack.create({
         data: {
@@ -295,15 +294,15 @@ class ProjectController {
             },
           },
         },
-      });
+      })
 
       res.status(201).json({
         success: true,
         message: "Tech stack added successfully!",
         techStack,
-      });
+      })
     }
-  );
+  )
 
   /**
    * @route project/tech-stack/:id
@@ -312,29 +311,29 @@ class ProjectController {
    */
   static removeTechStack = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
-      const { id } = req.params;
+      const { id } = req.params
 
       const techStack = await Prisma.get().techStack.findUnique({
         where: {
           id,
         },
-      });
+      })
 
       if (!techStack)
-        return next(CreateHttpError.notFound("Tech stack not found!"));
+        return next(CreateHttpError.notFound("Tech stack not found!"))
 
       await Prisma.get().techStack.delete({
         where: {
           id,
         },
-      });
+      })
 
       res.json({
         success: true,
         message: "Tech stack deleted!",
-      });
+      })
     }
-  );
+  )
 
   /**
    * @route project/tech-stack
@@ -353,14 +352,14 @@ class ProjectController {
           name: true,
           id: true,
         },
-      });
+      })
 
       res.json({
         success: true,
         techStacks,
-      });
+      })
     }
-  );
+  )
 
   /**
    * @route project/tech-stack/:id
@@ -369,42 +368,42 @@ class ProjectController {
    */
   static updateTechStack = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
-      const { id } = req.params;
-      const { name } = req.body;
-      const image = req.file;
+      const { id } = req.params
+      const { name } = req.body
+      const image = req.file
 
       const isExits = await Prisma.get().techStack.findUnique({
         where: {
           id,
         },
-      });
+      })
 
       if (!isExits)
-        return next(CreateHttpError.notFound("Tech stack not found!"));
+        return next(CreateHttpError.notFound("Tech stack not found!"))
 
-      let cloudImageId = null;
+      let cloudImageId = null
 
       if (image) {
         // if image is present then update the cloud image
-        const uploadedImage = await CloudinaryHelper.uploadImage(image.path);
+        const uploadedImage = await CloudinaryHelper.uploadImage(image.path)
 
         if (!uploadedImage)
           return next(
             CreateHttpError.internalServerError(
               "Something went wrong while uploading image please try again later!"
             )
-          );
+          )
 
-        await fs.unlink(image.path);
+        await fs.unlink(image.path)
 
         const cloudImage = await Prisma.get().cloudImage.create({
           data: {
             publicId: uploadedImage.public_id,
             url: uploadedImage.secure_url,
           },
-        });
+        })
 
-        cloudImageId = cloudImage.id;
+        cloudImageId = cloudImage.id
       }
 
       const techStack = await Prisma.get().techStack.update({
@@ -415,23 +414,23 @@ class ProjectController {
           name: name ? name : isExits.name,
           cloudImageId: cloudImageId ? cloudImageId : isExits.cloudImageId,
         },
-      });
+      })
 
       if (cloudImageId) {
         await Prisma.get().cloudImage.delete({
           where: {
             id: isExits.cloudImageId,
           },
-        });
+        })
       }
 
       res.json({
         success: true,
         message: "Tech stack updated successfully!",
         techStack,
-      });
+      })
     }
-  );
+  )
 
   /**
    * @route project/tech-stack/:id
@@ -440,7 +439,7 @@ class ProjectController {
    */
   static getTechStackById = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
-      const { id } = req.params;
+      const { id } = req.params
 
       const techStack = await Prisma.get().techStack.findUnique({
         where: {
@@ -455,19 +454,19 @@ class ProjectController {
           name: true,
           id: true,
         },
-      });
+      })
 
       if (!techStack)
         return next(
           CreateHttpError.notFound("Tech stack with given id not found!")
-        );
+        )
 
       res.json({
         success: true,
         techStack,
-      });
+      })
     }
-  );
+  )
 }
 
-export default ProjectController;
+export default ProjectController

@@ -1,4 +1,4 @@
-import { Schema } from "express-validator";
+import { Schema } from "express-validator"
 
 const addTechStackValidator: Schema = {
   name: {
@@ -14,7 +14,7 @@ const addTechStackValidator: Schema = {
     },
     trim: true,
   },
-};
+}
 
 const updateTechStackValidator: Schema = {
   name: {
@@ -23,32 +23,29 @@ const updateTechStackValidator: Schema = {
   },
   id: {
     in: ["params"],
-    isUUID: {
-      errorMessage: "Must be a valid id!",
+    exists: {
+      errorMessage: "Tech stack id is required!",
     },
   },
-};
+}
 
 const getTechStackByIdValidator: Schema = {
   id: {
     in: ["body"],
-    isEmpty: {
-      errorMessage: "Id is required!",
-    },
-    isUUID: {
-      errorMessage: "Id must be a valid!",
+    exists: {
+      errorMessage: "Tech stack id is required!",
     },
   },
-};
+}
 
 const deleteTechStackValidator: Schema = {
   id: {
     in: ["params"],
-    isUUID: {
-      errorMessage: "Must be a valid id!",
+    exists: {
+      errorMessage: "Tech stack id is required!",
     },
   },
-};
+}
 
 const addProjectValidator: Schema = {
   title: {
@@ -108,7 +105,7 @@ const addProjectValidator: Schema = {
       errorMessage: "At least have one tech stack",
     },
   },
-};
+}
 
 const removeProjectValidator: Schema = {
   id: {
@@ -116,20 +113,14 @@ const removeProjectValidator: Schema = {
     exists: {
       errorMessage: "Project id is required to remove the project!",
     },
-    isUUID: {
-      errorMessage: "Project id must be a valid!",
-    },
   },
-};
+}
 
 const updateProjectValidator: Schema = {
   id: {
     in: ["params"],
     exists: {
       errorMessage: "Project id is required to remove the project!",
-    },
-    isUUID: {
-      errorMessage: "Project id must be a valid!",
     },
   },
   title: {
@@ -179,7 +170,13 @@ const updateProjectValidator: Schema = {
       errorMessage: "Is mobile application must be a boolean value!",
     },
   },
-};
+  tags: {
+    in: ["body"],
+    isArray: {
+      errorMessage: "Please provide array of tags",
+    },
+  },
+}
 
 const getSingleProjectSchema: Schema = {
   id: {
@@ -187,11 +184,8 @@ const getSingleProjectSchema: Schema = {
     exists: {
       errorMessage: "Project id is required!",
     },
-    isUUID: {
-      errorMessage: "Project id must be a valid!",
-    },
   },
-};
+}
 
 export {
   addTechStackValidator,
@@ -202,4 +196,4 @@ export {
   updateProjectValidator,
   getSingleProjectSchema,
   getTechStackByIdValidator,
-};
+}

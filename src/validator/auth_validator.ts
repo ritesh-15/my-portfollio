@@ -1,4 +1,4 @@
-import { Schema } from "express-validator";
+import { Schema } from "express-validator"
 
 const loginValidator: Schema = {
   email: {
@@ -25,7 +25,7 @@ const loginValidator: Schema = {
       options: { min: 7 },
     },
   },
-};
+}
 
 const addUserValidator: Schema = {
   password: {
@@ -72,6 +72,27 @@ const addUserValidator: Schema = {
     },
     trim: true,
   },
-};
+}
 
-export { loginValidator, addUserValidator };
+const updateUserValidator: Schema = {
+  email: {
+    in: ["body"],
+  },
+  heading: {
+    in: ["body"],
+  },
+  subHeading: {
+    in: ["body"],
+  },
+  about: {
+    in: ["body"],
+  },
+  contactHeading: {
+    in: ["body"],
+  },
+  contactSubHeading: {
+    in: ["body"],
+  },
+}
+
+export { loginValidator, addUserValidator, updateUserValidator }
