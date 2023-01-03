@@ -1,156 +1,64 @@
-import { NextPage } from "next";
-import {
-  Button,
-  FormControl,
-  FormHelperText,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  TextField,
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useLoginMutation } from "../../app/services/auth/auth.service";
-import { useFormik } from "formik";
-import { loginSchema } from "../../models/authentication";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../app/store";
-import { useRouter } from "next/router";
-import { setCredentials } from "../../app/features/authSlice";
-import { useAuth } from "../../hooks";
+import { NextPage } from "next"
+import { useFormik } from "formik"
+import { loginSchema } from "../../models/authentication"
+import { useAuth } from "../../hooks"
+import { Button, FormField } from "../../components"
 
 interface LoginFormState {
-  password: string;
-  email: string;
+  password: string
+  email: string
 }
 
 const initialValues: LoginFormState = {
   email: "",
   password: "",
-};
+}
 
 const Login: NextPage = () => {
-  useAuth({ isAuthPage: true, route: "/admin/login" });
+  useAuth({ isAuthPage: true, route: "/admin/login" })
 
-  const [showPassword, setShowPassword] = useState<Boolean>(false);
-  const { user } = useSelector((state: RootState) => state.auth);
-  const router = useRouter();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (user) {
-      router.push("/admin");
-    }
-  }, [user]);
-
-  const { handleChange, handleSubmit, values, errors, touched } =
-    useFormik<LoginFormState>({
-      initialValues: initialValues,
-      validationSchema: loginSchema,
-      onSubmit: (values) => {
-        handleLoginRequest(values);
-      },
-    });
-
-  const [login, { data: loginData }] = useLoginMutation();
-
-  const handleLoginRequest = async (values: LoginFormState) => {
-    await login(values);
-    if (loginData && loginData.user) {
-      dispatch(setCredentials({ user: loginData.user }));
-    }
-  };
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
+  const { values, errors, handleChange, handleSubmit } = useFormik({
+    initialValues,
+    validationSchema: loginSchema,
+    onSubmit: async (values) => {},
+  })
 
   return (
-    <section className="min-h-screen flex items-center flex-col">
-      <div className="my-12">
-        <h1 className="font-nunito text-2xl font-bold mb-2">
+    <section className="min-h-screen max-w-[500px] mx-auto flex items-start flex-col">
+      <div className="my-12 ">
+        <h1 className="font-opensans text-2xl font-bold mb-2">
           Welcome back Ritesh!
         </h1>
-        <p className="font-nunito">
+        <p className="font-opensans">
           Enter your credentials to continue to a dashboard
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} action="" className="w-full max-w-[350px]">
-        <div className="mb-4">
-          <TextField
-            id="email"
-            type="email"
-            label="Email address"
-            variant="outlined"
-            fullWidth
-            value={values.email}
-            onChange={handleChange}
-            error={errors.email && touched.email ? true : false}
-            helperText={errors.email}
-          />
-        </div>
-
-        <div className="mb-8">
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel
-              error={errors.password && touched.password ? true : false}
-              htmlFor="outlined-adornment-password"
-            >
-              Password
-            </InputLabel>
-
-            <OutlinedInput
-              fullWidth
-              error={errors.password && touched.password ? true : false}
-              id="password"
-              type={showPassword ? "text" : "password"}
-              value={values.password}
-              onChange={handleChange}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-            />
-            {errors.password && touched.password ? (
-              <FormHelperText
-                error={errors.password && touched.password ? true : false}
-                id="outlined-weight-helper-text"
-              >
-                {errors.password}
-              </FormHelperText>
-            ) : null}
-          </FormControl>
-        </div>
-
+      <form onSubmit={handleSubmit} action="" className="w-full ">
+        <FormField
+          name="email"
+          onChange={handleChange}
+          value={values.email}
+          error={errors.email}
+          label="Email address"
+          parentclass="mb-4"
+        />
+        <FormField
+          name="password"
+          onChange={handleChange}
+          value={values.password}
+          error={errors.password}
+          label="Password"
+          parentclass="mb-4"
+        />
         <Button
-          className="bg-primary"
-          size="large"
-          fullWidth
-          variant="contained"
           type="submit"
-        >
-          Login
-        </Button>
+          title="Login"
+          className="w-full bg-secondary text-white"
+        />
       </form>
     </section>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

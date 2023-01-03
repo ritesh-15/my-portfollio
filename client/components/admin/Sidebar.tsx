@@ -1,38 +1,38 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
-import { BsGrid, BsGridFill, BsHddStackFill, BsHddStack } from "react-icons/bs";
+import Link from "next/link"
+import { useRouter } from "next/router"
+import React from "react"
+import { BsGrid, BsGridFill, BsHddStackFill, BsHddStack } from "react-icons/bs"
 import {
   AiFillContacts,
   AiOutlineContacts,
   AiOutlineHome,
   AiFillHome,
-} from "react-icons/ai";
+} from "react-icons/ai"
 
 const sidebarItemStyle = (isActive: boolean): string => {
   return `flex items-center ${
     isActive
-      ? "bg-primary shadow-lg text-white"
+      ? "bg-secondary shadow-lg text-white"
       : "bg-white shadow-none hover:bg-gray-100 text-black"
-  } px-4 py-3 rounded-md cursor-pointer transition mb-4`;
-};
+  } px-4 py-3 rounded-md cursor-pointer transition mb-4`
+}
 
-const iconStyle = "text-xl";
+const iconStyle = "text-xl"
 
 const SidebarPaths = {
   PROJECTS: "/admin/projects",
   TECHSTACK: "/admin/techstack",
   CONTACTS: "/admin/contact",
   DASHBOARD: "/admin",
-};
+}
 
 const Sidebar = () => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const isActive = (path: string): boolean => router.pathname === path;
+  const isActive = (path: string): boolean => router.pathname === path
 
   return (
-    <div className="p-4 flex-1 bg-white border-r max-w-[300px]">
+    <div className="p-4 flex-1 full__screen__height bg-white border-r max-w-[300px]">
       <ul>
         <Link href={SidebarPaths.DASHBOARD}>
           <li className={sidebarItemStyle(isActive(SidebarPaths.DASHBOARD))}>
@@ -41,7 +41,7 @@ const Sidebar = () => {
             ) : (
               <AiOutlineHome className={iconStyle} />
             )}
-            <span className="text-lg ml-4 font-nunito">Dashboard</span>
+            <span className="text-lg ml-4 font-opensans">Dashboard</span>
           </li>
         </Link>
 
@@ -52,7 +52,7 @@ const Sidebar = () => {
             ) : (
               <AiOutlineContacts className={iconStyle} />
             )}
-            <span className="text-lg ml-4 font-nunito">Contacts</span>
+            <span className="text-lg ml-4 font-opensans">Contacts</span>
           </li>
         </Link>
 
@@ -63,7 +63,7 @@ const Sidebar = () => {
             ) : (
               <BsGrid className={iconStyle} />
             )}
-            <span className="text-lg ml-4 font-nunito">Projects</span>
+            <span className="text-lg ml-4 font-opensans">Projects</span>
           </li>
         </Link>
 
@@ -74,12 +74,12 @@ const Sidebar = () => {
             ) : (
               <BsHddStack className={iconStyle} />
             )}
-            <span className="text-lg ml-4 font-nunito">Tech Stack</span>
+            <span className="text-lg ml-4 font-opensans">Tech Stack</span>
           </li>
         </Link>
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

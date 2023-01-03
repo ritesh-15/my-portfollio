@@ -1,21 +1,41 @@
-import Head from "next/head";
-import React, { ReactElement } from "react";
-import Layout from "../../components/admin/Layout";
-import { useAuth } from "../../hooks";
-import { NextPageWithLayout } from "../_app";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { useGetAllContactsQuery } from "../../app/services/contact/contact.service";
+import Head from "next/head"
+import React, { ReactElement } from "react"
+import Layout from "../../components/admin/Layout"
+import { useAuth } from "../../hooks"
+import { NextPageWithLayout } from "../_app"
+import Table from "@mui/material/Table"
+import TableBody from "@mui/material/TableBody"
+import { styled } from "@mui/material/styles"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import TableContainer from "@mui/material/TableContainer"
+import TableHead from "@mui/material/TableHead"
+import TableRow from "@mui/material/TableRow"
+import Paper from "@mui/material/Paper"
+import { useGetAllContactsQuery } from "../../app/services/contact/contact.service"
+import { AiOutlineDelete } from "react-icons/ai"
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}))
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}))
 
 const Contact: NextPageWithLayout = () => {
-  useAuth({ isAuthPage: false, route: "/admin/login" });
-
-  const { data } = useGetAllContactsQuery(undefined);
+  // const { data } = useGetAllContactsQuery(undefined)
 
   return (
     <>
@@ -29,40 +49,40 @@ const Contact: NextPageWithLayout = () => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell align="right">Email</TableCell>
-                <TableCell align="right">Message</TableCell>
+                <StyledTableCell align="left">Name</StyledTableCell>
+                <StyledTableCell align="left">Email</StyledTableCell>
+                <StyledTableCell align="left">Message</StyledTableCell>
+                <StyledTableCell align="left">Action</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.contacts.map((row) => {
-                return (
-                  <TableRow
-                    key={row.id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      className="cursor-pointer"
-                    >
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.email}</TableCell>
-                    <TableCell align="right">{row.message}</TableCell>
-                  </TableRow>
-                );
-              })}
+              <StyledTableRow>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  className="cursor-pointer"
+                >
+                  Ritesh Khore
+                </TableCell>
+                <TableCell align="left">riteshkhore@gmail.com</TableCell>
+                <TableCell align="left">Hi nice to see yah</TableCell>
+                <TableCell align="left">
+                  <div className="flex items-center gap-2 hover:text-red-400 transition-all cursor-pointer">
+                    <AiOutlineDelete className="text-xl cursor-pointer " />
+                    <span className="font-opensans">Remove</span>
+                  </div>
+                </TableCell>
+              </StyledTableRow>
             </TableBody>
           </Table>
         </TableContainer>
       </div>
     </>
-  );
-};
+  )
+}
 
 Contact.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
-};
+  return <Layout>{page}</Layout>
+}
 
-export default Contact;
+export default Contact

@@ -9,6 +9,7 @@ interface IFormField
   multiline?: boolean
   error?: string
   parentclass?: string
+  rows?: number
 }
 
 const Input: FC<IFormField> = ({
@@ -17,6 +18,7 @@ const Input: FC<IFormField> = ({
   multiline,
   parentclass,
   error,
+  rows,
   ...props
 }) => {
   return (
@@ -26,6 +28,7 @@ const Input: FC<IFormField> = ({
       </label>
       {multiline ? (
         <textarea
+          rows={rows}
           className={`font-opensans resize-none bg-gray-100 px-2 py-3 rounded-lg outline-none ${className}`}
         />
       ) : (

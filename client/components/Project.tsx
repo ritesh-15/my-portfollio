@@ -55,6 +55,7 @@ const Project: FC<IProjectProps> = ({ reverse }): JSX.Element => {
           readable content of a page when looking at its layout. The point of
           using Lorem Ipsum is that it has a more-or-less normal distribution
         </p>
+
         <div className="flex items-center gap-4 mt-4">
           <Button
             icon={<FiExternalLink className="text-xl" />}
