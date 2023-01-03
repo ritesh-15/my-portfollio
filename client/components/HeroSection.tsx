@@ -25,11 +25,11 @@ const HeroSection: FC = (): JSX.Element => {
         />
       </div>
 
-      <motion.div className="bg-primary right-0 sm:right-[100px] top-0 sm:top-[80px] absolute w-[300px] rounded-[50%] h-[300px]"></motion.div>
+      <motion.div className="bg-primary right-0 sm:right-[100px] top-[50px] sm:top-[150px] absolute w-[300px] rounded-[50%] h-[300px]"></motion.div>
 
-      <div className="bg-secondary hidden sm:block right-0 top-[350px] absolute w-[200px] rounded-[50%] h-[200px]"></div>
+      <div className="bg-secondary hidden sm:block right-0 top-[420px] absolute w-[200px] rounded-[50%] h-[200px]"></div>
 
-      <div className="bg-secondary hidden sm:block right-[220px] top-[400px] absolute w-[120px] rounded-[50%] h-[120px]"></div>
+      <div className="bg-secondary hidden sm:block right-[220px] top-[470px] absolute w-[120px] rounded-[50%] h-[120px]"></div>
     </section>
   )
 }

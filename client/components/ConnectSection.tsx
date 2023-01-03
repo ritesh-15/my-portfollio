@@ -33,7 +33,7 @@ const ConnectSection: FC = () => {
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: initialState,
     validationSchema: ContactSchema,
-    onSubmit(values, formikHelpers) {},
+    onSubmit(values) {},
   })
 
   const handleEmailCopy = () => {

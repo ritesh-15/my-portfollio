@@ -1,7 +1,6 @@
 import Image from "next/image"
 import React, { FC } from "react"
 import Button from "./Button"
-import { MdKeyboardArrowRight } from "react-icons/md"
 import { BsLink45Deg } from "react-icons/bs"
 import { FiExternalLink } from "react-icons/fi"
 
@@ -16,8 +15,8 @@ const Project: FC<IProjectProps> = ({ reverse }): JSX.Element => {
         reverse ? "md:flex-row-reverse" : "md:flex-row"
       }`}
     >
-      <div className="h-[350px] sm:h-auto relative md:flex-1">
-        <Image src="/images/1.png" layout="fill" objectFit="contain" />
+      <div className="h-[350px] relative md:flex-1">
+        <Image src="/images/project.png" layout="fill" objectFit="cover" />
       </div>
 
       <div className={`flex-1 flex flex-col sm:p-4 rounded-lg`}>
