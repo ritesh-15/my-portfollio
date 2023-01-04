@@ -1,24 +1,24 @@
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../app/store";
+import { useRouter } from "next/router"
+import { useEffect } from "react"
+import { useSelector } from "react-redux"
+import { RootState } from "../app/store"
 
 interface UseAuthProps {
-  isAuthPage: boolean;
-  route: string;
+  isAuthPage: boolean
+  route: string
 }
 
-const useAuth = ({ isAuthPage, route }: UseAuthProps) => {
-  const { user } = useSelector((state: RootState) => state.auth);
-  const router = useRouter();
+const useAuth = ({ isAuthPage, route }: UseAuthProps, dependency = []) => {
+  const { user } = useSelector((state: RootState) => state.auth)
+  const router = useRouter()
 
   useEffect(() => {
     if (!user && !isAuthPage) {
-      router.push(route);
+      router.push(route)
     } else if (isAuthPage && user) {
-      router.push(route);
+      router.push(route)
     }
-  }, [user]);
-};
+  }, [user])
+}
 
-export default useAuth;
+export default useAuth

@@ -1,4 +1,5 @@
 import React, { FC, ReactElement } from "react"
+import { useAuth } from "../../hooks"
 import Header from "./Header"
 import Sidebar from "./Sidebar"
 

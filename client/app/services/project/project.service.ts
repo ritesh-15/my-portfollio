@@ -3,18 +3,18 @@ import {
   IGetAllTechStack,
   IGetSingleProject,
   IGetTechStackById,
-} from "../../../interfaces/project_interface";
-import apiService from "../api/api.service";
+} from "../../../interfaces/project_interface"
+import apiService from "../api/api.service"
 
 interface IUpdateTechStackArgs {
-  id: string;
-  data: FormData;
+  id: string
+  data: FormData
 }
 
 export const projectService = apiService.injectEndpoints({
   endpoints: (builder) => ({
-    getAllTechStacks: builder.query<IGetAllTechStack, undefined>({
-      query: () => "/project/tech-stack",
+    getAllTechStacks: builder.query<IGetAllTechStack, string | undefined>({
+      query: (query) => `/project/tech-stack?query=${query}`,
       providesTags: ["TechStack"],
     }),
     addTechStack: builder.mutation<any, any>({
@@ -23,7 +23,7 @@ export const projectService = apiService.injectEndpoints({
           url: "/project/tech-stack",
           method: "POST",
           body: payload,
-        };
+        }
       },
       invalidatesTags: [{ type: "TechStack" }],
     }),
@@ -33,7 +33,7 @@ export const projectService = apiService.injectEndpoints({
           url: "/project",
           method: "POST",
           body: payload,
-        };
+        }
       },
       invalidatesTags: [{ type: "Projects" }],
     }),
@@ -48,7 +48,7 @@ export const projectService = apiService.injectEndpoints({
         return {
           url: `/project/${id}`,
           method: "DELETE",
-        };
+        }
       },
       invalidatesTags: [{ type: "Projects" }],
     }),
@@ -57,7 +57,7 @@ export const projectService = apiService.injectEndpoints({
         return {
           url: `/project/tech-stack/${id}`,
           method: "GET",
-        };
+        }
       },
     }),
     updateTechStack: builder.mutation<any, IUpdateTechStackArgs>({
@@ -66,12 +66,12 @@ export const projectService = apiService.injectEndpoints({
           url: `/project/tech-stack/${id}`,
           method: "PUT",
           body: data,
-        };
+        }
       },
       invalidatesTags: [{ type: "TechStack" }],
     }),
   }),
-});
+})
 
 export const {
   useGetAllTechStacksQuery,
@@ -82,4 +82,4 @@ export const {
   useRemoveProjectMutation,
   useGetTechStackByIdQuery,
   useUpdateTechStackMutation,
-} = projectService;
+} = projectService

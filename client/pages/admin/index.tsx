@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks"
 import type { NextPageWithLayout } from "../_app"
 
 const Dashboard: NextPageWithLayout = () => {
-  // useAuth({ isAuthPage: false, route: "/admin/login" })
+  useAuth({ isAuthPage: false, route: "/admin/login" })
   return <section>Dashboard</section>
 }
 

@@ -3,6 +3,10 @@ import { useFormik } from "formik"
 import { loginSchema } from "../../models/authentication"
 import { useAuth } from "../../hooks"
 import { Button, FormField } from "../../components"
+import { useLoginMutation } from "../../app/services/auth/auth.service"
+import { setCredentials } from "../../app/features/authSlice"
+import { useDispatch } from "react-redux"
+import { useRouter } from "next/router"
 
 interface LoginFormState {
   password: string
@@ -15,12 +19,22 @@ const initialValues: LoginFormState = {
 }
 
 const Login: NextPage = () => {
-  useAuth({ isAuthPage: true, route: "/admin/login" })
+  useAuth({ isAuthPage: true, route: "/admin" })
+  const router = useRouter()
+  const dispatch = useDispatch()
+
+  const [login, { data }] = useLoginMutation()
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues,
     validationSchema: loginSchema,
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      await login(values)
+      if (data) {
+        dispatch(setCredentials({ user: data.user }))
+        router.push("/admin")
+      }
+    },
   })
 
   return (
