@@ -9,9 +9,16 @@ interface IButtonProps
   icon?: JSX.Element
 }
 
-const Button: FC<IButtonProps> = ({ title, className, onClick, icon }) => {
+const Button: FC<IButtonProps> = ({
+  title,
+  className,
+  onClick,
+  icon,
+  ...props
+}) => {
   return (
     <button
+      {...props}
       className={`px-3 font-semibold py-3 rounded-md font-opensans flex items-center justify-center ${className}`}
     >
       <span className="font-opensans inline-block">{title}</span>

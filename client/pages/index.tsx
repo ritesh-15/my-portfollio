@@ -1,3 +1,4 @@
+import axios from "axios"
 import type { NextPage } from "next"
 import Head from "next/head"
 import AboutSection from "../components/AboutSection"
@@ -9,7 +10,9 @@ import ProjectsSection from "../components/ProjectsSection"
 import Skills from "../components/Skills"
 import Container from "../layouts/Container"
 
-const Home: NextPage = () => {
+const Home: NextPage = (props) => {
+  console.log(props)
+
   return (
     <>
       <main className="bg-white">
@@ -30,6 +33,25 @@ const Home: NextPage = () => {
       </main>
     </>
   )
+}
+
+export async function getServerSideProps(context: any) {
+  try {
+    const res = await axios.get("http://localhost:3000/api/data")
+
+    return {
+      props: {
+        data: res.data,
+      },
+    }
+  } catch (err: any) {
+    return {
+      props: {
+        data: null,
+        message: err.message,
+      },
+    }
+  }
 }
 
 export default Home

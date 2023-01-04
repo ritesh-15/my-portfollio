@@ -28,6 +28,7 @@ const Input: FC<IFormField> = ({
       </label>
       {multiline ? (
         <textarea
+          {...(props as any)}
           rows={rows}
           className={`font-opensans resize-none bg-gray-100 px-2 py-3 rounded-lg outline-none ${className}`}
         />

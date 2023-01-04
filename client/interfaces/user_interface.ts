@@ -1,17 +1,24 @@
-interface IUser {
-  id: string
-  email: string
-  about: {
-    heading: string
-    subHeading: string
-    contactHeading: string
-    contactSubHeading: string
-    image: {
-      publicId: string
-      url: string
-    }
-    about: string
-  }
+export default interface IUser {
+  user: User
 }
 
-export default IUser
+export interface User {
+  id: string
+  email: string
+  about: About
+}
+
+export interface About {
+  heading: string
+  subHeading: string
+  about: string
+  image: Image
+  contactHeading: string
+  contactSubHeading: string
+}
+
+export interface Image {
+  publicId: string
+  url: string
+  id: string
+}
