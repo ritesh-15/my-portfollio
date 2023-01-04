@@ -186,7 +186,8 @@ class ProjectController {
    */
   static updateProject = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
-      const { title, description, gitHubRepo, demoLink, tags } = req.body
+      const { title, description, gitHubRepo, demoLink, tags, isFeatured } =
+        req.body
       const { id } = req.params
 
       const project = await Prisma.get().project.findUnique({ where: { id } })
@@ -205,9 +206,8 @@ class ProjectController {
           demoLink,
           description,
           gitHubLink: gitHubRepo,
-          tagsId: {
-            push: tags,
-          },
+          tagsId: tags,
+          isFeatured,
         },
         include: {
           images: {
@@ -342,7 +342,15 @@ class ProjectController {
    */
   static getAllTechStacks = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
+      const { query } = req.query
+
       const techStacks = await Prisma.get().techStack.findMany({
+        where: {
+          name: {
+            contains: query ? query?.toString() : "",
+            mode: "insensitive",
+          },
+        },
         select: {
           image: {
             select: {

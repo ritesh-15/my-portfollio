@@ -15,6 +15,7 @@ import {
   getSingleProjectSchema,
   getTechStackByIdValidator,
   removeProjectValidator,
+  serachTechStack,
   updateProjectValidator,
   updateTechStackValidator,
 } from "../validator/project_validator"

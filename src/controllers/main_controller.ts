@@ -14,6 +14,9 @@ class MainController {
       const userInfo = await UserService.findFirst()
 
       const projects = await Prisma.get().project.findMany({
+        where: {
+          isFeatured: true,
+        },
         include: {
           images: {
             select: {

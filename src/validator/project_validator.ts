@@ -16,6 +16,18 @@ const addTechStackValidator: Schema = {
   },
 }
 
+const serachTechStack: Schema = {
+  name: {
+    in: ["query"],
+    exists: {
+      errorMessage: "Name is required!",
+    },
+    isString: {
+      errorMessage: "Name must be string",
+    },
+  },
+}
+
 const updateTechStackValidator: Schema = {
   name: {
     in: ["body"],
@@ -170,6 +182,13 @@ const updateProjectValidator: Schema = {
       errorMessage: "Is mobile application must be a boolean value!",
     },
   },
+  isFeatured: {
+    in: ["body"],
+    not: true,
+    isBoolean: {
+      errorMessage: "is Featured must be a boolean value!",
+    },
+  },
   tags: {
     in: ["body"],
     isArray: {
@@ -196,4 +215,5 @@ export {
   updateProjectValidator,
   getSingleProjectSchema,
   getTechStackByIdValidator,
+  serachTechStack,
 }

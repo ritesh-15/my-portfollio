@@ -49,6 +49,7 @@ model Project {
   demoLink            String
   tagsId              String[]     @db.ObjectId
   tags                TechStack[]  @relation(fields: [tagsId], references: [id])
+  isFeatured          Boolean      @default(false)
   createdAt           DateTime     @default(now())
   updatedAt           DateTime     @updatedAt
 }
