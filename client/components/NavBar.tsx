@@ -48,10 +48,12 @@ const NavBar: FC = (): JSX.Element => {
             />
           </ul>
 
-          <Button
-            title="Contact me"
-            className="bg-white text-secondary border border-secondary hover:bg-secondary hover:text-white transition-all rounded-full px-4 py-3"
-          />
+          <Link href="/#connect">
+            <Button
+              title="Contact me"
+              className="bg-white text-secondary border border-secondary hover:bg-secondary hover:text-white transition-all px-4 py-3"
+            />
+          </Link>
 
           <div className="ml-4 sm:hidden">
             {open ? (
@@ -71,8 +73,8 @@ const NavBar: FC = (): JSX.Element => {
 
       <div
         className={`sm:hidden ${
-          open ? "translate-x-[0%]" : "translate-x-[200%]"
-        } shadow-lg px-2 absolute min-h-screen bg-white w-full max-w-[350px] right-0 transition-all`}
+          open ? "scale-y-1" : "scale-y-0"
+        } shadow-lg px-2 py-2  origin-top absolute bg-white w-full right-0 left-0 transition-all`}
       >
         <ul className="flex flex-col">
           <NavItem className="my-6 mx-0" title="About" path="#about" />

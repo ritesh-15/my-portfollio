@@ -1,33 +1,20 @@
 import Image from "next/image"
 import React, { FC } from "react"
+import { ITechStack } from "../interfaces/project_interface"
 
-const Skills: FC = (): JSX.Element => {
-  const images = [
-    "express.png",
-    "css.png",
-    "java.png",
-    "html.png",
-    "heroku.png",
-    "mongodb.png",
-    "javascript.png",
-    "mysql.png",
-    "react.png",
-    "typescript.png",
-  ]
+interface ISkills {
+  tags: ITechStack[]
+}
 
+const Skills: FC<ISkills> = ({ tags }): JSX.Element => {
   return (
     <section
       id="skills"
       className="flex justify-center items-center mt-16 gap-4 flex-wrap"
     >
-      {images.map((iamge) => (
+      {tags.map(({ image }) => (
         <div className="w-[60px] h-[60px] relative">
-          <Image
-            objectFit="contain"
-            src={`/images/${iamge}`}
-            alt=""
-            layout="fill"
-          />
+          <Image objectFit="contain" src={image.url} alt="" layout="fill" />
         </div>
       ))}
     </section>

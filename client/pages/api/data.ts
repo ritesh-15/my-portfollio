@@ -1,14 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { PrismaClient } from "@prisma/client"
-import IUser from "../../interfaces/user_interface"
-import { IProject } from "../../interfaces/project_interface"
 
 const client = new PrismaClient()
 
 export default async function data(req: NextApiRequest, res: NextApiResponse) {
   try {
-    await client.$connect()
-
     const user = await client.user.findFirst({
       select: {
         id: true,
@@ -30,6 +26,19 @@ export default async function data(req: NextApiRequest, res: NextApiResponse) {
             contactSubHeading: true,
           },
         },
+      },
+    })
+
+    const techStack = await client.techStack.findMany({
+      select: {
+        image: {
+          select: {
+            publicId: true,
+            url: true,
+          },
+        },
+        name: true,
+        id: true,
       },
     })
 
@@ -58,10 +67,13 @@ export default async function data(req: NextApiRequest, res: NextApiResponse) {
       },
     })
 
+    await client.$disconnect()
+
     return res.status(200).json({
       success: true,
       user,
       projects,
+      techStack,
     })
   } catch (err: any) {
     return res.status(500).json({

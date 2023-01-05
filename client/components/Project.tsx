@@ -20,7 +20,7 @@ const Project: FC<IProjectProps> = ({ reverse, project }): JSX.Element => {
     >
       <div className="h-[350px] relative md:flex-1">
         <Image
-          src={project?.images[0].url!!}
+          src={project?.images[0].url ? project.images[0].url : "/images/1.png"}
           layout="fill"
           objectFit="contain"
         />
@@ -30,7 +30,12 @@ const Project: FC<IProjectProps> = ({ reverse, project }): JSX.Element => {
         <div className="flex items-center gap-2 flex-wrap mb-4">
           {project?.tags.map((tag) => (
             <div className="border bg-white border-gray-300 w-fit px-2 flex items-center justify-center py-2 rounded-lg gap-1">
-              <Image src={tag.image.url} width={25} height={25} alt="" />
+              <Image
+                src={tag.image.url ? tag.image.url : "/image/react.png"}
+                width={25}
+                height={25}
+                alt=""
+              />
               <span className="font-opensans font-light text-sm">
                 {tag.name}
               </span>
@@ -44,7 +49,7 @@ const Project: FC<IProjectProps> = ({ reverse, project }): JSX.Element => {
         </p>
 
         <div className="flex items-center gap-4 mt-4">
-          <Link passHref href={project?.demoLink!!}>
+          <Link passHref href={project?.demoLink ? project.demoLink : ""}>
             <a
               className="no-underline outline-none"
               href={project?.demoLink}
@@ -58,7 +63,7 @@ const Project: FC<IProjectProps> = ({ reverse, project }): JSX.Element => {
               />
             </a>
           </Link>
-          <Link passHref href={project?.gitHubLink!!}>
+          <Link passHref href={project?.gitHubLink ? project.gitHubLink : ""}>
             <a
               className="no-underline outline-none"
               href={project?.gitHubLink}

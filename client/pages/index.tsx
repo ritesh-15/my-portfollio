@@ -8,10 +8,22 @@ import HeroSection from "../components/HeroSection"
 import NavBar from "../components/NavBar"
 import ProjectsSection from "../components/ProjectsSection"
 import Skills from "../components/Skills"
+import { IProject, ITechStack } from "../interfaces/project_interface"
+import IUser from "../interfaces/user_interface"
 import Container from "../layouts/Container"
 
-const Home: NextPage = (props) => {
-  console.log(props)
+interface IProps {
+  data: {
+    user: IUser
+    projects: IProject[]
+    success: boolean
+    techStack: ITechStack[]
+  }
+}
+
+const Home: NextPage<IProps> = ({ data }) => {
+  const { user, projects, techStack } = data
+  console.log(data)
 
   return (
     <>
@@ -23,11 +35,17 @@ const Home: NextPage = (props) => {
             <link rel="icon" href="/images/header_self.png" />
           </Head>
           <NavBar />
-          <HeroSection />
-          <AboutSection />
-          <Skills />
-          <ProjectsSection />
-          <ConnectSection />
+          <HeroSection
+            subHeading={user.info.subHeading}
+            heading={user.info.heading}
+          />
+          <AboutSection about={user.info.about} />
+          <Skills tags={techStack} />
+          <ProjectsSection projects={projects} />
+          <ConnectSection
+            subHeading={user.info.contactSubHeading}
+            heading={user.info.contactHeading}
+          />
           <Footer />
         </Container>
       </main>

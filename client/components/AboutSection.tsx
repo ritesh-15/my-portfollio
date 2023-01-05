@@ -2,8 +2,13 @@ import Image from "next/image"
 import React, { FC } from "react"
 import Button from "./Button"
 import { MdKeyboardArrowRight } from "react-icons/md"
+import Link from "next/link"
 
-const AboutSection: FC = (): JSX.Element => {
+interface IAboutProps {
+  about: string
+}
+
+const AboutSection: FC<IAboutProps> = ({ about }): JSX.Element => {
   return (
     <section
       id="about"
@@ -31,18 +36,25 @@ const AboutSection: FC = (): JSX.Element => {
             <span className="font-opensans">About me</span>
             <h1 className="font-opensans text-3xl font-bold">Who am I?</h1>
             <p className="font-opensans leading-loose text-md md:text-lg text-justify lg:text-xl mt-2 sm:text-left">
-              Hi I’m Ritesh, passionate about creating intuitive, user-friendly
-              web applications that provide a seamless experience for users. I
-              am always eager to learn new technologies and stay up-to-date with
-              the latest industry trends. I am a team player and enjoy
-              collaborating with other developers to find creative solutions to
-              challenging problems.
+              {about}
             </p>
-            <Button
-              icon={<MdKeyboardArrowRight className="text-xl" />}
-              title="Resume"
-              className="border border-secondary mt-4 sm:w-fit hover:bg-secondary hover:text-white transition-all"
-            />
+            <Link
+              passHref
+              href="https://drive.google.com/file/d/16rtvFpQCYQFZoJkzUbMR81uLvr5wqVWu/view"
+            >
+              <a
+                className="no-underline outline-none"
+                href="https://drive.google.com/file/d/16rtvFpQCYQFZoJkzUbMR81uLvr5wqVWu/view"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Button
+                  icon={<MdKeyboardArrowRight className="text-xl" />}
+                  title="Resume"
+                  className="border border-secondary mt-4 sm:w-fit hover:bg-secondary hover:text-white transition-all"
+                />
+              </a>
+            </Link>
           </div>
         </div>
       </div>

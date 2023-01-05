@@ -3,17 +3,21 @@ import Button from "./Button"
 import { AiOutlineDown } from "react-icons/ai"
 import { motion } from "framer-motion"
 
-const HeroSection: FC = (): JSX.Element => {
+interface IHeroProps {
+  heading: string
+  subHeading: string
+}
+
+const HeroSection: FC<IHeroProps> = ({ heading, subHeading }): JSX.Element => {
   return (
     <section id="#" className="relative flex items-center full__screen__height">
       <div className="z-10 w-full flex flex-col items-center sm:items-start">
         <h1 className="font-bold font-opensans text-4xl text-center sm:text-left sm:text-5xl md:text-6xl w-full sm:w-[60%]">
-          I’m developer, who builds full stack website and applications
+          {heading}
         </h1>
 
         <p className="font-opensans mt-4 text-lg sm:text-left sm:text-2xl text-center w-full sm:w-[50%]">
-          Learner, programmer and a full stack developer who can build scalable
-          full stack applications
+          {subHeading}
         </p>
 
         <Button

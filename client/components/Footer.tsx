@@ -5,6 +5,7 @@ import {
 } from "react-icons/ai"
 import { SiLeetcode } from "react-icons/si"
 import { FaLinkedinIn } from "react-icons/fa"
+import Link from "next/link"
 
 const Footer = () => {
   return (
@@ -18,11 +19,59 @@ const Footer = () => {
           riteshkhore@gmail.com
         </span>
         <div className="flex items-center gap-4">
-          <AiOutlineInstagram className="text-xl cursor-pointer hover:text-primary transition-all" />
-          <AiOutlineTwitter className="text-xl cursor-pointer hover:text-primary transition-all" />
-          <AiFillGithub className="text-xl cursor-pointer hover:text-primary transition-all" />
-          <FaLinkedinIn className="text-xl cursor-pointer hover:text-primary transition-all" />
-          <SiLeetcode className="text-xl cursor-pointer hover:text-primary transition-all" />
+          <Link passHref href="https://www.instagram.com/ritesh_khore/">
+            <a
+              className="no-underline outline-none"
+              href="https://www.instagram.com/ritesh_khore/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <AiOutlineInstagram className="text-xl cursor-pointer hover:text-primary transition-all" />
+            </a>
+          </Link>
+          <Link passHref href="https://twitter.com/KhoreRitesh">
+            <a
+              className="no-underline outline-none"
+              href="https://twitter.com/KhoreRitesh"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <AiOutlineTwitter className="text-xl cursor-pointer hover:text-primary transition-all" />
+            </a>
+          </Link>
+          <Link passHref href="https://github.com/ritesh-15">
+            <a
+              className="no-underline outline-none"
+              href="https://github.com/ritesh-15"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <AiFillGithub className="text-xl cursor-pointer hover:text-primary transition-all" />
+            </a>
+          </Link>
+          <Link
+            passHref
+            href="https://www.linkedin.com/in/ritesh-khore-7119b8205/"
+          >
+            <a
+              className="no-underline outline-none"
+              href="https://www.linkedin.com/in/ritesh-khore-7119b8205/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaLinkedinIn className="text-xl cursor-pointer hover:text-primary transition-all" />
+            </a>
+          </Link>
+          <Link passHref href="https://leetcode.com/riteshK20/">
+            <a
+              className="no-underline outline-none"
+              href="https://leetcode.com/riteshK20/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <SiLeetcode className="text-xl cursor-pointer hover:text-primary transition-all" />
+            </a>
+          </Link>
         </div>
       </div>
     </footer>

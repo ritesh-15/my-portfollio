@@ -11,6 +11,9 @@ import { addProjectSchema } from "../../../models/project"
 import Layout from "../../../components/admin/Layout"
 import SelectTag from "../../../components/admin/SelectTag"
 import { ITechStack } from "../../../interfaces/project_interface"
+import { Router } from "@mui/icons-material"
+import { useRouter } from "next/router"
+import { useAuth } from "../../../hooks"
 
 interface AddProjectFormState {
   title: string
@@ -28,7 +31,9 @@ const initialValues: AddProjectFormState = {
 
 const AddProject = () => {
   // states and hooks
+  useAuth({ isAuthPage: false, route: "/admin/login" })
   const { enqueueSnackbar } = useSnackbar()
+  const router = useRouter()
 
   const { data } = useGetAllTechStacksQuery("")
 
@@ -80,6 +85,8 @@ const AddProject = () => {
 
     if (error && "status" in error) {
       enqueueSnackbar((error as any).data.message, { variant: "error" })
+    } else {
+      router.push("/admin/projects")
     }
   }
 

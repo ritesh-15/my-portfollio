@@ -35,7 +35,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }))
 
 const Contact: NextPageWithLayout = () => {
-  // const { data } = useGetAllContactsQuery(undefined)
+  useAuth({ isAuthPage: false, route: "/admin/login" })
+  const { data } = useGetAllContactsQuery(undefined)
 
   return (
     <>
@@ -52,27 +53,36 @@ const Contact: NextPageWithLayout = () => {
                 <StyledTableCell align="left">Name</StyledTableCell>
                 <StyledTableCell align="left">Email</StyledTableCell>
                 <StyledTableCell align="left">Message</StyledTableCell>
+                <StyledTableCell align="left">Created at</StyledTableCell>
                 <StyledTableCell align="left">Action</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              <StyledTableRow>
-                <TableCell
-                  component="th"
-                  scope="row"
-                  className="cursor-pointer"
-                >
-                  Ritesh Khore
-                </TableCell>
-                <TableCell align="left">riteshkhore@gmail.com</TableCell>
-                <TableCell align="left">Hi nice to see yah</TableCell>
-                <TableCell align="left">
-                  <div className="flex items-center gap-2 hover:text-red-400 transition-all cursor-pointer">
-                    <AiOutlineDelete className="text-xl cursor-pointer " />
-                    <span className="font-opensans">Remove</span>
-                  </div>
-                </TableCell>
-              </StyledTableRow>
+              {data?.contacts.map((contact) => (
+                <StyledTableRow key={contact.id}>
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    className="cursor-pointer"
+                  >
+                    {contact.name}
+                  </TableCell>
+                  <TableCell align="left">{contact.email}</TableCell>
+                  <TableCell align="left">{contact.message}</TableCell>
+                  <TableCell align="left">
+                    {new Intl.DateTimeFormat("en-in", {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                    }).format(new Date(contact?.createdAt))}
+                  </TableCell>
+                  <TableCell align="left">
+                    <div className="flex items-center gap-2 hover:text-red-400 transition-all cursor-pointer">
+                      <AiOutlineDelete className="text-xl cursor-pointer " />
+                      <span className="font-opensans">Remove</span>
+                    </div>
+                  </TableCell>
+                </StyledTableRow>
+              ))}
             </TableBody>
           </Table>
         </TableContainer>

@@ -1,58 +1,58 @@
-import { TextField } from "@mui/material";
-import Image from "next/image";
-import React, { ChangeEvent, useState } from "react";
-import { BsImageFill } from "react-icons/bs";
-import { AiOutlineClose } from "react-icons/ai";
-import { useFormik } from "formik";
-import { addTechStackSchema } from "../../models/project";
-import { useAddTechStackMutation } from "../../app/services/project/project.service";
-import { useAuth } from "../../hooks";
-import LoadingButton from "@mui/lab/LoadingButton";
-import { useSnackbar } from "notistack";
+import { TextField } from "@mui/material"
+import Image from "next/image"
+import React, { ChangeEvent, useState } from "react"
+import { BsImageFill } from "react-icons/bs"
+import { AiOutlineClose } from "react-icons/ai"
+import { useFormik } from "formik"
+import { addTechStackSchema } from "../../models/project"
+import { useAddTechStackMutation } from "../../app/services/project/project.service"
+import { useAuth } from "../../hooks"
+import LoadingButton from "@mui/lab/LoadingButton"
+import { useSnackbar } from "notistack"
 
 interface AddTechStackFormState {
-  name: string;
+  name: string
 }
 
 const initialValues: AddTechStackFormState = {
   name: "",
-};
+}
 
 const AddTechStack = () => {
   // authenticate
-  useAuth({ isAuthPage: false, route: "/admin/login" });
+  useAuth({ isAuthPage: false, route: "/admin/login" })
 
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar()
 
-  const [image, setImage] = useState<File | null>(null);
-  const [addTechStack, { isLoading, error, data }] = useAddTechStackMutation();
+  const [image, setImage] = useState<File | null>(null)
+  const [addTechStack, { isLoading, error, data }] = useAddTechStackMutation()
 
   const { handleChange, handleSubmit, errors } = useFormik({
     initialValues: initialValues,
     validationSchema: addTechStackSchema,
     onSubmit: (values) => {
-      handleAddTechStackRequest(values);
+      handleAddTechStackRequest(values)
     },
-  });
+  })
 
   const handleAddTechStackRequest = async (values: AddTechStackFormState) => {
-    if (!image) return;
+    if (!image) return
 
-    const formData = new FormData();
-    formData.append("name", values.name);
-    formData.append("image", image);
-    await addTechStack(formData);
+    const formData = new FormData()
+    formData.append("name", values.name)
+    formData.append("image", image)
+    await addTechStack(formData)
 
     if (error && "status" in error) {
-      enqueueSnackbar((error as any).data.message, { variant: "error" });
+      enqueueSnackbar((error as any).data.message, { variant: "error" })
     }
-  };
+  }
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files) return;
-    setImage(files[0]);
-  };
+    const files = e.target.files
+    if (!files) return
+    setImage(files[0])
+  }
 
   return (
     <>
@@ -78,7 +78,7 @@ const AddTechStack = () => {
                 htmlFor="image"
                 className="mt-4 font-nunito cursor-pointer"
               >
-                <div className="border mx-auto rounded-full w-[80px] h-[80px] flex items-center justify-center border-primary">
+                <div className="border mx-auto rounded-full w-[80px] h-[80px] flex items-center justify-center border-secondry">
                   <BsImageFill className="text-2xl" />
                 </div>
                 <input
@@ -114,7 +114,7 @@ const AddTechStack = () => {
             loadingPosition="start"
             variant="contained"
             fullWidth
-            className="bg-primary"
+            className="bg-secondary"
             size="large"
             type="submit"
           >
@@ -123,7 +123,7 @@ const AddTechStack = () => {
         </div>
       </form>
     </>
-  );
-};
+  )
+}
 
-export default AddTechStack;
+export default AddTechStack

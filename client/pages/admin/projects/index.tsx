@@ -3,21 +3,11 @@ import { NextPageWithLayout } from "../../_app"
 import Layout from "../../../components/admin/Layout"
 import Project from "../../../components/Project"
 import { MdEdit } from "react-icons/md"
-import { useRouter } from "next/router"
 import { useGetAllProjectsQuery } from "../../../app/services/project/project.service"
 import { useAuth } from "../../../hooks"
-import { Button } from "../../../components"
 import Link from "next/link"
 
-const style = {
-  display: "flex",
-  flexDirection: "column",
-  m: "auto",
-  width: "95%",
-}
-
 const Projects: NextPageWithLayout = () => {
-  const router = useRouter()
   useAuth({ isAuthPage: false, route: "/admin/login" })
   const { data } = useGetAllProjectsQuery(undefined)
 

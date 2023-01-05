@@ -1,11 +1,7 @@
 export default interface IUser {
-  user: User
-}
-
-export interface User {
   id: string
   email: string
-  about: About
+  info: About
 }
 
 export interface About {

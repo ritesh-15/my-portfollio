@@ -12,6 +12,13 @@ import { Button, FormField } from "."
 import { MdKeyboardArrowRight } from "react-icons/md"
 import { useFormik } from "formik"
 import ContactSchema from "../models/connect_schema"
+import { useNewContactMutation } from "../app/services/contact/contact.service"
+import Link from "next/link"
+
+interface IConnectProps {
+  heading: string
+  subHeading: string
+}
 
 interface ConnectFormState {
   name: string
@@ -27,13 +34,20 @@ const initialState: ConnectFormState = {
   message: "",
 }
 
-const ConnectSection: FC = () => {
+const ConnectSection: FC<IConnectProps> = ({ heading, subHeading }) => {
   const { enqueueSnackbar } = useSnackbar()
+
+  const [contact, { error, data }] = useNewContactMutation()
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: initialState,
     validationSchema: ContactSchema,
-    onSubmit(values) {},
+    onSubmit: async (values) => {
+      await contact(values)
+      if (error) {
+        enqueueSnackbar(errorStyle, { variant: "error" })
+      }
+    },
   })
 
   const handleEmailCopy = () => {
@@ -82,11 +96,59 @@ const ConnectSection: FC = () => {
               Check out my socials
             </span>
             <div className="flex items-center gap-4">
-              <AiOutlineInstagram className="text-xl cursor-pointer hover:text-primary transition-all" />
-              <AiOutlineTwitter className="text-xl cursor-pointer hover:text-primary transition-all" />
-              <AiFillGithub className="text-xl cursor-pointer hover:text-primary transition-all" />
-              <FaLinkedinIn className="text-xl cursor-pointer hover:text-primary transition-all" />
-              <SiLeetcode className="text-xl cursor-pointer hover:text-primary transition-all" />
+              <Link passHref href="https://www.instagram.com/ritesh_khore/">
+                <a
+                  className="no-underline outline-none"
+                  href="https://www.instagram.com/ritesh_khore/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <AiOutlineInstagram className="text-xl cursor-pointer hover:text-primary transition-all" />
+                </a>
+              </Link>
+              <Link passHref href="https://twitter.com/KhoreRitesh">
+                <a
+                  className="no-underline outline-none"
+                  href="https://twitter.com/KhoreRitesh"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <AiOutlineTwitter className="text-xl cursor-pointer hover:text-primary transition-all" />
+                </a>
+              </Link>
+              <Link passHref href="https://github.com/ritesh-15">
+                <a
+                  className="no-underline outline-none"
+                  href="https://github.com/ritesh-15"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <AiFillGithub className="text-xl cursor-pointer hover:text-primary transition-all" />
+                </a>
+              </Link>
+              <Link
+                passHref
+                href="https://www.linkedin.com/in/ritesh-khore-7119b8205/"
+              >
+                <a
+                  className="no-underline outline-none"
+                  href="https://www.linkedin.com/in/ritesh-khore-7119b8205/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaLinkedinIn className="text-xl cursor-pointer hover:text-primary transition-all" />
+                </a>
+              </Link>
+              <Link passHref href="https://leetcode.com/riteshK20/">
+                <a
+                  className="no-underline outline-none"
+                  href="https://leetcode.com/riteshK20/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <SiLeetcode className="text-xl cursor-pointer hover:text-primary transition-all" />
+                </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,51 +1,51 @@
-import React, { ReactElement, useState } from "react";
-import Layout from "../../components/admin/Layout";
-import { NextPageWithLayout } from "../_app";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import AddIcon from "@mui/icons-material/Add";
+import React, { ReactElement, useState } from "react"
+import Layout from "../../components/admin/Layout"
+import { NextPageWithLayout } from "../_app"
+import Table from "@mui/material/Table"
+import TableBody from "@mui/material/TableBody"
+import TableCell from "@mui/material/TableCell"
+import TableContainer from "@mui/material/TableContainer"
+import TableHead from "@mui/material/TableHead"
+import TableRow from "@mui/material/TableRow"
+import Paper from "@mui/material/Paper"
+import AddIcon from "@mui/icons-material/Add"
 import {
   Dialog,
   DialogContent,
   DialogContentText,
   DialogTitle,
   Fab,
-} from "@mui/material";
-import Box from "@mui/material/Box";
-import AddTechStack from "../../components/admin/AddTechStack";
-import { useGetAllTechStacksQuery } from "../../app/services/project/project.service";
-import Head from "next/head";
-import Image from "next/image";
-import { ITechStack } from "../../interfaces/project_interface";
-import SingleTechStck from "../../components/admin/SIngleTechStack";
+} from "@mui/material"
+import Box from "@mui/material/Box"
+import AddTechStack from "../../components/admin/AddTechStack"
+import { useGetAllTechStacksQuery } from "../../app/services/project/project.service"
+import Head from "next/head"
+import Image from "next/image"
+import { ITechStack } from "../../interfaces/project_interface"
+import SingleTechStck from "../../components/admin/SIngleTechStack"
 
 const style = {
   display: "flex",
   flexDirection: "column",
   m: "auto",
   width: "95%",
-};
+}
 
 const TechStack: NextPageWithLayout = () => {
-  const { data } = useGetAllTechStacksQuery(undefined);
+  const { data } = useGetAllTechStacksQuery("")
   const [selectedTechStack, setSelectedTechStack] = useState<ITechStack | null>(
     null
-  );
+  )
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   const handleOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   return (
     <>
@@ -98,7 +98,7 @@ const TechStack: NextPageWithLayout = () => {
                       <Image src={row.image.url} width={50} height={50} />
                     </TableCell>
                   </TableRow>
-                );
+                )
               })}
             </TableBody>
           </Table>
@@ -126,11 +126,11 @@ const TechStack: NextPageWithLayout = () => {
         </Fab>
       </div>
     </>
-  );
-};
+  )
+}
 
 TechStack.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
-};
+  return <Layout>{page}</Layout>
+}
 
-export default TechStack;
+export default TechStack

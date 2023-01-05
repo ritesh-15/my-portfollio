@@ -39,6 +39,7 @@ export const projectService = apiService.injectEndpoints({
     }),
     getAllProjects: builder.query<IGetAllProjects, undefined>({
       query: () => "/project",
+      providesTags: ["Projects"],
     }),
     getSingleProject: builder.query<IGetSingleProject, string>({
       query: (id) => `/project/single/${id}`,
