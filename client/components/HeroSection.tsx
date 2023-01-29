@@ -12,21 +12,47 @@ const HeroSection: FC<IHeroProps> = ({ heading, subHeading }): JSX.Element => {
   return (
     <section id="#" className="relative flex items-center full__screen__height">
       <div className="z-10 w-full flex flex-col items-center sm:items-start">
-        <h1 className="font-bold font-opensans text-4xl text-center sm:text-left sm:text-5xl md:text-6xl w-full sm:w-[60%]">
+        <motion.h1
+          initial={{ translateX: "-100%" }}
+          whileInView={{ translateX: "0%" }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0.5,
+          }}
+          className="font-bold font-opensans text-4xl text-center sm:text-left sm:text-5xl md:text-6xl w-full sm:w-[60%]"
+        >
           {heading}
-        </h1>
+        </motion.h1>
 
-        <p className="font-opensans mt-6 text-lg sm:text-left sm:text-2xl text-center w-full sm:w-[50%]">
+        <motion.p
+          initial={{ translateX: "-100%" }}
+          whileInView={{ translateX: "0%" }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0.5,
+          }}
+          className="font-opensans mt-6 text-lg sm:text-left sm:text-2xl text-center w-full sm:w-[50%]"
+        >
           {subHeading}
-        </p>
+        </motion.p>
 
-        <Button
-          className="bg-secondary text-white text-lg mt-8 w-full sm:w-fit"
-          title="View Projects"
-          icon={
-            <AiOutlineDown className="text-xl animate__view__project__arrow" />
-          }
-        />
+        <motion.a
+          initial={{ translateX: "-100%" }}
+          whileInView={{ translateX: "0%" }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0.5,
+          }}
+          href="#projects"
+        >
+          <Button
+            className="bg-secondary text-white text-lg mt-8 w-full sm:w-fit"
+            title="View Projects"
+            icon={
+              <AiOutlineDown className="text-xl animate__view__project__arrow" />
+            }
+          />
+        </motion.a>
       </div>
 
       <motion.div

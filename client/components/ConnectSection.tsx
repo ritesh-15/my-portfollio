@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { IoCopyOutline } from "react-icons/io5"
 import { useSnackbar } from "notistack"
 import {
@@ -35,12 +35,29 @@ const initialState: ConnectFormState = {
 
 const ConnectSection: FC<IConnectProps> = ({ heading, subHeading, email }) => {
   const { enqueueSnackbar } = useSnackbar()
+  const [loading, setLoading] = useState(false)
 
-  const { values, errors, handleChange, handleSubmit } = useFormik({
+  const { values, errors, handleChange, handleSubmit, resetForm } = useFormik({
     initialValues: initialState,
     validationSchema: ContactSchema,
     onSubmit: async (values) => {
-      await createNewContact(values)
+      setLoading(true)
+      try {
+        await createNewContact(values)
+        enqueueSnackbar(
+          "Thank you for reaching out to me, I will reply you as soon as possible!",
+          {
+            variant: "success",
+          }
+        )
+        resetForm()
+      } catch (err) {
+        // @ts-ignore
+        enqueueSnackbar("Something went wrong please try again!", {
+          variant: "error",
+        })
+      }
+      setLoading(false)
     },
   })
 
@@ -174,6 +191,8 @@ const ConnectSection: FC<IConnectProps> = ({ heading, subHeading, email }) => {
               rows={4}
             />
             <Button
+              disabled={loading}
+              loading={loading}
               title="Reach out to me"
               className="bg-secondary text-white w-full sm:w-fit sm:ml-auto"
               icon={<MdKeyboardArrowRight className="text-xl" />}

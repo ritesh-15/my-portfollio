@@ -1,11 +1,11 @@
 import Image from "next/image"
 import React, { FC } from "react"
 import Button from "./Button"
-import { FiExternalLink } from "react-icons/fi"
 import { IProject } from "../interfaces/project_interface"
 import Link from "next/link"
 import { urlFor } from "../sanity"
 import { AiFillGithub, AiFillEye } from "react-icons/ai"
+import { motion } from "framer-motion"
 
 interface IProjectProps {
   reverse?: boolean
@@ -14,7 +14,16 @@ interface IProjectProps {
 
 const Project: FC<IProjectProps> = ({ reverse, project }): JSX.Element => {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, translateX: `${reverse ? "100%" : "-100%"}` }}
+      whileInView={{
+        opacity: 1,
+        translateX: reverse
+          ? ["50%", "25%", "0%", "-25%", "0%"]
+          : ["-50%", "-75%", "0%", "25%", "0%"],
+      }}
+      transition={{ duration: 0.75, type: "tween" }}
+      viewport={{ once: true }}
       className={`sm:hover:shadow-lg rounded-md transition-all overflow-hidden flex justify-between gap-6 mb-[4em] flex-col ${
         reverse ? "md:flex-row-reverse" : "md:flex-row"
       }`}
@@ -83,7 +92,7 @@ const Project: FC<IProjectProps> = ({ reverse, project }): JSX.Element => {
           </Link>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

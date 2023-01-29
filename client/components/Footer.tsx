@@ -14,7 +14,7 @@ const Footer = () => {
         @2023 designed by ritesh.
       </span>
 
-      <div className="flex items-center gap-4 justify-between sm:justify-start">
+      <div className="flex flex-col sm:flex-row items-center gap-4 justify-between sm:justify-start">
         <span className="font-opensans font-light text-sm inline-block">
           riteshkhore@gmail.com
         </span>

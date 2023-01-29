@@ -48,12 +48,12 @@ const NavBar: FC = (): JSX.Element => {
             />
           </ul>
 
-          <Link href="/#connect">
+          <a href="/#connect">
             <Button
               title="Contact me"
               className="bg-white text-secondary border border-secondary hover:bg-secondary hover:text-white transition-all px-4 py-3"
             />
-          </Link>
+          </a>
 
           <div className="ml-4 sm:hidden">
             {open ? (

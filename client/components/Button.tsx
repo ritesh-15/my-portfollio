@@ -7,6 +7,7 @@ interface IButtonProps
   > {
   title: string
   icon?: JSX.Element
+  loading?: boolean
 }
 
 const Button: FC<IButtonProps> = ({
@@ -14,6 +15,7 @@ const Button: FC<IButtonProps> = ({
   className,
   onClick,
   icon,
+  loading,
   ...props
 }) => {
   return (
@@ -22,7 +24,12 @@ const Button: FC<IButtonProps> = ({
       className={`px-3 font-semibold py-3 rounded-md font-opensans flex items-center justify-center ${className}`}
     >
       <span className="font-opensans inline-block">{title}</span>
-      {icon && <div className="ml-2">{icon}</div>}
+      {/* {icon && <div className="ml-2">{icon}</div>} */}
+      {loading ? (
+        <div className="loader ml-4" />
+      ) : icon ? (
+        <div className="ml-2">{icon}</div>
+      ) : null}
     </button>
   )
 }

@@ -45,8 +45,8 @@ html {
 }
 
 .loader {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   border: 3px solid transparent;
   border-left: 3px solid white;
