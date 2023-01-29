@@ -24,11 +24,11 @@ interface IProps {
 const Home: NextPage<IProps> = ({ projects, skills, pageInfo }) => {
   return (
     <>
-      <main className="bg-white">
+      <main className="bg-white overflow-x-hidden">
         <Container className="min-h-screen">
           <Head>
             <title>{pageInfo.name}</title>
-            <meta name="description" content="My personal portfollio" />
+            <meta name="description" content="Welcome to my portfollio" />
             <link rel="icon" href="/images/header_self.png" />
           </Head>
           <NavBar />
