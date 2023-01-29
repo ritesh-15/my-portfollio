@@ -14,14 +14,18 @@ import { ISkillResponse } from "../interfaces/skill_interface"
 import { IPageInfo } from "../interfaces/page_info_interface"
 import Container from "../layouts/Container"
 import { getData } from "../sanity"
+import Error from "../components/Error"
 
 interface IProps {
   projects: IProjectResponse
   skills: ISkillResponse
   pageInfo: IPageInfo
+  error: boolean
 }
 
-const Home: NextPage<IProps> = ({ projects, skills, pageInfo }) => {
+const Home: NextPage<IProps> = ({ projects, skills, pageInfo, error }) => {
+  if (error) return <Error />
+
   return (
     <>
       <main className="bg-white overflow-x-hidden">
@@ -52,12 +56,13 @@ const Home: NextPage<IProps> = ({ projects, skills, pageInfo }) => {
 }
 
 export async function getServerSideProps(context: any) {
-  const { projects, skills, pageInfo } = await getData()
+  let { projects, skills, pageInfo } = await getData()
   return {
     props: {
       projects,
       skills,
       pageInfo: pageInfo[0],
+      error: false,
     },
   }
 }
