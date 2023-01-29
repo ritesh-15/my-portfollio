@@ -1,50 +1,48 @@
-import axios from "axios"
 import type { NextPage } from "next"
 import Head from "next/head"
-import AboutSection from "../components/AboutSection"
-import ConnectSection from "../components/ConnectSection"
-import Footer from "../components/Footer"
-import HeroSection from "../components/HeroSection"
-import NavBar from "../components/NavBar"
-import ProjectsSection from "../components/ProjectsSection"
-import Skills from "../components/Skills"
-import { IProject, ITechStack } from "../interfaces/project_interface"
-import IUser from "../interfaces/user_interface"
+import {
+  NavBar,
+  HeroSection,
+  AboutSection,
+  Skills,
+  ProjectsSection,
+  ConnectSection,
+  Footer,
+} from "../components"
+import { IProjectResponse } from "../interfaces/project_interface"
+import { ISkillResponse } from "../interfaces/skill_interface"
+import { IPageInfo } from "../interfaces/page_info_interface"
 import Container from "../layouts/Container"
+import { getData } from "../sanity"
 
 interface IProps {
-  data: {
-    user: IUser
-    projects: IProject[]
-    success: boolean
-    techStack: ITechStack[]
-  }
+  projects: IProjectResponse
+  skills: ISkillResponse
+  pageInfo: IPageInfo
 }
 
-const Home: NextPage<IProps> = ({ data }) => {
-  const { user, projects, techStack } = data
-  console.log(data)
-
+const Home: NextPage<IProps> = ({ projects, skills, pageInfo }) => {
   return (
     <>
       <main className="bg-white">
         <Container className="min-h-screen">
           <Head>
-            <title>ritesh</title>
+            <title>{pageInfo.name}</title>
             <meta name="description" content="My personal portfollio" />
             <link rel="icon" href="/images/header_self.png" />
           </Head>
           <NavBar />
           <HeroSection
-            subHeading={user.info.subHeading}
-            heading={user.info.heading}
+            subHeading={pageInfo.hero.subHeding}
+            heading={pageInfo.hero.heading}
           />
-          <AboutSection about={user.info.about} />
-          <Skills tags={techStack} />
+          <AboutSection about={pageInfo.about} />
+          <Skills tags={skills} />
           <ProjectsSection projects={projects} />
           <ConnectSection
-            subHeading={user.info.contactSubHeading}
-            heading={user.info.contactHeading}
+            subHeading={pageInfo.contact.subHeding}
+            heading={pageInfo.contact.heading}
+            email={pageInfo.email}
           />
           <Footer />
         </Container>
@@ -54,21 +52,13 @@ const Home: NextPage<IProps> = ({ data }) => {
 }
 
 export async function getServerSideProps(context: any) {
-  try {
-    const res = await axios.get("http://localhost:3000/api/data")
-
-    return {
-      props: {
-        data: res.data,
-      },
-    }
-  } catch (err: any) {
-    return {
-      props: {
-        data: null,
-        message: err.message,
-      },
-    }
+  const { projects, skills, pageInfo } = await getData()
+  return {
+    props: {
+      projects,
+      skills,
+      pageInfo: pageInfo[0],
+    },
   }
 }
 

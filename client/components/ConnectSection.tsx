@@ -11,13 +11,14 @@ import { FaLinkedinIn } from "react-icons/fa"
 import { Button, FormField } from "."
 import { MdKeyboardArrowRight } from "react-icons/md"
 import { useFormik } from "formik"
-import ContactSchema from "../models/connect_schema"
-import { useNewContactMutation } from "../app/services/contact/contact.service"
 import Link from "next/link"
+import ContactSchema from "../models/ContactSchema"
+import { createNewContact } from "../sanity"
 
 interface IConnectProps {
   heading: string
   subHeading: string
+  email: string
 }
 
 interface ConnectFormState {
@@ -26,27 +27,20 @@ interface ConnectFormState {
   message: string
 }
 
-const errorStyle = "text-red-500 font-nunito text-sm"
-
 const initialState: ConnectFormState = {
   name: "",
   email: "",
   message: "",
 }
 
-const ConnectSection: FC<IConnectProps> = ({ heading, subHeading }) => {
+const ConnectSection: FC<IConnectProps> = ({ heading, subHeading, email }) => {
   const { enqueueSnackbar } = useSnackbar()
-
-  const [contact, { error, data }] = useNewContactMutation()
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: initialState,
     validationSchema: ContactSchema,
     onSubmit: async (values) => {
-      await contact(values)
-      if (error) {
-        enqueueSnackbar(errorStyle, { variant: "error" })
-      }
+      await createNewContact(values)
     },
   })
 
@@ -65,12 +59,10 @@ const ConnectSection: FC<IConnectProps> = ({ heading, subHeading }) => {
       <div className="flex gap-4 flex-col sm:flex-row w-full">
         <div className="flex-1 w-full ">
           <h1 className="font-opensans font-bold text-2xl w-full sm:w-[60%]">
-            Lets work together on next project
+            {heading}
           </h1>
           <p className="font-opensans mt-2 leading-loose w-full sm:w-[70%]">
-            I will be always happy to work with you on your next project. You
-            can email me or fill out the form. I will be reach you as soon as
-            possible.
+            {subHeading}
           </p>
 
           <div className="mt-4">
@@ -82,7 +74,7 @@ const ConnectSection: FC<IConnectProps> = ({ heading, subHeading }) => {
                 type="text"
                 className="bg-transparent w-full h-full outline-none"
                 readOnly
-                value="riteshkhore@gmail.com"
+                value={email}
               />
               <IoCopyOutline
                 onClick={handleEmailCopy}
@@ -153,7 +145,7 @@ const ConnectSection: FC<IConnectProps> = ({ heading, subHeading }) => {
           </div>
         </div>
 
-        <div className="flex-1 ">
+        <div className="flex-1 mt-4 md:mt-0">
           <form onSubmit={handleSubmit} action="">
             <FormField
               onChange={handleChange}
@@ -179,6 +171,7 @@ const ConnectSection: FC<IConnectProps> = ({ heading, subHeading }) => {
               label="Message"
               parentclass="mb-4"
               error={errors.message}
+              rows={4}
             />
             <Button
               title="Reach out to me"

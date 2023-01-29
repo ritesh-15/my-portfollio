@@ -1,10 +1,7 @@
 import "../styles/globals.css"
 import type { AppProps } from "next/app"
-import { Provider } from "react-redux"
-import { store } from "../app/store"
 import { ReactElement, ReactNode } from "react"
 import { NextPage } from "next"
-import { useRefresh } from "../hooks"
 import { SnackbarProvider } from "notistack"
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -20,19 +17,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return getLayout(
     <>
-      <Provider store={store}>
-        <SnackbarProvider autoHideDuration={3000} maxSnack={3}>
-          <Component {...pageProps} />
-          <RefreshComponent />
-        </SnackbarProvider>
-      </Provider>
+      <SnackbarProvider autoHideDuration={3000} maxSnack={3}>
+        <Component {...pageProps} />
+      </SnackbarProvider>
     </>
   )
-}
-
-function RefreshComponent() {
-  useRefresh()
-  return <></>
 }
 
 export default MyApp

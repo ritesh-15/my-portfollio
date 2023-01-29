@@ -1,10 +1,9 @@
 import React, { FC } from "react"
-import { IProject } from "../interfaces/project_interface"
-import Button from "./Button"
+import { IProjectResponse } from "../interfaces/project_interface"
 import Project from "./Project"
 
 interface IProjectProps {
-  projects: IProject[]
+  projects: IProjectResponse
 }
 
 const ProjectsSection: FC<IProjectProps> = ({ projects }): JSX.Element => {
@@ -14,13 +13,8 @@ const ProjectsSection: FC<IProjectProps> = ({ projects }): JSX.Element => {
         Featured projects
       </h1>
       {projects.map((project, index) => (
-        <Project project={project} reverse={index % 2 != 0} />
+        <Project key={project._id} project={project} reverse={index % 2 != 0} />
       ))}
-
-      <Button
-        title="view more projects"
-        className="border border-secondary ml-auto"
-      />
     </section>
   )
 }

@@ -16,12 +16,12 @@ const HeroSection: FC<IHeroProps> = ({ heading, subHeading }): JSX.Element => {
           {heading}
         </h1>
 
-        <p className="font-opensans mt-4 text-lg sm:text-left sm:text-2xl text-center w-full sm:w-[50%]">
+        <p className="font-opensans mt-6 text-lg sm:text-left sm:text-2xl text-center w-full sm:w-[50%]">
           {subHeading}
         </p>
 
         <Button
-          className="bg-secondary text-white text-lg mt-6 w-full sm:w-fit"
+          className="bg-secondary text-white text-lg mt-8 w-full sm:w-fit"
           title="View Projects"
           icon={
             <AiOutlineDown className="text-xl animate__view__project__arrow" />
@@ -29,11 +29,38 @@ const HeroSection: FC<IHeroProps> = ({ heading, subHeading }): JSX.Element => {
         />
       </div>
 
-      <motion.div className="bg-primary right-0 sm:right-[100px] top-[50px] sm:top-[150px] absolute w-[300px] rounded-[50%] h-[300px]"></motion.div>
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ rotate: 180, scale: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+        }}
+        className="bg-primary right-0 sm:right-[100px] top-[50px] sm:top-[150px] absolute w-[300px] rounded-[50%] h-[300px]"
+      ></motion.div>
 
-      <div className="bg-secondary hidden sm:block right-0 top-[420px] absolute w-[200px] rounded-[50%] h-[200px]"></div>
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ rotate: 180, scale: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+        }}
+        className="bg-secondary hidden sm:block right-0 top-[420px] absolute w-[200px] rounded-[50%] h-[200px]"
+      ></motion.div>
 
-      <div className="bg-secondary hidden sm:block right-[220px] top-[470px] absolute w-[120px] rounded-[50%] h-[120px]"></div>
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ rotate: 180, scale: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+        }}
+        className="bg-secondary hidden sm:block right-[220px] top-[470px] absolute w-[120px] rounded-[50%] h-[120px]"
+      ></motion.div>
     </section>
   )
 }
