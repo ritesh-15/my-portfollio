@@ -1,8 +1,6 @@
 import AboutSection from "./AboutSection"
 import Button from "./Button"
 import ConnectSection from "./ConnectSection"
-import Education from "./Education"
-import EducationSection from "./EducationSection"
 import Footer from "./Footer"
 import HeroSection from "./HeroSection"
 import Input from "./Input"
@@ -16,12 +14,10 @@ export {
   FormField,
   AboutSection,
   ConnectSection,
-  EducationSection,
   HeroSection,
   ProjectsSection,
   Skills,
   NavBar,
   Input,
   Footer,
-  Education,
 }
