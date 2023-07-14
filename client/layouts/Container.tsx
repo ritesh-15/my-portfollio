@@ -10,13 +10,7 @@ const Container: FC<ContainerProps> = ({
   className,
 }): JSX.Element => {
   return (
-    <div
-      style={{
-        maxWidth: "1300px",
-        width: "95%",
-      }}
-      className={`mx-auto relative  ${className} `}
-    >
+    <div className={`mx-auto max-w-[1300px] w-[90%] relative  ${className} `}>
       {children}
     </div>
   )

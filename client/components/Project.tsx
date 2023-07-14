@@ -1,4 +1,5 @@
-import Image from "next/image"
+"use client"
+
 import React, { FC } from "react"
 import Button from "./Button"
 import { IProject } from "../interfaces/project_interface"
@@ -6,6 +7,7 @@ import Link from "next/link"
 import { urlFor } from "../sanity"
 import { AiFillGithub, AiFillEye } from "react-icons/ai"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 interface IProjectProps {
   reverse?: boolean
@@ -32,6 +34,7 @@ const Project: FC<IProjectProps> = ({ reverse, project }): JSX.Element => {
         <Image
           src={urlFor(project?.image).url()}
           layout="fill"
+          alt=""
           className="object-cover md:object-contain"
         />
       </div>

@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
@@ -10,9 +11,6 @@ module.exports = {
         primary: "#8DFC00",
         secondary: "#151515",
       },
-    },
-    fontFamily: {
-      opensans: ["Open Sans", "sans-serif"],
     },
   },
   plugins: [],

@@ -1,3 +1,5 @@
+"use client"
+
 import React, { FC, useState } from "react"
 import { IoCopyOutline } from "react-icons/io5"
 import { useSnackbar } from "notistack"

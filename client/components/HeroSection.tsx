@@ -1,94 +1,23 @@
-import React, { FC } from "react"
-import Button from "./Button"
-import { AiOutlineDown } from "react-icons/ai"
-import { motion } from "framer-motion"
-
-interface IHeroProps {
-  heading: string
-  subHeading: string
-}
-
-const HeroSection: FC<IHeroProps> = ({ heading, subHeading }): JSX.Element => {
+export default function HeroSection() {
   return (
-    <section id="#" className="relative flex items-center full__screen__height">
-      <div className="z-10 w-full flex flex-col items-center sm:items-start">
-        <motion.h1
-          initial={{ translateX: "-100%" }}
-          whileInView={{ translateX: "0%" }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0.5,
-          }}
-          className="font-bold font-opensans text-4xl text-center sm:text-left sm:text-5xl md:text-6xl w-full sm:w-[60%]"
-        >
-          {heading}
-        </motion.h1>
-
-        <motion.p
-          initial={{ translateX: "-100%" }}
-          whileInView={{ translateX: "0%" }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0.5,
-          }}
-          className="font-opensans mt-6 text-lg sm:text-left sm:text-2xl text-center w-full sm:w-[50%]"
-        >
-          {subHeading}
-        </motion.p>
-
-        <motion.a
-          initial={{ translateX: "-100%" }}
-          whileInView={{ translateX: "0%" }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0.5,
-          }}
-          href="#projects"
-        >
-          <Button
-            className="bg-secondary text-white text-lg mt-8 w-full sm:w-fit"
-            title="View Projects"
-            icon={
-              <AiOutlineDown className="text-xl animate__view__project__arrow" />
-            }
-          />
-        </motion.a>
+    <section className="text-white flex items-center min-h-screen relative">
+      <div className="z-20">
+        <h1 className="text-5xl tracking-[0.05em] font-light">My name is</h1>
+        <h2 className="text-8xl font-bold tracking-[0.15em] leading-snug">
+          Ritesh
+        </h2>
+        <p className="text-2xl font-light md:w-[65%] leading-relaxed">
+          Learner, programmer, and a full stack developer who can build scalable
+          full stack applications
+        </p>
       </div>
 
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ rotate: 180, scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 20,
-        }}
-        className="bg-primary right-0 sm:right-[100px] top-[50px] sm:top-[150px] absolute w-[300px] rounded-[50%] h-[300px]"
-      ></motion.div>
+      <div className="absolute -z-10 bottom-12 w-[155px] h-[155px] bg-primary rounded-full"></div>
+      <div className="absolute -z-10 top-24 right-0 w-[155px] h-[155px] bg-primary rounded-full"></div>
 
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ rotate: 180, scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 20,
-        }}
-        className="bg-secondary hidden sm:block right-0 top-[420px] absolute w-[200px] rounded-[50%] h-[200px]"
-      ></motion.div>
-
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ rotate: 180, scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 20,
-        }}
-        className="bg-secondary hidden sm:block right-[220px] top-[470px] absolute w-[120px] rounded-[50%] h-[120px]"
-      ></motion.div>
+      <div className="absolute -z-10 top-40 right-1/2 w-[55px] h-[55px] bg-primary rounded-full"></div>
+      <div className="absolute -z-10 top-48 right-1/4 w-[55px] h-[55px] bg-primary rounded-full"></div>
+      <div className="absolute -z-10 top-72 right-1/3 w-[55px] h-[55px] bg-primary rounded-full"></div>
     </section>
   )
 }
-
-export default HeroSection

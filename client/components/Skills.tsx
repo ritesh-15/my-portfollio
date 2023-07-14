@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import React, { FC } from "react"
 import { ISkillResponse } from "../interfaces/skill_interface"

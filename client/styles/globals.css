@@ -1,8 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
-
-html {
-  scroll-behavior: smooth;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .navbar__item:hover > .navbar__item__bottom {
   width: 70%;
@@ -18,7 +16,7 @@ html {
 }
 
 .full__screen__height {
-  min-height: calc(100vh - 66px);
+  min-height: calc(100vh - 82px);
 }
 
 .animate__view__project__arrow {
@@ -107,7 +105,3 @@ html {
     }
   }
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

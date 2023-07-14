@@ -21,7 +21,7 @@ const Button: FC<IButtonProps> = ({
   return (
     <button
       {...props}
-      className={`px-3 font-semibold py-3 rounded-md font-opensans flex items-center justify-center ${className}`}
+      className={`px-3 py-3 rounded-md flex items-center justify-center ${className}`}
     >
       <span className="font-opensans inline-block">{title}</span>
       {/* {icon && <div className="ml-2">{icon}</div>} */}

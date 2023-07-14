@@ -1,98 +1,100 @@
-import Link from "next/link"
-import React, { FC, useState } from "react"
-import Button from "./Button"
-import { AiOutlineClose } from "react-icons/ai"
-import { HiOutlineMenuAlt1 } from "react-icons/hi"
+"use client"
 
-interface NavItemProps
-  extends React.DetailedHTMLProps<
-    React.LiHTMLAttributes<HTMLLIElement>,
-    HTMLLIElement
-  > {
-  title: string
-  path: string
+import { useState } from "react"
+import Button from "./Button"
+import { CiMenuBurger } from "react-icons/ci"
+import { TfiClose } from "react-icons/tfi"
+import { motion } from "framer-motion"
+import Container from "../layouts/Container"
+
+const styles = {
+  li: "cursor-pointer relative navbar__item w-fit",
+  div: "h-[0.25em] absolute navbar__item__bottom bg-primary",
 }
 
-const NavBar: FC = (): JSX.Element => {
-  const [open, setOpen] = useState<boolean>(false)
+export default function NavBar() {
+  const [open, setOpen] = useState(false)
 
   const handleOpen = () => {
     setOpen(!open)
   }
 
   return (
-    <div className="fixed shadow-md z-40 bg-white top-0 left-0 right-0">
-      <nav className="py-3 relative flex items-center justify-between max-w-[1300px] w-[95%] mx-auto">
-        <Link href="/">
-          <h1 className="font-opensans font-bold text-xl cursor-pointer">
-            RITESH.
-          </h1>
-        </Link>
+    <div className="fixed left-0 right-0  z-50 w-full">
+      <nav className="text-white relative top-0 py-4 flex items-center justify-between bg-secondary max-w-[1300px] mx-auto w-[90%]">
+        <div className="flex items-center gap-12">
+          <h1 className="text-4xl font-bold">R.</h1>
 
-        <div className="flex items-center">
-          <ul className="hidden sm:flex items-center">
-            <NavItem
-              className="hidden sm:inline-block mx-8 "
-              title="About"
-              path="#about"
-            />
-            <NavItem
-              className="hidden sm:inline-block mx-8 "
-              title="Skills"
-              path="#skills"
-            />
-            <NavItem
-              className="hidden sm:inline-block mx-8 "
-              title="Projects"
-              path="#projects"
-            />
-          </ul>
-
-          <a href="/#connect">
-            <Button
-              title="Contact me"
-              className="bg-white text-secondary border border-secondary hover:bg-secondary hover:text-white transition-all px-4 py-3"
-            />
-          </a>
-
-          <div className="ml-4 sm:hidden">
-            {open ? (
-              <AiOutlineClose
-                onClick={handleOpen}
-                className="sm:hidden text-xl cursor-pointer"
-              />
-            ) : (
-              <HiOutlineMenuAlt1
-                onClick={handleOpen}
-                className="sm:hidden text-xl cursor-pointer"
-              />
-            )}
-          </div>
+          <motion.ul
+            transition={{}}
+            className="items-center gap-8 hidden md:flex"
+          >
+            <li className={`${styles.li}`}>
+              <p className="">Home</p>
+              <div className={`${styles.div}`}></div>
+            </li>
+            <li className={`${styles.li}`}>
+              <p className="">About</p>
+              <div className={`${styles.div}`}></div>
+            </li>
+            <li className={`${styles.li}`}>
+              <p className="">Qualification</p>
+              <div className={`${styles.div}`}></div>
+            </li>
+            <li className={`${styles.li}`}>
+              <p className="">Skills</p>
+              <div className={`${styles.div}`}></div>
+            </li>
+            <li className={`${styles.li}`}>
+              <p className="">Projects</p>
+              <div className={`${styles.div}`}></div>
+            </li>
+          </motion.ul>
         </div>
-      </nav>
 
-      <div
-        className={`sm:hidden ${
-          open ? "scale-y-1" : "scale-y-0"
-        } shadow-lg px-2 py-2  origin-top absolute bg-white w-full right-0 left-0 transition-all`}
-      >
-        <ul className="flex flex-col">
-          <NavItem className="my-6 mx-0" title="About" path="#about" />
-          <NavItem className="my-6 mx-0" title="Skills" path="#skills" />
-          <NavItem className="my-6 mx-0" title="Projects" path="#projects" />
+        <div className="flex gap-4 items-center">
+          <Button
+            className="border-white border hover:bg-primary text-white hover:border-transparent transition-all"
+            title="Get In Touch"
+          ></Button>
+          <CiMenuBurger
+            onClick={handleOpen}
+            className="text-2xl cursor-pointer md:hidden"
+          />
+        </div>
+
+        <ul
+          className={`flex-col bg-primary w-full sm:max-w-[300px] ml-auto bottom-0 top-0 left-0 right-0 gap-8 flex md:hidden fixed pt-[82px] px-8 ${
+            open ? "flex" : "hidden"
+          }`}
+        >
+          <TfiClose
+            onClick={handleOpen}
+            className="text-2xl cursor-pointer ml-auto"
+          />
+
+          <li className={`${styles.li}`}>
+            <p className="">Home</p>
+            <div className={`${styles.div}`}></div>
+          </li>
+          <li className={`${styles.li}`}>
+            <p className="">About</p>
+            <div className={`${styles.div}`}></div>
+          </li>
+          <li className={`${styles.li}`}>
+            <p className="">Qualification</p>
+            <div className={`${styles.div}`}></div>
+          </li>
+          <li className={`${styles.li}`}>
+            <p className="">Skills</p>
+            <div className={`${styles.div}`}></div>
+          </li>
+          <li className={`${styles.li}`}>
+            <p className="">Projects</p>
+            <div className={`${styles.div}`}></div>
+          </li>
         </ul>
-      </div>
+      </nav>
     </div>
   )
 }
-
-const NavItem: FC<NavItemProps> = ({ path, title, className }) => {
-  return (
-    <li className={`relative w-fit cursor-pointer navbar__item ${className}`}>
-      <Link href={path}>{title}</Link>
-      <div className="h-[0.25em] absolute bg-secondary mt-1 navbar__item__bottom"></div>
-    </li>
-  )
-}
-
-export default NavBar
