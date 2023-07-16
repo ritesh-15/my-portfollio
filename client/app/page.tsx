@@ -1,12 +1,33 @@
 import "../styles/globals.css"
-import { AboutSection, HeroSection, NavBar } from "../components"
+import {
+  AboutSection,
+  ConnectSection,
+  HeroSection,
+  NavBar,
+  ProjectsSection,
+  Qualification,
+  Services,
+  Skills,
+} from "../components"
+import { getData } from "../sanity"
 
-export default function Page() {
+export default async function Page() {
+  const data = await getData()
+
   return (
     <>
       <NavBar />
       <HeroSection />
-      <AboutSection about="" />
+      <AboutSection />
+      <Services />
+      <Skills tags={data.skills} />
+      <ProjectsSection projects={data.projects} />
+      <Qualification />
+      <ConnectSection
+        heading={data.pageInfo[0].contact.heading}
+        subHeading={data.pageInfo[0].contact.subHeding}
+        email={data.pageInfo[0].email}
+      />
     </>
   )
 }

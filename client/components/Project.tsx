@@ -1,13 +1,12 @@
 "use client"
 
 import React, { FC } from "react"
-import Button from "./Button"
 import { IProject } from "../interfaces/project_interface"
 import Link from "next/link"
 import { urlFor } from "../sanity"
-import { AiFillGithub, AiFillEye } from "react-icons/ai"
-import { motion } from "framer-motion"
 import Image from "next/image"
+import { AiFillGithub } from "react-icons/ai"
+import { GoLinkExternal } from "react-icons/go"
 
 interface IProjectProps {
   reverse?: boolean
@@ -16,86 +15,64 @@ interface IProjectProps {
 
 const Project: FC<IProjectProps> = ({ reverse, project }): JSX.Element => {
   return (
-    <motion.div
-      initial={{ opacity: 0, translateX: `${reverse ? "100%" : "-100%"}` }}
-      whileInView={{
-        opacity: 1,
-        translateX: reverse
-          ? ["50%", "25%", "0%", "-25%", "0%"]
-          : ["-50%", "-75%", "0%", "25%", "0%"],
-      }}
-      transition={{ duration: 0.75, type: "tween" }}
-      viewport={{ once: true }}
-      className={`sm:hover:shadow-lg rounded-md transition-all overflow-hidden flex justify-between gap-6 mb-[4em] flex-col ${
+    <div
+      className={`rounded-md transition-all overflow-hidden flex justify-between gap-6 mb-[4em] text-white flex-col ${
         reverse ? "md:flex-row-reverse" : "md:flex-row"
       }`}
     >
-      <div className="relative md:flex-1 min-h-[200px] md:min-h-[350px]">
+      <div className="relative md:flex-1 h-fullmin-h-[200px] md:min-h-[350px]">
         <Image
+          alt=""
           src={urlFor(project?.image).url()}
           layout="fill"
-          alt=""
-          className="object-cover md:object-contain"
+          className="object-cover md:object-contain h-full"
         />
+
+        <div className="flex absolute left-0 bottom-0 right-0 items-center justify-center gap-4 flex-wrap mb-4">
+          {project?.tags?.map((tag) => (
+            <Image
+              src={urlFor(tag?.image).url()}
+              width={44}
+              height={44}
+              alt=""
+              className="object-cover"
+              objectFit="cover"
+            />
+          ))}
+        </div>
       </div>
 
       <div className={`flex-1 flex flex-col sm:p-4 rounded-lg`}>
-        <div className="flex items-center gap-2 flex-wrap mb-4">
-          {project?.tags?.map((tag) => (
-            <div
-              key={tag.name}
-              className="border bg-white border-gray-300 w-fit px-2 flex items-center justify-center py-2 rounded-lg gap-1"
-            >
-              <Image
-                src={urlFor(tag?.image).url()}
-                width={25}
-                height={25}
-                alt=""
-              />
-              <span className="font-opensans font-light text-sm">
-                {tag.name}
-              </span>
-            </div>
-          ))}
-        </div>
-
         <h1 className="text-2xl font-bold font-opensans">{project?.title}</h1>
         <p className="text-lg font-opensans leading-loose mt-2">
           {project?.description}
         </p>
 
         <div className="flex items-center gap-4 mt-4">
-          <Link passHref href={project?.demoLink!!}>
+          <Link legacyBehavior passHref href={project?.demoLink!!}>
             <a
-              className="no-underline outline-none"
+              className="no-underline outline-none hover:bg-primary hover:text-white transition-all bg-secondaryVarient p-4 rounded-full text-white"
               href={project?.demoLink!!}
               target="_blank"
               rel="noreferrer"
             >
-              <Button
-                icon={<AiFillEye className="text-xl" />}
-                title="View Site"
-                className="bg-secondary text-white"
-              />
+              <GoLinkExternal className="text-2xl" />
             </a>
           </Link>
-          <Link passHref href={project?.gitHubLink!!}>
+
+          <Link legacyBehavior passHref href={project?.demoLink!!}>
             <a
-              className="no-underline outline-none"
-              href={project?.gitHubLink!!}
+              className="no-underline outline-none hover:bg-primary hover:text-white transition-all bg-secondaryVarient p-4 rounded-full text-white"
+              href={project?.demoLink!!}
               target="_blank"
               rel="noreferrer"
             >
-              <Button
-                icon={<AiFillGithub className="text-xl" />}
-                title="Git Hub"
-                className="text-secondary bg-white border-secondary border"
-              />
+              <AiFillGithub className="text-2xl" />
             </a>
           </Link>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 

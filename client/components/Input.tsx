@@ -30,11 +30,11 @@ const Input: FC<IFormField> = ({
         <textarea
           {...(props as any)}
           rows={rows}
-          className={`font-opensans resize-none bg-gray-100 px-2 py-3 rounded-lg outline-none ${className}`}
+          className={`resize-none bg-secondaryVarient px-2 py-3 rounded-lg outline-none ${className}`}
         />
       ) : (
         <input
-          className={`font-opensans  bg-gray-100 px-2 py-3 rounded-lg outline-none ${className}`}
+          className={`font-opensans  bg-secondaryVarient px-2 py-4 rounded-lg outline-none ${className}`}
           {...props}
         />
       )}

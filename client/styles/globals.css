@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth !important;
+}
+
 .navbar__item:hover > .navbar__item__bottom {
   width: 70%;
 }
@@ -21,6 +25,20 @@
 
 .animate__view__project__arrow {
   animation: move 0.75s ease-in infinite alternate-reverse;
+}
+
+.timeline__card__container:nth-child(odd) > .timeline__card {
+  margin-right: auto;
+  margin-left: 0;
+  padding-left: 0;
+  padding-right: 2rem;
+}
+
+@media (max-width: 768px) {
+  .timeline__card__container:nth-child(odd) > .timeline__card {
+    padding-right: 0;
+    padding-left: 2rem;
+  }
 }
 
 @keyframes move {

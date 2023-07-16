@@ -1,11 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import Button from "./Button"
 import { CiMenuBurger } from "react-icons/ci"
 import { TfiClose } from "react-icons/tfi"
 import { motion } from "framer-motion"
 import Container from "../layouts/Container"
+import Link from "next/link"
+import { BsMoon, BsSun } from "react-icons/bs"
 
 const styles = {
   li: "cursor-pointer relative navbar__item w-fit",
@@ -14,49 +16,65 @@ const styles = {
 
 export default function NavBar() {
   const [open, setOpen] = useState(false)
+  const links = useMemo(
+    () => [
+      {
+        href: "#hero",
+        title: "Home",
+      },
+      {
+        href: "#about",
+        title: "About",
+      },
+      {
+        href: "#skills",
+        title: "Skills",
+      },
+      {
+        href: "#projects",
+        title: "Projects",
+      },
+      {
+        href: "#qualification",
+        title: "Qualification",
+      },
+    ],
+    []
+  )
 
   const handleOpen = () => {
     setOpen(!open)
   }
 
   return (
-    <div className="fixed left-0 right-0  z-50 w-full">
+    <div className="fixed left-0 right-0  z-50 w-full bg-secondary">
       <nav className="text-white relative top-0 py-4 flex items-center justify-between bg-secondary max-w-[1300px] mx-auto w-[90%]">
         <div className="flex items-center gap-12">
-          <h1 className="text-4xl font-bold">R.</h1>
+          <Link href="#hero">
+            <h1 className="text-4xl font-bold">R.</h1>
+          </Link>
 
-          <motion.ul
-            transition={{}}
-            className="items-center gap-8 hidden md:flex"
-          >
-            <li className={`${styles.li}`}>
-              <p className="">Home</p>
-              <div className={`${styles.div}`}></div>
-            </li>
-            <li className={`${styles.li}`}>
-              <p className="">About</p>
-              <div className={`${styles.div}`}></div>
-            </li>
-            <li className={`${styles.li}`}>
-              <p className="">Qualification</p>
-              <div className={`${styles.div}`}></div>
-            </li>
-            <li className={`${styles.li}`}>
-              <p className="">Skills</p>
-              <div className={`${styles.div}`}></div>
-            </li>
-            <li className={`${styles.li}`}>
-              <p className="">Projects</p>
-              <div className={`${styles.div}`}></div>
-            </li>
-          </motion.ul>
+          <ul className="items-center gap-8 hidden md:flex">
+            {links.map(({ href, title }) => (
+              <Link key={href} href={href}>
+                <li className={`${styles.li}`}>
+                  <p className="">{title}</p>
+                  <div className={`${styles.div}`}></div>
+                </li>
+              </Link>
+            ))}
+          </ul>
         </div>
 
         <div className="flex gap-4 items-center">
-          <Button
-            className="border-white border hover:bg-primary text-white hover:border-transparent transition-all"
-            title="Get In Touch"
-          ></Button>
+          <Link href="#connect">
+            <Button
+              className="border-primary text-primary border hover:bg-primary hover:text-black hover:border-transparent transition-all"
+              title="Get In Touch"
+            ></Button>
+          </Link>
+          <BsSun />
+          <BsMoon />
           <CiMenuBurger
             onClick={handleOpen}
             className="text-2xl cursor-pointer md:hidden"
@@ -73,26 +91,14 @@ export default function NavBar() {
             className="text-2xl cursor-pointer ml-auto"
           />
 
-          <li className={`${styles.li}`}>
-            <p className="">Home</p>
-            <div className={`${styles.div}`}></div>
-          </li>
-          <li className={`${styles.li}`}>
-            <p className="">About</p>
-            <div className={`${styles.div}`}></div>
-          </li>
-          <li className={`${styles.li}`}>
-            <p className="">Qualification</p>
-            <div className={`${styles.div}`}></div>
-          </li>
-          <li className={`${styles.li}`}>
-            <p className="">Skills</p>
-            <div className={`${styles.div}`}></div>
-          </li>
-          <li className={`${styles.li}`}>
-            <p className="">Projects</p>
-            <div className={`${styles.div}`}></div>
-          </li>
+          {links.map(({ href, title }) => (
+            <Link key={href} href={href}>
+              <li className={`${styles.li}`}>
+                <p className="">{title}</p>
+                <div className={`${styles.div}`}></div>
+              </li>
+            </Link>
+          ))}
         </ul>
       </nav>
     </div>

@@ -1,12 +1,17 @@
 export default function HeroSection() {
   return (
-    <section className="text-white flex items-center min-h-screen relative">
+    <section
+      id="hero"
+      className="text-white flex items-center min-h-screen relative"
+    >
       <div className="z-20">
-        <h1 className="text-5xl tracking-[0.05em] font-light">My name is</h1>
-        <h2 className="text-8xl font-bold tracking-[0.15em] leading-snug">
+        <h1 className="text-3xl md:text-5xl tracking-[0.05em] font-light">
+          My name is
+        </h1>
+        <h2 className="text-6xl md:text-8xl font-bold tracking-[0.15em] leading-snug">
           Ritesh
         </h2>
-        <p className="text-2xl font-light md:w-[65%] leading-relaxed">
+        <p className="text-xl md:text-2xl font-light md:w-[65%] leading-relaxed">
           Learner, programmer, and a full stack developer who can build scalable
           full stack applications
         </p>
