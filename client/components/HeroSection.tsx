@@ -1,28 +1,49 @@
+"use client"
+import { motion } from "framer-motion"
+import Button from "./Button"
+import Reveal from "./Reveal"
+
 export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="text-white flex items-center min-h-screen relative"
+      className="text-secondary dark:text-white flex items-center min-h-screen relative"
     >
       <div className="z-20">
-        <h1 className="text-3xl md:text-5xl tracking-[0.05em] font-light">
-          My name is
-        </h1>
-        <h2 className="text-6xl md:text-8xl font-bold tracking-[0.15em] leading-snug">
-          Ritesh
-        </h2>
-        <p className="text-xl md:text-2xl font-light md:w-[65%] leading-relaxed">
-          Learner, programmer, and a full stack developer who can build scalable
-          full stack applications
-        </p>
+        <Reveal>
+          <h1 className="text-6xl leading-normal md:leading-[1.35em] md:text-8xl font-bold">
+            Hi I'm Ritesh
+          </h1>
+        </Reveal>
+
+        <Reveal>
+          <h1 className="font-light text-3xl md:text-4xl leading-normal md:leading-relaxed">
+            I'm a
+            <span className="text-primary font-bold">
+              {" "}
+              Full Stack Developer
+            </span>
+          </h1>
+        </Reveal>
+
+        <Reveal width="w-full md:w-[65%]">
+          <p className="text-xl md:text-2xl font-extralight leading-normal md:leading-relaxed">
+            Learner, programmer, and a full stack developer who can build
+            scalable full stack applications
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <Button
+            className="bg-primary text-black text-xl mt-6"
+            title="Contact Me"
+          ></Button>
+        </Reveal>
       </div>
 
-      <div className="absolute -z-10 bottom-12 w-[155px] h-[155px] bg-primary rounded-full"></div>
-      <div className="absolute -z-10 top-24 right-0 w-[155px] h-[155px] bg-primary rounded-full"></div>
+      <motion.div className="absolute -z-10 bottom-8 md:bottom-12 right-1/ md:right-1/3 w-[155px] h-[155px] bg-primary rounded-full"></motion.div>
 
-      <div className="absolute -z-10 top-40 right-1/2 w-[55px] h-[55px] bg-primary rounded-full"></div>
-      <div className="absolute -z-10 top-48 right-1/4 w-[55px] h-[55px] bg-primary rounded-full"></div>
-      <div className="absolute -z-10 top-72 right-1/3 w-[55px] h-[55px] bg-primary rounded-full"></div>
+      <motion.div className="absolute -z-10 top-0 md:top-24 right-0 w-[255px] h-[255px] bg-primary rounded-full"></motion.div>
     </section>
   )
 }

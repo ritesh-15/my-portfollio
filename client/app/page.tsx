@@ -2,6 +2,7 @@ import "../styles/globals.css"
 import {
   AboutSection,
   ConnectSection,
+  Footer,
   HeroSection,
   NavBar,
   ProjectsSection,
@@ -28,6 +29,7 @@ export default async function Page() {
         subHeading={data.pageInfo[0].contact.subHeding}
         email={data.pageInfo[0].email}
       />
+      <Footer />
     </>
   )
 }

@@ -10,19 +10,17 @@
   },
   "dependencies": {
     "@babel/core": "^7.22.9",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.0",
     "@sanity/client": "^4.0.1",
     "@sanity/image-url": "^1.0.2",
+    "fast-average-color": "^9.3.0",
     "formik": "^2.4.2",
     "framer-motion": "^6.5.1",
     "next": "13.4.10",
     "next-themes": "^0.2.1",
-    "notistack": "^2.0.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "tailwind-merge": "^1.14.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

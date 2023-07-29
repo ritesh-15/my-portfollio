@@ -9,6 +9,7 @@ import FormField from "./Input"
 import NavBar from "./NavBar"
 import ProjectsSection from "./ProjectsSection"
 import Qualification from "./Qualification"
+import ServiceCard from "./ServiceCard"
 import Services from "./Services"
 import Skills from "./Skills"
 import Tab from "./Tab"
@@ -28,4 +29,5 @@ export {
   Qualification,
   Tab,
   Card,
+  ServiceCard,
 }

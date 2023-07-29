@@ -6,6 +6,15 @@ html {
   scroll-behavior: smooth !important;
 }
 
+::-moz-selection {
+  color: hsl(0, 0%, 0%);
+  background: #758bfd;
+}
+
+::selection {
+  color: hsl(0, 0%, 0%);
+  background: #758bfd;
+}
 .navbar__item:hover > .navbar__item__bottom {
   width: 70%;
 }
@@ -20,7 +29,7 @@ html {
 }
 
 .full__screen__height {
-  min-height: calc(100vh - 82px);
+  min-height: calc(100vh - 80px);
 }
 
 .animate__view__project__arrow {

@@ -19,7 +19,7 @@ export default function Tab({
   return (
     <div
       className={`flex flex-col cursor-pointer gap-2 transition-all ${
-        isActive ? "text-primary" : "text-white"
+        isActive ? "text-primary" : "text-secondary dark:text-white"
       }`}
       onClick={() => setCurrent(type)}
     >
