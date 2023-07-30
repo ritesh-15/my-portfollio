@@ -1,43 +1,39 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import Button from "./Button"
 import { CiMenuBurger } from "react-icons/ci"
 import { TfiClose } from "react-icons/tfi"
-import Link from "next/link"
 import { BsMoon, BsSun } from "react-icons/bs"
 import { useTheme } from "next-themes"
 import Reveal from "./Reveal"
-
-const styles = {
-  li: "cursor-pointer relative navbar__item w-fit",
-  div: "h-[0.25em] absolute navbar__item__bottom bg-primary",
-}
+import { motion, useAnimationControls } from "framer-motion"
+import { Link as ScrollLink } from "react-scroll"
 
 export default function NavBar() {
   const [open, setOpen] = useState(false)
   const { theme, setTheme } = useTheme()
+  const controller = useAnimationControls()
 
   const links = useMemo(
     () => [
       {
-        href: "#hero",
+        href: "hero",
         title: "Home",
       },
       {
-        href: "#about",
+        href: "about",
         title: "About",
       },
       {
-        href: "#skills",
+        href: "skills",
         title: "Skills",
       },
       {
-        href: "#projects",
+        href: "projects",
         title: "Projects",
       },
       {
-        href: "#qualification",
+        href: "qualification",
         title: "Qualification",
       },
     ],
@@ -45,7 +41,13 @@ export default function NavBar() {
   )
 
   const handleOpen = () => {
-    setOpen(!open)
+    if (open) {
+      setOpen(false)
+      controller.start("hidden")
+    } else {
+      setOpen(true)
+      controller.start("visible")
+    }
   }
 
   return (
@@ -53,23 +55,38 @@ export default function NavBar() {
       <nav className="text-secondary dark:text-white relative top-0 py-4 flex items-center justify-between max-w-[1200px] mx-auto w-[90%]">
         <div className="flex items-center gap-12">
           <Reveal>
-            <Link href="#hero">
+            <ScrollLink
+              smooth
+              duration={250}
+              isDynamic
+              to="hero"
+              className="cursor-pointer"
+            >
               <h1 className="text-4xl font-extrabold">
                 R <span className="text-primary">.</span>
               </h1>
-            </Link>
+            </ScrollLink>
           </Reveal>
 
           <ul className="items-center gap-8 hidden md:flex">
             {links.map(({ href, title }) => (
-              <Reveal>
-                <Link key={href} href={href}>
-                  <li className={`${styles.li}`}>
+              <li key={href}>
+                <Reveal>
+                  <ScrollLink
+                    to={href}
+                    smooth
+                    duration={250}
+                    isDynamic
+                    className="navbar__item hover:text-primary transition-colors relative cursor-pointer  w-fit"
+                    activeClass="text-primary"
+                  >
                     <p className="">{title}</p>
-                    <div className={`${styles.div}`}></div>
-                  </li>
-                </Link>
-              </Reveal>
+                    <div
+                      className={`h-[0.25em] absolute navbar__item__bottom bg-primary`}
+                    ></div>
+                  </ScrollLink>
+                </Reveal>
+              </li>
             ))}
           </ul>
         </div>
@@ -94,10 +111,21 @@ export default function NavBar() {
           </div>
         </Reveal>
 
-        <ul
-          className={`flex-col bg-primary w-full sm:max-w-[300px] ml-auto bottom-0 top-0 left-0 right-0 gap-8 flex md:hidden fixed pt-[82px] px-8 ${
-            open ? "flex" : "hidden"
-          }`}
+        <motion.ul
+          variants={{
+            hidden: {
+              opacity: 0,
+              translateX: "100%",
+            },
+            visible: {
+              opacity: 1,
+              translateX: "0%",
+            },
+          }}
+          animate={controller}
+          initial="hidden"
+          transition={{ duration: 0.25, ease: "easeIn" }}
+          className={`flex-col bg-white dark:bg-secondary w-full sm:max-w-[300px] ml-auto bottom-0 top-0 left-0 right-0 gap-8 flex md:hidden fixed pt-[82px] px-8 min-h-screen`}
         >
           <TfiClose
             onClick={handleOpen}
@@ -105,14 +133,22 @@ export default function NavBar() {
           />
 
           {links.map(({ href, title }) => (
-            <Link key={href} href={href}>
-              <li className={`${styles.li}`}>
+            <li>
+              <ScrollLink
+                to={href}
+                smooth
+                duration={250}
+                isDynamic
+                className="navbar__item relative cursor-pointer w-fit"
+              >
                 <p className="">{title}</p>
-                <div className={`${styles.div}`}></div>
-              </li>
-            </Link>
+                <div
+                  className={`h-[0.25em] absolute navbar__item__bottom bg-primary`}
+                ></div>
+              </ScrollLink>
+            </li>
           ))}
-        </ul>
+        </motion.ul>
       </nav>
     </div>
   )

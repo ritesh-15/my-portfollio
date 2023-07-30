@@ -16,12 +16,9 @@ import Link from "next/link"
 import ContactSchema from "../models/ContactSchema"
 import { createNewContact } from "../sanity"
 import Reveal from "./Reveal"
-
-interface IConnectProps {
-  heading: string
-  subHeading: string
-  email: string
-}
+import { toast } from "react-hot-toast"
+import { useTheme } from "next-themes"
+import { twMerge } from "tailwind-merge"
 
 interface ConnectFormState {
   name: string
@@ -35,8 +32,9 @@ const initialState: ConnectFormState = {
   message: "",
 }
 
-const ConnectSection: FC<IConnectProps> = ({ heading, subHeading, email }) => {
+const ConnectSection: FC = () => {
   const [loading, setLoading] = useState(false)
+  const { theme } = useTheme()
 
   const socialData = useMemo(() => {
     return [
@@ -81,8 +79,14 @@ const ConnectSection: FC<IConnectProps> = ({ heading, subHeading, email }) => {
       try {
         await createNewContact(values)
         resetForm()
+        toast.success("Thank you for reaching out to me!", {
+          className: twMerge("rounded-lg"),
+        })
       } catch (err) {
         // @ts-ignore
+        toast.error("Something unexpected thing happen, please try again", {
+          className: twMerge("rounded-lg"),
+        })
       }
       setLoading(false)
     },
@@ -90,16 +94,19 @@ const ConnectSection: FC<IConnectProps> = ({ heading, subHeading, email }) => {
 
   const handleEmailCopy = () => {
     navigator.clipboard.writeText("riteshkhore@gmail.com")
+    toast.success("Email address copied successfully", {
+      className: twMerge("rounded-lg"),
+    })
   }
 
   return (
     <section
       id="connect"
-      className="relative mt-16 full__screen__height mb-4 sm:mb-0 text-secondary dark:text-white"
+      className="relative pt-28 pb-12 text-secondary dark:text-white"
     >
       <div className="flex flex-row-reverse items-center gap-4">
         <Reveal>
-          <h1 className="text-5xl font-bold">
+          <h1 className="text-4xl md:text-5xl  font-bold">
             Contact Me
             <span className="text-primary"> .</span>
           </h1>
@@ -112,13 +119,15 @@ const ConnectSection: FC<IConnectProps> = ({ heading, subHeading, email }) => {
           <div className="flex-1 w-full ">
             <Reveal>
               <h1 className="font-opensans font-bold text-2xl w-full sm:w-[60%]">
-                {heading}
+                Let's work together on the next project
               </h1>
             </Reveal>
 
             <Reveal width="w-full sm:w-[70%]">
               <p className="font-opensans mt-2 leading-loose w-full">
-                {subHeading}
+                I will be always happy to work with you on your next project.
+                You can email me or fill out the form. I will reach you as soon
+                as possible.
               </p>
             </Reveal>
 
@@ -129,13 +138,13 @@ const ConnectSection: FC<IConnectProps> = ({ heading, subHeading, email }) => {
                 </span>
               </Reveal>
 
-              <Reveal>
-                <div className="bg-gray-100 dark:bg-secondaryVarient text-secondary dark:text-white w-full sm:max-w-[350px] py-3 px-2 rounded-md flex items-center justify-between">
+              <Reveal width="w-full md:max-w-[350px]">
+                <div className="bg-gray-100 dark:bg-secondaryVarient text-secondary dark:text-white w-full md:max-w-[350px] py-3 px-2 rounded-md flex items-center justify-between">
                   <input
                     type="text"
                     className="bg-transparent w-full h-full outline-none"
                     readOnly
-                    value={email}
+                    value="riteshkhore@gmail.com"
                   />
                   <IoCopyOutline
                     onClick={handleEmailCopy}

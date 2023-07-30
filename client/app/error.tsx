@@ -11,6 +11,8 @@ export default function Error({
   error: Error
   reset: () => void
 }) {
+  console.log(error)
+
   return (
     <section className="min-h-screen w-full flex items-center justify-center">
       <div className="flex flex-col items-center">
@@ -18,7 +20,9 @@ export default function Error({
           <Image src={"/images/error.png"} alt="" fill />
         </div>
 
-        <h1 className="text-2xl font-bold">Some unexpected error occured!</h1>
+        <h1 className="text-2xl font-bold text-center">
+          Some unexpected error occured!
+        </h1>
         <p className="w-full md:max-w-[75%] text-center font-light mt-2">
           Sorry for inconvinence server might be under maintaince or something
           unexpected thing happend at our end we are trying to fix it.

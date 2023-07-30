@@ -10,9 +10,10 @@ import tw from "../utils/tw"
 interface IProps {
   image: any
   className?: string
+  name?: string
 }
 
-export default function TechStack({ image, className }: IProps) {
+export default function TechStack({ image, className, name }: IProps) {
   const [bgColor, setBgColor] = useState("")
 
   useEffect(() => {
@@ -28,21 +29,36 @@ export default function TechStack({ image, className }: IProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0.2, scale: 0.75 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.75 }}
-      viewport={{ once: true }}
-      className={tw(
-        "h-[74px] w-[74px] p-4 rounded-full flex items-center justify-center",
-        className
-      )}
-      style={{
-        background: bgColor,
+      variants={{
+        hidden: {
+          opacity: 0,
+          translateY: 75,
+        },
+        visible: {
+          opacity: 1,
+          translateY: 0,
+        },
       }}
+      initial="hidden"
+      whileInView="visible"
+      transition={{ duration: 0.5, delay: 0.25 }}
+      viewport={{ once: true }}
+      className="flex flex-col items-center justify-center"
     >
-      <div className="relative w-full h-full">
-        <Image objectFit="cover" src={urlFor(image).url()} alt="" fill />
-      </div>
+      <motion.div
+        className={tw(
+          "h-[74px] w-[74px] p-4 rounded-full flex items-center justify-center",
+          className
+        )}
+        style={{
+          background: bgColor,
+        }}
+      >
+        <div className="relative w-full h-full">
+          <Image objectFit="cover" src={urlFor(image).url()} alt="" fill />
+        </div>
+      </motion.div>
+      {name && <small className="mt-2 text-center">{name}</small>}
     </motion.div>
   )
 }

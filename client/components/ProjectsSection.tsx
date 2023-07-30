@@ -9,10 +9,10 @@ interface IProjectProps {
 
 const ProjectsSection: FC<IProjectProps> = ({ projects }): JSX.Element => {
   return (
-    <section id="projects" className="text-secondary dark:text-white mt-16">
+    <section id="projects" className="text-secondary dark:text-white pt-28">
       <div className="flex flex-row-reverse items-center gap-4">
         <Reveal>
-          <h1 className="text-5xl font-bold">
+          <h1 className="text-4xl md:text-5xl  font-bold">
             Projects
             <span className="text-primary"> .</span>
           </h1>

@@ -10,9 +10,9 @@ import TechStack from "./TechStack"
 import Reveal from "./Reveal"
 
 export enum Stack {
-  FRONTEND,
-  BACKEND,
-  OTHER,
+  FRONTEND = "FRONTEND",
+  BACKEND = "BACKEND",
+  OTHER = "OTHER",
 }
 interface ISkills {
   tags: ISkillResponse
@@ -22,10 +22,10 @@ const Skills: FC<ISkills> = ({ tags }): JSX.Element => {
   const [current, setCurrent] = useState<Stack>(Stack.FRONTEND)
 
   return (
-    <section id="skills" className="mt-16">
+    <section id="skills" className="pt-28">
       <div className="flex items-center gap-4">
         <Reveal>
-          <h1 className="text-5xl font-bold">
+          <h1 className="text-4xl md:text-5xl  font-bold">
             Skills
             <span className="text-primary"> .</span>
           </h1>
@@ -66,9 +66,13 @@ const Skills: FC<ISkills> = ({ tags }): JSX.Element => {
       </div>
 
       <div className="mt-12 w-full md:max-w-[550px] gap-12 mx-auto grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5">
-        {tags.map(({ image, _id }) => (
-          <TechStack key={_id} image={image} />
-        ))}
+        {tags.map(({ image, _id, stack, name }) =>
+          stack === current ? (
+            <TechStack name={name} key={_id} image={image} />
+          ) : (
+            <></>
+          )
+        )}
       </div>
     </section>
   )

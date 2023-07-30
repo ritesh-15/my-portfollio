@@ -8,6 +8,7 @@ export interface IProject {
   image?: Image
   tags?: Tag[]
   title: string
+  videoLink?: string
 }
 
 export interface Image {

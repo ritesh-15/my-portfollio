@@ -3,8 +3,15 @@
 import { motion } from "framer-motion"
 import React from "react"
 import { GoCalendar } from "react-icons/go"
+import { IQualificationResponse } from "../interfaces/IQualification"
 
-export default function Card() {
+interface IProps {
+  title: string
+  description: IQualificationResponse[0]["description"]
+  date: string
+}
+
+export default function Card({ title, description, date }: IProps) {
   return (
     <motion.div
       variants={{
@@ -29,17 +36,13 @@ export default function Card() {
         <div className="flex flex-col bg-gray-100 dark:bg-secondaryVarient p-4 rounded-lg">
           <div className="flex items-center gap-2 ">
             <GoCalendar className="text-xl" />
-            <span>2023</span>
+            <span>{date}</span>
           </div>
-          <h1 className="text-2xl font-bold mt-2">Bachelors of Engineering</h1>
+          <h1 className="text-xl md:text-2xl font-bold mt-2">{title}</h1>
           <ul className="mt-2 list-disc pl-4">
-            <li className="leading-loose font-light">
-              Pursing bachelors of engineering from VPKBIET Baramati
-            </li>
-            <li className="leading-loose font-light">
-              Learnign software development fundamentals along with software
-              engineering
-            </li>
+            {description.map(({ children }) => (
+              <li className="leading-loose font-light">{children[0].text}</li>
+            ))}
           </ul>
         </div>
       </div>

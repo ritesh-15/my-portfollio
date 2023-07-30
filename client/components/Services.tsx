@@ -10,7 +10,7 @@ export default function Services() {
     <section className="dark:text-white text-secondary mt-16">
       <div className="flex flex-row-reverse items-center gap-4">
         <Reveal>
-          <h1 className="text-5xl font-bold">
+          <h1 className="text-4xl md:text-5xl font-bold">
             My Services
             <span className="text-primary"> .</span>
           </h1>

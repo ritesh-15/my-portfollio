@@ -2,6 +2,7 @@
 
 import { ThemeProvider } from "next-themes"
 import { ReactElement } from "react"
+import { Toaster } from "react-hot-toast"
 
 interface IProps {
   children: ReactElement
@@ -9,8 +10,11 @@ interface IProps {
 
 export default function Providers({ children }: IProps) {
   return (
-    <ThemeProvider defaultTheme="dark" attribute="class">
-      {children}
-    </ThemeProvider>
+    <>
+      <ThemeProvider defaultTheme="dark" attribute="class">
+        <Toaster position="bottom-left" />
+        {children}
+      </ThemeProvider>
+    </>
   )
 }

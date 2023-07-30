@@ -9,6 +9,9 @@ import { AiFillGithub } from "react-icons/ai"
 import { GoLinkExternal } from "react-icons/go"
 import TechStack from "./TechStack"
 import Reveal from "./Reveal"
+import { twMerge } from "tailwind-merge"
+import { motion } from "framer-motion"
+import { BsCameraVideo } from "react-icons/bs"
 
 interface IProjectProps {
   reverse?: boolean
@@ -23,17 +26,38 @@ const Project: FC<IProjectProps> = ({ reverse, project }): JSX.Element => {
       }`}
     >
       <div
-        className={`flex items-center justify-center ${
+        className={`flex items-center justify-center  ${
           reverse ? "md:order-4" : "order-1"
         }`}
       >
-        <div className={`relative w-full md:w-[450px] h-[200px] md:h-full `}>
+        <div className={`relative w-full md:w-[400px] mx-auto h-[300px] `}>
           <Image
             alt=""
-            src={`/images/colive.png`}
+            src={urlFor(project?.image).url()}
             layout="fill"
             className="object-contain"
           />
+
+          <motion.div
+            variants={{
+              hidden: {
+                opacity: 0,
+                translateY: 75,
+              },
+              visible: {
+                opacity: 1,
+                translateY: 0,
+              },
+            }}
+            initial="hidden"
+            whileInView="visible"
+            transition={{ duration: 0.5, delay: 0.25 }}
+            viewport={{ once: true }}
+            className={twMerge(
+              "absolute w-[300px] h-[300px] bg-primary bottom-0 -z-10 rounded-full",
+              reverse ? "right-0" : "left-0"
+            )}
+          ></motion.div>
         </div>
       </div>
 
@@ -52,11 +76,15 @@ const Project: FC<IProjectProps> = ({ reverse, project }): JSX.Element => {
           ))}
         </div>
 
-        <h1 className="text-2xl font-bold font-opensans">{project?.title}</h1>
+        <Reveal>
+          <h1 className="text-2xl font-bold font-opensans">{project?.title}</h1>
+        </Reveal>
 
-        <p className="text-lg font-opensans leading-loose mt-2">
-          {project?.description}
-        </p>
+        <Reveal>
+          <p className="text-lg font-opensans leading-loose mt-2">
+            {project?.description}
+          </p>
+        </Reveal>
 
         <div className="flex items-center gap-4 mt-4">
           <Link legacyBehavior passHref href={project?.demoLink!!}>
@@ -80,6 +108,19 @@ const Project: FC<IProjectProps> = ({ reverse, project }): JSX.Element => {
               <AiFillGithub className="text-2xl" />
             </a>
           </Link>
+
+          {project?.videoLink && (
+            <Link legacyBehavior passHref href={project?.videoLink!!}>
+              <a
+                className="no-underline dark:hover:bg-primary dark:hover:text-white text-secondary dark:text-white outline-none hover:bg-primary hover:text-white transition-all bg-gray-100 dark:bg-secondaryVarient p-4 rounded-full"
+                href={project?.videoLink!!}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <BsCameraVideo className="text-2xl" />
+              </a>
+            </Link>
+          )}
         </div>
       </div>
     </div>

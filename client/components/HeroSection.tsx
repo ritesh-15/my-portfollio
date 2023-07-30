@@ -2,6 +2,7 @@
 import { motion } from "framer-motion"
 import Button from "./Button"
 import Reveal from "./Reveal"
+import { Link as ScrollLink } from "react-scroll"
 
 export default function HeroSection() {
   return (
@@ -34,16 +35,18 @@ export default function HeroSection() {
         </Reveal>
 
         <Reveal>
-          <Button
-            className="bg-primary text-black text-xl mt-6"
-            title="Contact Me"
-          ></Button>
+          <ScrollLink to="connect">
+            <Button
+              className="bg-primary text-black text-xl mt-6"
+              title="Contact Me"
+            ></Button>
+          </ScrollLink>
         </Reveal>
       </div>
 
-      <motion.div className="absolute -z-10 bottom-8 md:bottom-12 right-1/ md:right-1/3 w-[155px] h-[155px] bg-primary rounded-full"></motion.div>
+      <motion.div className="absolute -z-10 bottom-8 md:bottom-12 right-1/ md:right-1/3 w-[100px] h-[100px] md:w-[155px] md:h-[155px] bg-primary rounded-full"></motion.div>
 
-      <motion.div className="absolute -z-10 top-0 md:top-24 right-0 w-[255px] h-[255px] bg-primary rounded-full"></motion.div>
+      <motion.div className="absolute -z-10 top-0 md:top-24 right-0 w-[200px] h-[200px] md:w-[255px] md:h-[255px] bg-primary rounded-full"></motion.div>
     </section>
   )
 }

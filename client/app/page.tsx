@@ -13,7 +13,7 @@ import {
 import { getData } from "../sanity"
 
 export default async function Page() {
-  const data = await getData()
+  const { skills, qualification, projects } = await getData()
 
   return (
     <>
@@ -21,14 +21,10 @@ export default async function Page() {
       <HeroSection />
       <AboutSection />
       <Services />
-      <Skills tags={data.skills} />
-      <ProjectsSection projects={data.projects} />
-      <Qualification />
-      <ConnectSection
-        heading={data.pageInfo[0].contact.heading}
-        subHeading={data.pageInfo[0].contact.subHeding}
-        email={data.pageInfo[0].email}
-      />
+      <Skills tags={skills} />
+      <ProjectsSection projects={projects} />
+      <Qualification qualification={qualification} />
+      <ConnectSection />
       <Footer />
     </>
   )

@@ -4,6 +4,7 @@ export interface ISkill {
   _id: string
   image: Image
   name: string
+  stack: string
 }
 
 export interface Image {

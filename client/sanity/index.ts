@@ -4,12 +4,14 @@ import { INewContact } from "../interfaces/contact_interface"
 import { IProjectResponse } from "../interfaces/project_interface"
 import { ISkillResponse } from "../interfaces/skill_interface"
 import { IPageInfoResponse } from "../interfaces/page_info_interface"
+import { IQualificationResponse } from "../interfaces/IQualification"
 
 const client = sanityClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: "production",
   useCdn: true,
   token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
+  apiVersion: "v2021-03-25",
 })
 
 export async function createNewContact(contact: INewContact) {
@@ -33,31 +35,32 @@ export async function getData() {
         description,
         image,
         tags[]->{name,image},
-        title
+        title,
+        videoLink
     }`
-
-  const pageInfoQuery = `*[_type=="pageInfo"]{
-      about,
-      contact,
-      hero,
-      image,
-      name,
-      email
-  }`
 
   const skillsQuery = `*[_type=="skills"] {
       _id,
-        image,
-      name
+      image,
+      name,
+      stack
 }`
 
-  const [projects, pageInfo, skills] = await Promise.all([
+  const qualificationQuery = `*[_type=="qualification"] | order(_createdAt asc) {
+  _id,
+  title,
+  description,
+  date,
+  isEducation
+}`
+
+  const [projects, skills, qualification] = await Promise.all([
     client.fetch<IProjectResponse>(projectQuery),
-    client.fetch<IPageInfoResponse>(pageInfoQuery),
     client.fetch<ISkillResponse>(skillsQuery),
+    client.fetch<IQualificationResponse>(qualificationQuery),
   ])
 
-  return { projects, pageInfo, skills }
+  return { projects, skills, qualification }
 }
 
 export default client
