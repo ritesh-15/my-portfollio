@@ -51,10 +51,14 @@ export default function AboutSection() {
           </Reveal>
 
           <Reveal>
-            <div className="flex items-center mt-4 gap-2 border border-primary p-4 rounded-md w-fit text-primary">
+            <a
+              href="https://drive.google.com/file/d/1kGthfTTziylqXhlLEsBqH4vvJu_7DgiD/view?usp=sharing"
+              target="_blank"
+              className="flex items-center mt-4 gap-2 border border-primary p-4 rounded-md w-fit text-primary hover:bg-primary hover:text-secondary transition-colors"
+            >
               <BsFilePdf className="text-xl" />
-              <a href="">Download Resume</a>
-            </div>
+              <span> Download Resume</span>
+            </a>
           </Reveal>
         </div>
       </div>

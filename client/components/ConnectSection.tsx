@@ -57,7 +57,7 @@ const ConnectSection: FC = () => {
         ),
       },
       {
-        url: "https://www.linkedin.com/in/ritesh-khore-7119b8205/",
+        url: "https://www.linkedin.com/in/ritesh-khore/",
         icon: (
           <FaLinkedinIn className="text-xl cursor-pointer hover:text-primary transition-all" />
         ),

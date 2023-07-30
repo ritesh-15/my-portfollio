@@ -10,10 +10,9 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "RITESH",
+  title: "👋 RITESH",
   description:
     "Learner, programmer, and a full stack developer who can build scalable full stack applications",
-  icons: "👋",
 }
 
 export default function RootLayout({ children }: { children: ReactElement }) {
