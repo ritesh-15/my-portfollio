@@ -54,62 +54,56 @@ export default function NavBar() {
     <div className="fixed left-0 right-0 backdrop-blur-md z-50 w-full">
       <nav className="text-secondary dark:text-white relative top-0 py-4 flex items-center justify-between max-w-[1200px] mx-auto w-[90%]">
         <div className="flex items-center gap-12">
-          <Reveal>
-            <ScrollLink
-              smooth
-              duration={250}
-              isDynamic
-              to="hero"
-              className="cursor-pointer"
-            >
-              <h1 className="text-4xl font-extrabold">
-                R <span className="text-primary">.</span>
-              </h1>
-            </ScrollLink>
-          </Reveal>
+          <ScrollLink
+            smooth
+            duration={250}
+            isDynamic
+            to="hero"
+            className="cursor-pointer"
+          >
+            <h1 className="text-4xl font-extrabold">
+              R <span className="text-primary">.</span>
+            </h1>
+          </ScrollLink>
 
           <ul className="items-center gap-8 hidden md:flex">
             {links.map(({ href, title }) => (
               <li key={href}>
-                <Reveal>
-                  <ScrollLink
-                    to={href}
-                    smooth
-                    duration={250}
-                    isDynamic
-                    className="navbar__item hover:text-primary transition-colors relative cursor-pointer  w-fit"
-                    activeClass="text-primary"
-                  >
-                    <p className="">{title}</p>
-                    <div
-                      className={`h-[0.25em] absolute navbar__item__bottom bg-primary`}
-                    ></div>
-                  </ScrollLink>
-                </Reveal>
+                <ScrollLink
+                  to={href}
+                  smooth
+                  duration={250}
+                  isDynamic
+                  className="navbar__item hover:text-primary transition-colors relative cursor-pointer  w-fit"
+                  activeClass="text-primary"
+                >
+                  <p className="">{title}</p>
+                  <div
+                    className={`h-[0.25em] absolute navbar__item__bottom bg-primary`}
+                  ></div>
+                </ScrollLink>
               </li>
             ))}
           </ul>
         </div>
 
-        <Reveal>
-          <div className="flex gap-4 items-center">
-            {theme === "dark" ? (
-              <BsSun
-                onClick={() => setTheme("light")}
-                className="text-xl cursor-pointer"
-              />
-            ) : (
-              <BsMoon
-                onClick={() => setTheme("dark")}
-                className="text-xl cursor-pointer"
-              />
-            )}
-            <CiMenuBurger
-              onClick={handleOpen}
-              className="text-2xl cursor-pointer md:hidden"
+        <div className="flex gap-4 items-center">
+          {theme === "dark" ? (
+            <BsSun
+              onClick={() => setTheme("light")}
+              className="text-xl cursor-pointer"
             />
-          </div>
-        </Reveal>
+          ) : (
+            <BsMoon
+              onClick={() => setTheme("dark")}
+              className="text-xl cursor-pointer"
+            />
+          )}
+          <CiMenuBurger
+            onClick={handleOpen}
+            className="text-2xl cursor-pointer md:hidden"
+          />
+        </div>
 
         <motion.ul
           variants={{

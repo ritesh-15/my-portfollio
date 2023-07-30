@@ -34,7 +34,7 @@ export default function AboutSection() {
           </Reveal>
 
           <Reveal>
-            <p className="font-extralight text-sm md:text-lg mt-2 md:w-[85%] leading-loose">
+            <p className="font-extralight text-md md:text-lg mt-2 md:w-[85%] leading-loose">
               Hi, I’m Ritesh, and I am passionate about creating intuitive,
               user-friendly web applications that provide a seamless experience
               for users.

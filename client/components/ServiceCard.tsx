@@ -32,7 +32,7 @@ export default function ServiceCard({ description, icon, title }: IProps) {
 
       <h1 className="text-xl md:text-2xl font-bold mt-4">{title}</h1>
 
-      <p className="font-extralight text-sm md:text-lg mt-2">{description}</p>
+      <p className="font-extralight text-md md:text-lg mt-2">{description}</p>
     </motion.div>
   )
 }

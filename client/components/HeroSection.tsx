@@ -12,13 +12,13 @@ export default function HeroSection() {
     >
       <div className="z-20">
         <Reveal>
-          <h1 className="text-6xl leading-normal md:leading-[1.35em] md:text-8xl font-bold">
+          <h1 className="text-5xl leading-normal md:leading-[1.35em] md:text-8xl font-bold">
             Hi I'm Ritesh
           </h1>
         </Reveal>
 
         <Reveal>
-          <h1 className="font-light text-3xl md:text-4xl leading-normal md:leading-relaxed">
+          <h1 className="font-light text-2xl md:text-4xl leading-normal md:leading-relaxed">
             I'm a
             <span className="text-primary font-bold">
               {" "}
