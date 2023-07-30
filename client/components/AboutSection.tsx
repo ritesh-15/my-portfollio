@@ -23,7 +23,7 @@ export default function AboutSection() {
       <div className="flex mt-12 justify-between flex-col md:flex-row items-center md:items-start gap-12">
         <Reveal width="w-full md:max-w-[350px] h-[400px]">
           <div className="relative md:flex-1 w-full md:max-w-[350px] h-[400px] overflow-hidden rounded-md object-cover">
-            <Image fill src="/images/me.jpg" alt="" />
+            <Image className="object-cover" fill src="/images/me.jpg" alt="" />
           </div>
         </Reveal>
         <div className="flex md:flex-1 flex-col md:max-w-[750px]">
