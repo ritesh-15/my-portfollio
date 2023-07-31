@@ -136,9 +136,6 @@ export default function NavBar() {
                 className="navbar__item relative cursor-pointer w-fit"
               >
                 <p className="">{title}</p>
-                <div
-                  className={`h-[0.25em] absolute navbar__item__bottom bg-primary`}
-                ></div>
               </ScrollLink>
             </li>
           ))}
