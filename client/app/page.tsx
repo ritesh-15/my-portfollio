@@ -12,17 +12,8 @@ import {
 } from "../components"
 import { getData } from "../sanity"
 
-const wait = () => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve("")
-    }, 5000)
-  })
-}
-
 export default async function Page() {
   const { skills, qualification, projects } = await getData()
-  await wait()
 
   return (
     <>
