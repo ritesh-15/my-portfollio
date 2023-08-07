@@ -98,10 +98,10 @@ const Project: FC<IProjectProps> = ({ reverse, project }): JSX.Element => {
             </a>
           </Link>
 
-          <Link legacyBehavior passHref href={project?.demoLink!!}>
+          <Link legacyBehavior passHref href={project?.gitHubLink!!}>
             <a
               className="no-underline dark:hover:bg-primary dark:hover:text-white text-secondary dark:text-white outline-none hover:bg-primary hover:text-white transition-all bg-gray-100 dark:bg-secondaryVarient p-4 rounded-full"
-              href={project?.demoLink!!}
+              href={project?.gitHubLink!!}
               target="_blank"
               rel="noreferrer"
             >
