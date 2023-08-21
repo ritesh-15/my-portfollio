@@ -3,7 +3,6 @@ import imageUrlBuilder from "@sanity/image-url"
 import { INewContact } from "../interfaces/contact_interface"
 import { IProjectResponse } from "../interfaces/project_interface"
 import { ISkillResponse } from "../interfaces/skill_interface"
-import { IPageInfoResponse } from "../interfaces/page_info_interface"
 import { IQualificationResponse } from "../interfaces/IQualification"
 
 const client = sanityClient({
