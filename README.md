@@ -1,39 +1,58 @@
-### Extended Description
+# Portfolio
 
-Welcome to my dynamic portfolio website, an all-in-one platform designed to help you showcase your skills, projects, and achievements in a modern and efficient way. Whether you're a developer, designer, or any professional looking to make a strong online presence, this portfolio template has got you covered.
+Welcome to my dynamic portfolio website! This website is built using the latest tech stack, allowing you to showcase your projects and skills. What sets it apart is that you can easily add and update content, even after deployment, with the help of a database.
 
-#### Key Features:
+## Tech Stack
 
-- **Flexibility**: This portfolio is built using the latest tech stack, including Next.js, TypeScript, Sanity.io, Tailwind CSS, and deployed on Vercel. It offers a high degree of flexibility for customization, ensuring your portfolio truly represents your unique style and personality.
+This project is powered by an impressive tech stack:
 
-- **Easy Content Management**: With the power of Sanity.io, you can effortlessly manage and update your content. Add new projects, update skills, and edit your bio, all without the need for coding skills. Your portfolio remains fresh and up-to-date.
+1. **Next.js** - A popular React framework that helps you build fast and optimized web applications.
+2. **Typescript** - Adds static typing to JavaScript, making your code more robust and maintainable.
+3. **Sanity.io** - A headless content management system (CMS) that simplifies content editing and management.
+4. **Tailwind CSS** - A utility-first CSS framework that allows you to design beautiful, responsive websites with ease.
+5. **Vercel** - A cloud platform for deploying and hosting your web applications.
 
-- **Responsive Design**: Tailwind CSS ensures that your portfolio looks stunning on all devices, from desktop to mobile. You won't have to worry about compatibility issues – your portfolio will shine everywhere.
+## Project Screenshots
 
-- **Fast and Performant**: Next.js takes care of performance optimization. Your website will load quickly and efficiently, providing an excellent user experience.
+Here are some screenshots showcasing the portfolio:
 
-- **Contribution-Friendly**: We encourage contributions! If you're interested in improving this project or adding new features, please follow our [Contributing Guidelines](CONTRIBUTING.md). Together, we can make this portfolio template even better.
+![Screenshot 1](https://github.com/ritesh-15/my-portfolio/assets/screenshots/screenshot1.png)
+![Screenshot 2](https://github.com/ritesh-15/my-portfolio/assets/screenshots/screenshot2.png)
+![Screenshot 3](https://github.com/ritesh-15/my-portfolio/assets/screenshots/screenshot3.png)
+![Screenshot 4](https://github.com/ritesh-15/my-portfolio/assets/screenshots/screenshot4.png)
+![Screenshot 5](https://github.com/ritesh-15/my-portfolio/assets/screenshots/screenshot5.png)
 
-#### Getting Started:
+## Demo
 
-If you'd like to use this portfolio for your own professional online presence, follow these simple steps:
+You can experience the live website by visiting the following link:
 
-1. **Clone this Repository**: Start by cloning this repository to your local machine using `git clone`.
+👉 [Portfolio Demo](https://ritesh-khore.vercel.app/)
 
-2. **Install Dependencies**: Use `npm install` to install all the necessary dependencies.
+Feel free to explore the website, and don't hesitate to reach out if you have any questions or feedback!
 
-3. **Configuration**: Set up your portfolio by configuring the database and environment variables as detailed in the [Wiki](https://github.com/ritesh-15/my-portfolio/wiki).
+## Getting Started
 
-4. **Customize**: Personalize your portfolio by updating the content, adding your projects, and tweaking the styling to match your preferences.
+If you'd like to run this project locally or contribute to it, you can follow these steps:
 
-5. **Deploy**: Once you're satisfied with your changes, deploy your portfolio on your preferred hosting platform, whether it's Vercel, Netlify, or any other.
+1. Clone this repository to your local machine.
+2. Install the necessary dependencies.
+3. Configure the database and environment variables.
+4. Start the development server.
 
-#### License:
+Detailed instructions and documentation can be found in the project's [Wiki](https://github.com/ritesh-15/my-portfolio/wiki).
 
-This project is open-source and licensed under the MIT License. You are free to use, modify, and distribute it as per the terms of the license. For more details, please refer to the [LICENSE](LICENSE) file.
+## Contributing
 
-#### Contact:
+We welcome contributions! If you'd like to contribute to this project, please follow our [Contributing Guidelines](CONTRIBUTING.md).
 
-If you have any questions, suggestions, or need assistance, feel free to reach out. Your feedback is invaluable in making this portfolio template even better.
+## License
 
-Thank you for choosing this portfolio template for your online presence. We hope it serves you well and helps you stand out in the digital world!
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+Thank you for visiting our portfolio project! We hope you find it inspiring and useful.
+
+### Description
+
+This portfolio website is a showcase of my skills and projects. It's built with a cutting-edge tech stack, making it not only visually appealing but also highly maintainable and extensible. You can easily customize and update the content, making it the perfect platform to highlight your work and expertise.
