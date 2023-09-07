@@ -1,28 +1,58 @@
 # Portfolio
 
-Dynamic portfolio website built using the latest tech stack. Content of the website like projects and skills can be added even after deployment with the help of database
+Welcome to my dynamic portfolio website! This website is built using the latest tech stack, allowing you to showcase your projects and skills. What sets it apart is that you can easily add and update content, even after deployment, with the help of a database.
 
 ## Tech Stack
-1. Next JS 13
-2. Typescript
-3. Sanity IO
-4. Tailwind CSSS
-5. Vercel
 
-<img height="75x" src="https://github.com/ritesh-15/my-portfollio/assets/82861420/8920f772-0206-4fd6-9003-b2d19a34ce54"/>
+This project is powered by an impressive tech stack:
 
-<img height="75px" src="https://github.com/ritesh-15/my-portfollio/assets/82861420/cfbd0a2e-a129-42a3-a179-ba4d4ec1751d"/>
+1. **Next.js** - A popular React framework that helps you build fast and optimized web applications.
+2. **Typescript** - Adds static typing to JavaScript, making your code more robust and maintainable.
+3. **Sanity.io** - A headless content management system (CMS) that simplifies content editing and management.
+4. **Tailwind CSS** - A utility-first CSS framework that allows you to design beautiful, responsive websites with ease.
+5. **Vercel** - A cloud platform for deploying and hosting your web applications.
 
-<img height="75px" src="https://github.com/ritesh-15/my-portfollio/assets/82861420/7a320ac1-6ae9-4c9e-9ca4-f0a5f174cc0e"/>
+## Project Screenshots
 
-<img height="75px" src="https://github.com/ritesh-15/my-portfollio/assets/82861420/58b0cf35-8bb1-4da7-9e12-cf6ae1955958"/>
+Here are some screenshots showcasing the portfolio:
 
-<img height="75px" src="https://github.com/ritesh-15/my-portfollio/assets/82861420/360df64e-5f19-4e9f-b463-c10dc906c8c5"/>
+![Screenshot 1](https://github.com/ritesh-15/my-portfolio/assets/screenshots/screenshot1.png)
+![Screenshot 2](https://github.com/ritesh-15/my-portfolio/assets/screenshots/screenshot2.png)
+![Screenshot 3](https://github.com/ritesh-15/my-portfolio/assets/screenshots/screenshot3.png)
+![Screenshot 4](https://github.com/ritesh-15/my-portfolio/assets/screenshots/screenshot4.png)
+![Screenshot 5](https://github.com/ritesh-15/my-portfolio/assets/screenshots/screenshot5.png)
+
+## Demo
+
+You can experience the live website by visiting the following link:
+
+👉 [Portfolio Demo](https://ritesh-khore.vercel.app/)
+
+Feel free to explore the website, and don't hesitate to reach out if you have any questions or feedback!
+
+## Getting Started
+
+If you'd like to run this project locally or contribute to it, you can follow these steps:
+
+1. Clone this repository to your local machine.
+2. Install the necessary dependencies.
+3. Configure the database and environment variables.
+4. Start the development server.
+
+Detailed instructions and documentation can be found in the project's [Wiki](https://github.com/ritesh-15/my-portfolio/wiki).
+
+## Contributing
+
+We welcome contributions! If you'd like to contribute to this project, please follow our [Contributing Guidelines](CONTRIBUTING.md).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-Visit here 👉
-https://ritesh-khore.vercel.app/
+Thank you for visiting our portfolio project! We hope you find it inspiring and useful.
 
+### Description
 
-
+This portfolio website is a showcase of my skills and projects. It's built with a cutting-edge tech stack, making it not only visually appealing but also highly maintainable and extensible. You can easily customize and update the content, making it the perfect platform to highlight your work and expertise.
