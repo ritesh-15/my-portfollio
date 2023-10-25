@@ -4,6 +4,7 @@ import { INewContact } from "../interfaces/contact_interface"
 import { IProjectResponse } from "../interfaces/project_interface"
 import { ISkillResponse } from "../interfaces/skill_interface"
 import { IQualificationResponse } from "../interfaces/IQualification"
+import { IPageInfoResponse } from "../interfaces/page_info_interface"
 
 const client = sanityClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -38,6 +39,15 @@ export async function getData() {
         videoLink
     }`
 
+  const personalInfo = `*[_type=="pageInfo"]{
+    about,
+    contact,
+    hero,
+    image,
+    name,
+    email
+}`
+
   const skillsQuery = `*[_type=="skills"] {
       _id,
       image,
@@ -53,13 +63,14 @@ export async function getData() {
   isEducation
 }`
 
-  const [projects, skills, qualification] = await Promise.all([
+  const [projects, skills, qualification, info] = await Promise.all([
     client.fetch<IProjectResponse>(projectQuery),
     client.fetch<ISkillResponse>(skillsQuery),
     client.fetch<IQualificationResponse>(qualificationQuery),
+    client.fetch<IPageInfoResponse>(personalInfo),
   ])
 
-  return { projects, skills, qualification }
+  return { projects, skills, qualification, info }
 }
 
 export default client

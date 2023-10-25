@@ -15,13 +15,13 @@ import { getData } from "../sanity"
 export const dynamic = "force-dynamic"
 
 export default async function Page() {
-  const { skills, qualification, projects } = await getData()
+  const { skills, qualification, projects, info } = await getData()
 
   return (
     <>
       <NavBar />
       <HeroSection />
-      <AboutSection />
+      <AboutSection info={info} />
       <Services />
       <Skills tags={skills} />
       <ProjectsSection projects={projects} />

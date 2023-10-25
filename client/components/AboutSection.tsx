@@ -3,8 +3,10 @@ import React from "react"
 import Button from "./Button"
 import { BsFilePdf } from "react-icons/bs"
 import Reveal from "./Reveal"
+import { IPageInfoResponse } from "../interfaces/page_info_interface"
+import { urlFor } from "../sanity"
 
-export default function AboutSection() {
+export default function AboutSection({ info }: { info: IPageInfoResponse }) {
   return (
     <section
       id="about"
@@ -23,7 +25,12 @@ export default function AboutSection() {
       <div className="flex mt-12 justify-between flex-col md:flex-row items-center md:items-start gap-12">
         <Reveal width="w-full md:max-w-[350px] h-[400px]">
           <div className="relative md:flex-1 w-full md:max-w-[350px] h-[400px] overflow-hidden rounded-lg object-cover">
-            <Image className="object-cover" fill src="/images/me.jpg" alt="" />
+            <Image
+              className="object-cover"
+              fill
+              src={urlFor(info[0].image).url()}
+              alt=""
+            />
           </div>
         </Reveal>
 
