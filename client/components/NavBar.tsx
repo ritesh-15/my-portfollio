@@ -5,7 +5,6 @@ import { CiMenuBurger } from "react-icons/ci"
 import { TfiClose } from "react-icons/tfi"
 import { BsMoon, BsSun } from "react-icons/bs"
 import { useTheme } from "next-themes"
-import Reveal from "./Reveal"
 import { motion, useAnimationControls } from "framer-motion"
 import { Link as ScrollLink } from "react-scroll"
 

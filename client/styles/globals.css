@@ -8,12 +8,12 @@ html {
 
 ::-moz-selection {
   color: hsl(0, 0%, 0%);
-  background: #758bfd;
+  background: #8cd867;
 }
 
 ::selection {
   color: hsl(0, 0%, 0%);
-  background: #758bfd;
+  background: #8cd867;
 }
 .navbar__item:hover > .navbar__item__bottom {
   width: 70%;
